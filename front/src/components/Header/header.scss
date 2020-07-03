@@ -1,0 +1,188 @@
+@import 'src/styles/vars';
+
+.navbar {
+  background: $header-background;
+  padding-bottom: 10px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .navbar-toggle {
+    position: absolute;
+    cursor: pointer;
+    // Adjust top/right to center hamburger
+    top: 12px;
+    right: 20px;
+  }
+
+  .logo {
+    display: inline-block;
+    font-size: 1.2em;
+    margin-top: 10px;
+    margin-left: 20px;
+
+    & img {
+      width: 150px;
+    }
+  }
+}
+
+
+h1 {
+  font-family: 'Patrick hand', sans-serif;
+  font-size: 2em;
+}
+
+.main-nav {
+  display: none;
+}
+
+.nav-links,
+.logo {
+  color: $text;
+}
+
+.main-nav li {
+  text-align: center;
+  margin: 15px auto;
+  font-size: 1.2em;
+}
+
+.active {
+  display: block;
+}
+
+ /* HAMBURGER STYLES */
+.visuallyHidden {
+  position: absolute; 
+  overflow: hidden; 
+  clip: rect(0 0 0 0); 
+  height: 1px; width: 1px; 
+  margin: -1px; 
+  padding: 0; 
+  border: 0; 
+}
+
+.hamburger {
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+
+.hamburger .bar {
+  padding: 0;
+  width: 30px;
+  height: 4px;
+  background-color: #fff;
+  display: block;
+  border-radius: 4px;
+  transition: all 0.4s ease-in-out;
+  position: absolute; 
+}
+
+.bar1 {
+  top: 2px;
+}
+
+.bar2,
+.bar3 {
+  top: $bar-height;
+}
+
+.bar3 {
+  right: 0;
+}
+
+.bar4 {
+  top: $bar-height;
+
+  bottom: 0;
+}
+.hamburger .bar5 {
+  bottom: 2px;
+}
+
+.hamburger .bar {
+  transition: all 0.4s ease-in-out, transform 0.4s ease-in-out 0.4s;
+}
+
+.hamburger .bar2 {
+  width: 1px;
+  transform: rotate(90deg);
+  left: $bar-height;
+}
+
+.hamburger .bar3 {
+  width: 1px;
+  left: $bar-height;
+}
+
+.checkbox4:checked + label > .hamburger > .bar1{
+  top: $bar-height;
+  background-color: transparent;
+}
+
+.checkbox4:checked + label > .hamburger > .bar2{
+  left: 0px;
+  width: 30px;
+  transform: rotate(45deg);
+}
+
+.checkbox4:checked + label > .hamburger > .bar3{
+  left: 0;
+  width: 30px;
+  transform: rotate(-45deg);
+}
+
+.checkbox4:checked + label > .hamburger > .bar4{
+  background-color: transparent;
+}
+
+.checkbox4:checked + label > .hamburger > .bar5{
+  bottom: $bar-height;
+  background-color: transparent; 
+}
+
+/*--------------------------*\
+        RESPONSIVE
+/*--------------------------*/
+
+@media screen and (min-width: 768px) {
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0;
+    // Adjust navbar height
+    height: 100px;
+  }
+
+  .main-nav {
+    display: flex;
+    margin-right: 30px;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .main-nav li {
+    margin: 0;
+  }
+
+  .nav-links {
+    margin-left: 40px;
+  }
+
+  .logo {
+    margin-top: 0;
+  }
+
+  .navbar-toggle {
+    display: none;
+  }
+
+  .logo:hover,
+  .nav-links:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+}
