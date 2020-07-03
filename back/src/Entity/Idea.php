@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\IdeasRepository;
+use App\Repository\IdeaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=IdeasRepository::class)
+ * @ORM\Entity(repositoryClass=IdeaRepository::class)
  */
 class Idea
 {
@@ -25,7 +25,7 @@ class Idea
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
 
@@ -82,7 +82,7 @@ class Idea
         return $this->picture;
     }
 
-    public function setPicture(string $picture): self
+    public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
 
