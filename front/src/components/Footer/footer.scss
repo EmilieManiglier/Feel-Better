@@ -1,6 +1,11 @@
 @import 'src/styles/vars';
 
 .footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  
   list-style-type: none;
   background-color: $light-main-color;
   padding: 2rem 0;

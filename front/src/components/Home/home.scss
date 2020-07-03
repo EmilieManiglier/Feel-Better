@@ -1,0 +1,40 @@
+@import 'src/styles/vars';
+
+.main {
+  padding-top: 60px;
+  padding-bottom: 70px;
+
+  .main-img {
+    width: 100%;
+    display: block;
+    margin: 2rem auto;
+  }
+
+  .website-description {
+    text-align: center;
+    display: block;
+    width: 60%;
+    margin: 1rem auto;
+    font-size: 1rem;
+  }
+
+  .btn-group {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .btn {
+      background-color: $light-main-color;
+      color: #000;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      padding: 0.8rem;
+      border-radius: $border-radius;
+      width: 60%;
+      font-family: $dosis-font;
+      font-size: 1em;
+      margin: 1rem 0;
+    }
+  }
+}
