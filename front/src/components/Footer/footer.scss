@@ -1,0 +1,24 @@
+@import 'src/styles/vars';
+
+.footer {
+  list-style-type: none;
+  background-color: $light-main-color;
+  padding: 2rem 0;
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+
+    .footer-li {
+      margin-right: 1rem;
+
+      .footer-link {
+        text-decoration: underline;
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+}

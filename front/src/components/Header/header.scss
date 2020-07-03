@@ -1,7 +1,7 @@
 @import 'src/styles/vars';
 
 .navbar {
-  background: $header-background;
+  background: $light-main-color;
   padding-bottom: 10px;
   position: sticky;
   top: 0;
@@ -171,6 +171,9 @@ h1 {
 
   .nav-links {
     margin-left: 40px;
+    background-color: #fff;
+    padding: 0.5em 1em;
+    border-radius: 2em;
   }
 
   .logo {
