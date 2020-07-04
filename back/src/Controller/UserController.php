@@ -21,28 +21,28 @@ class UserController extends AbstractController
 
     private $em;
     private $passwordEncoder;
-    private $slugger;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, SluggerInterface $slugger)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
-        $this->slugger;
     }
     /**
-     * @Route("/register", name="register_user")
+     * @Route("/register", name="register_user", options={"expose"=true})
      */
-    public function register(Request $request)
+    public function register(Request $request, SluggerInterface $slugger)
     {
         $user = new User;
 
+        //$form = $this->createForm(RegisterType::class, $user);
+        //dd($request->isMethod('POST'));
         
-        $user->setFirstname($request->query->get('firstname'));
-        $user->setLastname($request->query->get('lastname'));
-        $user->setemail($request->query->get('email'));
-        $user->setPassword($this->passwordEncoder->encodePassword($user, $request->query->get('password')));
-        $user->setBirthday(new DateTime($request->query->get('birthday')));
-        $user->setCity($request->query->get('city'));
+        $user->setFirstname($request->request->get('firstname'));
+        $user->setLastname($request->request->get('lastname'));
+        $user->setemail($request->request->get('email'));
+        $user->setPassword($this->passwordEncoder->encodePassword($user, $request->request->get('password')));
+        $user->setBirthday(new DateTime($request->request->get('birthday')));
+        $user->setCity($request->request->get('city'));
 
         $user->setCreatedAt(new DateTime());
         $user->setRoles(['ROLE_USER']);
@@ -50,15 +50,21 @@ class UserController extends AbstractController
         $avatar = $request->files->get('avatar');
 
         $form = $this->createForm(RegisterType::class, $user);
+
         $form->handleRequest($request);
-        $form->isSubmitted() == true;
+        $form->submit(true);
+        
+        //$form->isSubmitted() == true;
+
+        dd($form->getErrors());
+        
         if ($form->isSubmitted() && $form->isValid()) {
 
             if ($avatar) {
                 
                 $originalFileName = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
-
-                $safeFilename = $this->slugger->slug($originalFileName);
+                $safeFilename = $slugger->slug($originalFileName);
+                
                 $newFilename = $safeFilename.uniqid().'.'.$avatar->guessExtension();
 
                 try {
