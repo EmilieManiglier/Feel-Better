@@ -23,8 +23,12 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank
-     * @Assert\Email
+     * @Assert\NotBlank(
+     * message = "email"
+     * )
+     * @Assert\Email(
+     * message = "email"
+     * )
      */
     private $email;
 
@@ -36,51 +40,65 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(
+     * message = "password"
+     * )
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=75)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(
+     * message = "lastname"
+     * )
      * @Assert\Length(
      *      min = 2,
      *      max = 75,
+     *      minMessage = "lastname",
+     *      maxMessage = "lastname",
      * )
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=75)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(
+     * message = "firstname"
+     * )
      * @Assert\Length(
      *      min = 2,
      *      max = 75,
+     *      minMessage = "firstname",
+     *      maxMessage = "firstname",
      * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(
+     * message = "birthday"
+     * )
      */
     private $birthday;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(
+     * message = "city"
+     * )
      * @Assert\Length(
      *      min = 2,
      *      max = 100,
+     *      minMessage = "city",
+     *      maxMessage = "city",
      * )
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\File(
-     *     mimeTypes = {"image/gif", "image/jpeg", "image/png"},
-     * )
+     * 
      */
     private $avatar;
 

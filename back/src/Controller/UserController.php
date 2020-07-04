@@ -4,17 +4,14 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterType;
-use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UserController extends AbstractController
 {
@@ -28,39 +25,36 @@ class UserController extends AbstractController
         $this->passwordEncoder = $passwordEncoder;
     }
     /**
-     * @Route("/register", name="register_user", options={"expose"=true})
+     * @Route("/register", name="register_user")
      */
-    public function register(Request $request, SluggerInterface $slugger)
+    public function register(Request $request)
     {
+        // Initialization of the entity
         $user = new User;
 
-        //$form = $this->createForm(RegisterType::class, $user);
-        //dd($request->isMethod('POST'));
-        
+        // Creation of the validation form
+        $form = $this->createForm(RegisterType::class, $user);
+        $form->submit($request->request->all());
+
+        // Attributing values ​​to the entity
         $user->setFirstname($request->request->get('firstname'));
         $user->setLastname($request->request->get('lastname'));
-        $user->setemail($request->request->get('email'));
-        $user->setPassword($this->passwordEncoder->encodePassword($user, $request->request->get('password')));
         $user->setBirthday(new DateTime($request->request->get('birthday')));
         $user->setCity($request->request->get('city'));
-
+        $user->setEmail($request->request->get('email'));
+        $user->setAvatar(null);
         $user->setCreatedAt(new DateTime());
         $user->setRoles(['ROLE_USER']);
-
-        $avatar = $request->files->get('avatar');
-
-        $form = $this->createForm(RegisterType::class, $user);
-
-        $form->handleRequest($request);
-        $form->submit(true);
         
-        //$form->isSubmitted() == true;
+        // Hash password
+        $user->setPassword($this->passwordEncoder->encodePassword($user, $request->request->get('password')));
 
-        dd($form->getErrors());
-        
+        //$avatar = $request->files->get('avatar');
+
+        // If the form is sent and it is valid
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($avatar) {
+            /*if ($avatar) {
                 
                 $originalFileName = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFileName);
@@ -77,17 +71,19 @@ class UserController extends AbstractController
                 }
 
                 $user->setAvatar($newFilename);
-            }
-
+            }*/
+            // I save in user database
             $this->em->persist($user);
             $this->em->flush();
 
-            $response = new JsonResponse;
-            return $response->setStatusCode(Response::HTTP_CREATED);
 
+            // I send the answer in json
+            return new JsonResponse(['registred' => true], Response::HTTP_CREATED);
+
+        } else {
+            // If the form was not good, I send a 403 error
+            return new JsonResponse(['registred' => false], Response::HTTP_FORBIDDEN);
         }
-        $response = new JsonResponse;
-        return $response->setStatusCode(Response::HTTP_OK);
     }
 
  
