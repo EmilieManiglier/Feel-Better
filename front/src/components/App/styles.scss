@@ -1,0 +1,11 @@
+@import 'src/styles/vars';
+
+.app {
+  // Light theme
+  background-image: linear-gradient(to top, $light-gradient-1 0%, $light-gradient-1 1%, $light-gradient-2 31%, $light-gradient-3 75%, $light-gradient-4 100%);
+
+  /* Dark theme */
+  // background-color: #1b2845;
+  // background-image: linear-gradient(315deg, #1b2845 0%, #274060 74%);
+  
+}

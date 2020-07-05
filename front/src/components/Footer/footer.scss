@@ -1,29 +1,39 @@
 @import 'src/styles/vars';
 
 .footer {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  
   list-style-type: none;
-  background-color: $light-main-color;
   padding: 2rem 0;
 
   .footer-nav {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
     .footer-li {
-      margin-right: 1rem;
+      margin: 1rem;
+      color: $light-text;
 
       .footer-link {
-        text-decoration: underline;
-
+        padding: 0.5rem;
+        color: $light-default-color;
+        border-bottom: 1px solid $light-default-color;
+        box-shadow: inset 0 -1px 0 $light-default-color;
+        transition: background 0.5s cubic-bezier(.33,.66,.66,1);
+  
         &:hover {
-          color: white;
+          background: $light-default-color;
+          color: $light-main-color;
         }
       }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .footer {
+    .footer-nav {
+      flex-direction: row;
+      justify-content: center;
     }
   }
 }

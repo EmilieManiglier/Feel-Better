@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 
 import './header.scss';
@@ -36,7 +37,7 @@ const Header = () => {
         </h1>
         <ul className={addClass ? 'main-nav active' : 'main-nav'}>
           <li>
-            <a href="#" className="nav-links">Accueil</a>
+            <a href="#" className="nav-links nav-links--active">Accueil</a>
           </li>
           <li>
             <a href="#" className="nav-links">Profil</a>

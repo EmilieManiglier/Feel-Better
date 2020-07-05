@@ -6,11 +6,13 @@ const Footer = () => (
   <footer className="footer">
     <nav className="footer-nav">
       <li className="footer-li">
-        <a href="" className="footer-link">Mentions légales</a>
+        <a className="footer-link" href="#">Mentions légales</a>
       </li>
+
       <li className="footer-li">
-        <a href="" className="footer-link">L'équipe</a>
+        <a className="footer-link" href="#">L'équipe</a>
       </li>
+
       <li className="footer-li">
         Feel Better © 2020
       </li>

@@ -1,40 +1,84 @@
 @import 'src/styles/vars';
+@import 'src/styles/btn';
 
 .main {
-  padding-top: 60px;
-  padding-bottom: 70px;
+  min-height: 75vh;
+  max-width: 100vw;
+  margin: auto;
 
   .main-img {
     width: 100%;
-    display: block;
-    margin: 2rem auto;
+
+    .people {
+      width: 100%;
+      display: inline-block;
+      margin: auto;
+    }
   }
 
-  .website-description {
-    text-align: center;
-    display: block;
+  .main-content-container {
     width: 60%;
-    margin: 1rem auto;
-    font-size: 1rem;
+    margin: 0 auto;
+
+    .main-description {
+      text-align: center;
+      display: block;
+      margin: 1rem auto;
+      font-size: 1.5rem;
+    }
+  
+    .btn-group {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .btn {
+        @include btn-style;
+        width: 100%;
+      }
+
+      .register-btn {
+        background-color: $light-default-color;
+        color: $light-main-color;
+
+        &:before {
+          background-color: $light-main-color;
+        }
+
+        &:hover {
+          color: $light-default-color;
+        }
+      }
+    }
   }
+}
 
-  .btn-group {
-    margin-top: 1rem;
+@media screen and (min-width: 768px) {
+  .main {
+    min-height: 90vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-direction: row-reverse;
 
-    .btn {
-      background-color: $light-main-color;
-      color: #000;
-      text-transform: uppercase;
-      border: 1px solid transparent;
-      padding: 0.8rem;
-      border-radius: $border-radius;
+    .main-img {
       width: 60%;
-      font-family: $dosis-font;
-      font-size: 1em;
-      margin: 1rem 0;
+    }
+
+    .main-content-container {
+      .main-description {
+        font-size: 1.5em;
+      }
+
+      .btn-group {
+        flex-direction: row;
+        justify-content: center;
+
+        .btn {
+          width: 25%;
+          margin: 1rem;
+        }
+      }
     }
   }
 }

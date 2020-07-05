@@ -1,12 +1,17 @@
 @import 'src/styles/vars';
 
+.header {
+  padding-bottom: 7rem;
+}
+
 .navbar {
-  background: $light-main-color;
-  padding-bottom: 10px;
+  background: $light-default-color;
+  padding-bottom: 0.6rem;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 10;
 
   .navbar-toggle {
     position: absolute;
@@ -19,34 +24,33 @@
   .logo {
     display: inline-block;
     font-size: 1.2em;
-    margin-top: 10px;
-    margin-left: 20px;
+    margin-top: 0.6rem;
+    margin-left: 1.25rem;
 
     & img {
       width: 150px;
     }
   }
-}
 
-
-h1 {
-  font-family: 'Patrick hand', sans-serif;
-  font-size: 2em;
+  h1 {
+    font-family: $patrick-font;
+    font-size: 2em;
+    color: $light-main-color;
+  }
 }
 
 .main-nav {
   display: none;
-}
 
-.nav-links,
-.logo {
-  color: $text;
+  .nav-links {
+    color: $light-main-color;
+  }
 }
 
 .main-nav li {
-  text-align: center;
-  margin: 15px auto;
+  padding: 1rem 0;
   font-size: 1.2em;
+  text-align: center;
 }
 
 .active {
@@ -65,16 +69,16 @@ h1 {
 }
 
 .hamburger {
-  width: 30px;
-  height: 30px;
+  width: 2rem;
+  height: 2rem;
   position: relative;
 }
 
 .hamburger .bar {
   padding: 0;
-  width: 30px;
+  width: 2rem;
   height: 4px;
-  background-color: #fff;
+  background-color: $light-main-color;
   display: block;
   border-radius: 4px;
   transition: all 0.4s ease-in-out;
@@ -124,14 +128,14 @@ h1 {
 }
 
 .checkbox4:checked + label > .hamburger > .bar2{
-  left: 0px;
-  width: 30px;
+  left: 0;
+  width:2rem;
   transform: rotate(45deg);
 }
 
 .checkbox4:checked + label > .hamburger > .bar3{
   left: 0;
-  width: 30px;
+  width: 2rem;
   transform: rotate(-45deg);
 }
 
@@ -149,32 +153,62 @@ h1 {
 /*--------------------------*/
 
 @media screen and (min-width: 768px) {
+  .header {
+    padding-bottom: 0;
+  }
+
   .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 0;
     // Adjust navbar height
-    height: 100px;
+    height: 6.25rem;
   }
 
   .main-nav {
     display: flex;
-    margin-right: 30px;
+    margin-right: 2rem;
     flex-direction: row;
     justify-content: flex-end;
   }
 
   .main-nav li {
     margin: 0;
-  }
+    background-color: transparent;
 
-  .nav-links {
-    margin-left: 40px;
-    background-color: #fff;
-    padding: 0.5em 1em;
-    border-radius: 2em;
-  }
+    .nav-links {
+      color: $light-main-color;
+      margin-left: 2.5rem;
+      position: relative;
+      // background-color: #fff;
+      // padding: 0.5em 1em;
+      // border-radius: 2em;
+  
+      &:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: -0.3rem;
+        left: 0;
+        background-color: $light-default-color;
+        visibility: hidden;
+        transform: scaleX(0);
+        transition: all 0.3s ease-in-out 0s;
+      }
+  
+      &:hover, &--active {
+        color: $light-default-hover;
+  
+        &:after {
+          background-color: $light-default-hover;
+          visibility: visible;
+          transform: scaleX(1);
+        }
+      }
+    }
+  }  
 
   .logo {
     margin-top: 0;
@@ -182,10 +216,5 @@ h1 {
 
   .navbar-toggle {
     display: none;
-  }
-
-  .logo:hover,
-  .nav-links:hover {
-    color: rgba(255, 255, 255, 1);
   }
 }

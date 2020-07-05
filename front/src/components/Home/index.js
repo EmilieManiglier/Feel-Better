@@ -2,31 +2,36 @@ import React from 'react';
 
 import './home.scss';
 
-import people from 'src/assets/images/home-people.jpg';
+import people from 'src/assets/images/people-emotions.png';
 
 const Home = () => (
   <main className="main">
-    <img src={people} alt="" className="main-img" />
 
-    <p className="website-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Accusamus minus molestias nulla adipisci tempora repellendus!
-    </p>
-
-    <div className="btn-group">
-      <button
-        className="btn register-btn"
-        type="button"
-      >
-        S'inscrire
-      </button>
-
-      <button
-        className="btn login-btn"
-        type="button"
-      >
-        Se connecter
-      </button>
+    <div className="main-img">
+      <img src={people} alt="" className="people" />
     </div>
+
+    <div className="main-content-container">
+      <p className="main-description">Feel Better est un générateur de bonnes idées qui vous proposera des activités à faire en fonction de votre humeur. <br /> Inscrivez-vous et profitez !
+      </p>
+
+      <div className="btn-group">
+        <button
+          type="button"
+          className="btn register-btn"
+        >
+          S'inscrire
+        </button>
+
+        <button
+          type="button"
+          className="btn"
+        >
+          Se connecter
+        </button>
+      </div>
+    </div>
+
   </main>
 );
 

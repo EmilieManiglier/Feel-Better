@@ -1,0 +1,55 @@
+@import 'src/styles/vars';
+
+@mixin btn-style {
+  display: inline-block;
+  background: none;
+  width: 60%;
+  padding: 1rem 0;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  text-transform: uppercase;
+  font-family: $dosis-font;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border: 2px solid $light-default-color;
+  border-radius: $border-radius;
+  color: $light-default-color;
+  position: relative;
+  margin: 0.5rem 0.3rem 0 0.3rem;
+  z-index: 1;
+
+  -webkit-transition: 0.2s ease-in-out color;
+  -o-transition: 0.2s ease-in-out color;
+  -ms-transition: 0.2s ease-in-out color;
+  -moz-transition: 0.2s ease-in-out color;
+  transition: 0.2s ease-in-out color;
+  
+  &:before {
+    content: "";
+    display: block;
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    left: 0;
+    top: -97px;
+    background: $light-default-color;
+    border-radius: 100%;
+    transform: scale(0);
+    z-index: -1;
+
+    -webkit-transition: 0.4s ease-in-out transform;
+    -o-transition: 0.4s ease-in-out transform;
+    -ms-transition: 0.4s ease-in-out transform;
+    -moz-transition: 0.4s ease-in-out transform;
+    transition: 0.4s ease-in-out transform;
+  }
+  
+  &:hover {
+    color: $light-main-color;
+    
+    &:before {
+      transform: scale(1.5);
+    }
+  }
+}
