@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import './header.scss';
 
@@ -37,16 +38,44 @@ const Header = () => {
         </h1>
         <ul className={addClass ? 'main-nav active' : 'main-nav'}>
           <li>
-            <a href="#" className="nav-links nav-links--active">Accueil</a>
+            <NavLink
+              exact
+              to="/"
+              className="nav-links"
+              activeClassName="nav-links--active"
+            >
+              Accueil
+            </NavLink>
           </li>
           <li>
-            <a href="#" className="nav-links">Profil</a>
+            <NavLink
+              exact
+              to="/profile"
+              className="nav-links"
+              activeClassName="nav-links--active"
+            >
+              Profil
+            </NavLink>
           </li>
           <li>
-            <a href="#" className="nav-links">Calendrier</a>
+            <NavLink
+              exact
+              to="/calendar"
+              className="nav-links"
+              activeClassName="nav-links--active"
+            >
+              Calendrier
+            </NavLink>
           </li>
           <li>
-            <a href="#" className="nav-links">Activités</a>
+            <NavLink
+              exact
+              to="/activities"
+              className="nav-links"
+              activeClassName="nav-links--active"
+            >
+              Activités
+            </NavLink>
           </li>
         </ul>
       </nav>
