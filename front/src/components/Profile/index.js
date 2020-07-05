@@ -85,7 +85,7 @@ const Profile = () => (
             className="profile-input"
             value="1993-05-23"
           />
-          <label className="profile-label" htmlFor="city">Ma date de naissance</label>
+          <label className="profile-label" htmlFor="birthday">Ma date de naissance</label>
         </div>
       </div>
 
