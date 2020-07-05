@@ -7,6 +7,7 @@ import Header from 'src/components/Header';
 import Home from 'src/components/Home';
 import Profile from 'src/components/Profile';
 import Footer from 'src/components/Footer';
+import Page404 from 'src/components/Page404';
 import './styles.scss';
 
 // == Composant
@@ -23,7 +24,7 @@ const App = () => (
       </Route>
 
       <Route>
-        <div>Page 404</div>
+        <Page404 />
       </Route>
     </Switch>
 
