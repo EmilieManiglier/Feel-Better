@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 
 // == Local import
 import Header from 'src/components/Header';
-import Home from 'src/components/Home';
+import Home from 'src/containers/Home';
 import Profile from 'src/components/Profile';
 import Suggestions from 'src/components/Suggestions';
 import Footer from 'src/components/Footer';

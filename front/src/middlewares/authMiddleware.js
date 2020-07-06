@@ -4,7 +4,7 @@ import { LOG_IN, connectUser } from 'src/actions/authentification';
 const authMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case LOG_IN: {
-      const { email, password } = store.getState().user;
+      const { email, password } = store.getState().auth;
 
       axios.post('http://localhost:3001/login', {
         email,

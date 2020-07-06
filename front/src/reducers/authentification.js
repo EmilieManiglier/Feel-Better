@@ -9,8 +9,9 @@ const initialState = {
   city: '',
   birthday: '',
   avatar: '',
-  isLogged: false,
   data: {},
+  // Determine if user is connected
+  isLogged: false,
 };
 
 const register = (state = initialState, action = {}) => {

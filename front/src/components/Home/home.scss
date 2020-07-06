@@ -17,6 +17,19 @@
     }
   }
 
+  .main-quote {
+    font-size: 2rem;
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    font-style: italic;
+    line-height: 40px;
+
+    & span {
+      display: block;
+    }
+  }
+
   .main-content-container {
     width: 60%;
     margin: 0 auto;
