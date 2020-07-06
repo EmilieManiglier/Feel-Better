@@ -10,6 +10,7 @@ import Profile from 'src/components/Profile';
 import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
 import Page404 from 'src/components/Page404';
+import Login from 'src/components/Login';
 import './styles.scss';
 
 // == Composant
@@ -27,6 +28,10 @@ const App = () => (
 
       <Route exact path="/team">
         <Team />
+      </Route>
+
+      <Route exact path="/login">
+        <Login />
       </Route>
 
       <Route>

@@ -41,6 +41,7 @@
       .btn {
         @include btn-style;
         width: 100%;
+        text-align: center;
       }
 
       .register-btn {

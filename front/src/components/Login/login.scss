@@ -1,0 +1,55 @@
+@import 'src/styles/vars';
+@import 'src/styles/btn';
+
+.login-form {
+  width: 90%;
+  height: 60vh;
+  margin: auto;
+  text-align: center;
+  padding-top: 3rem;
+
+  .input-container {
+    position: relative;
+    margin-top: 2rem;
+
+    .login-input {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 1rem;
+      color: $light-default-color;
+      margin-bottom: 2rem;
+      border: none;
+      border-bottom: 1px solid $light-default-color;
+      outline: none;
+      background: transparent;
+    }
+
+    .login-label {
+      position: absolute;
+      top: -30%;
+      left: 0;
+      padding: 10px 0;
+      font-size: 1rem;
+      color: $light-default-color;
+      transform: 0.5s;
+    }
+  }
+
+  .login-button {
+    @include btn-style;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .login-form {
+    min-height: 90vh;
+    padding-top: 10rem;
+    width: 30%;
+
+    .login-button {
+      &:before {
+        left: 1.3rem;
+      }
+    }
+  }
+}

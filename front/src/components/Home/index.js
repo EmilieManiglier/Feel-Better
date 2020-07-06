@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './home.scss';
 
@@ -23,12 +24,13 @@ const Home = () => (
           S'inscrire
         </button>
 
-        <button
+        <Link
+          to="/login"
           type="button"
           className="btn"
         >
           Se connecter
-        </button>
+        </Link>
       </div>
     </div>
 
