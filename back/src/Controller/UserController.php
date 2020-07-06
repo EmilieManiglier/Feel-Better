@@ -16,7 +16,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
-
     private $em;
     private $passwordEncoder;
 
@@ -35,36 +34,38 @@ class UserController extends AbstractController
         $emailInDb = $userRepository->findByEmail($request->request->get('email'));
         // If not, I process the form
         if ($emailInDb === null) {
-            // Initialization of the entity
-            $user = new User;
+            if ($request->request->get("confirm_password") === $request->request->get("password")) {
+                // Initialization of the entity
+                $user = new User;
 
-            // Creation of the validation form
-            $form = $this->createForm(RegisterType::class, $user);
-            $form->submit($request->request->all());
+                // Creation of the validation form
+                $form = $this->createForm(RegisterType::class, $user);
+                $form->submit($request->request->all());
 
-            // Attributing values ​​to the entity
-            $user->setFirstname($request->request->get('firstname'));
-            $user->setLastname($request->request->get('lastname'));
-            $user->setBirthday(new DateTime($request->request->get('birthday')));
-            $user->setCity($request->request->get('city'));
-            $user->setEmail($request->request->get('email'));
-            $user->setAvatar(null);
-            $user->setCreatedAt(new DateTime());
-            $user->setRoles(['ROLE_USER']);
+                // Attributing values ​​to the entity
+                $user->setFirstname($request->request->get('firstname'));
+                $user->setLastname($request->request->get('lastname'));
+                $user->setBirthday(new DateTime($request->request->get('birthday')));
+                $user->setCity($request->request->get('city'));
+                $user->setEmail($request->request->get('email'));
+                $user->setAvatar(null);
+                $user->setCreatedAt(new DateTime());
+                $user->setRoles(['ROLE_USER']);
 
-            // Hash password
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $request->request->get('password')));
+                // Hash password
+                $user->setPassword($this->passwordEncoder->encodePassword($user, $request->request->get('password')));
 
-            //$avatar = $request->files->get('avatar');
+                //$avatar = $request->files->get('avatar');
 
-            // If the form is sent and it is valid
-            if ($form->isSubmitted() && $form->isValid()) {
+
+                // If the form is sent and it is valid
+                if ($form->isSubmitted() && $form->isValid()) {
 
                 /*if ($avatar) {
-                
+
                 $originalFileName = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFileName);
-                
+
                 $newFilename = $safeFilename.uniqid().'.'.$avatar->guessExtension();
 
                 try {
@@ -77,13 +78,13 @@ class UserController extends AbstractController
                 }
 
                 $user->setAvatar($newFilename);
-            }*/
-                // I save in user database
-                $this->em->persist($user);
-                $this->em->flush();
+                }*/
+                    // I save in user database
+                    $this->em->persist($user);
+                    $this->em->flush();
 
-                // I send the answer in json
-                return new JsonResponse([
+                    // I send the answer in json
+                    return new JsonResponse([
                     'registred' => true,
                      'user' => [
                          'id' => $user->getId(),
@@ -95,16 +96,17 @@ class UserController extends AbstractController
                          'city' => $user->getCity(),
                      ]
                 ], Response::HTTP_CREATED);
+                } else {
+                    // If the form was not good, I send a 403 error
+                    return new JsonResponse(['registred' => false, 'error' => ['validated' => false]], Response::HTTP_FORBIDDEN);
+                }
             } else {
-                // If the form was not good, I send a 403 error
-                return new JsonResponse(['registred' => false, 'error' => ['validated' => false]], Response::HTTP_FORBIDDEN);
+                // If the two passwords do not match, I send a 403 error
+                return new JsonResponse(['registred' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
             }
         } else {
             // If an email is already exist in the database, I send a 403 error
             return new JsonResponse(['registred' => false, 'error' => ['email' => false]], Response::HTTP_FORBIDDEN);
         }
-
     }
-
- 
 }
