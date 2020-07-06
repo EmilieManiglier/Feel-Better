@@ -33,31 +33,35 @@ class UserController extends AbstractController
      */
     public function register(Request $request, UserRepository $userRepository)
     {
+        // I get the data from the request
+        $jsonData = json_decode($request->getContent(), true);
 
         //I check if the email exists in the database
-        $emailInDb = $userRepository->findByEmail($request->request->get('email'));
+        $emailInDb = $userRepository->findByEmail($jsonData['email']);
         // If not, I process the form
         if ($emailInDb === null) {
-            if ($request->request->get("confirm_password") === $request->request->get("password")) {
+            if ($jsonData['confirm_password'] === $jsonData['password']) {
                 // Initialization of the entity
                 $user = new User;
 
+
                 // Creation of the validation form
                 $form = $this->createForm(RegisterType::class, $user);
-                $form->submit($request->request->all());
+                $form->submit($jsonData);
 
                 // Attributing values ​​to the entity
-                $user->setFirstname($request->request->get('firstname'));
-                $user->setLastname($request->request->get('lastname'));
-                $user->setBirthday(new DateTime($request->request->get('birthday')));
-                $user->setCity($request->request->get('city'));
-                $user->setEmail($request->request->get('email'));
+                $user->setFirstname($jsonData['firstname']);
+                $user->setLastname($jsonData['lastname']);
+                $user->setBirthday(new DateTime($jsonData['birthday']));
+                $user->setCity($jsonData['city']);
+                $user->setEmail($jsonData['email']);
                 $user->setAvatar(null);
                 $user->setCreatedAt(new DateTime());
                 $user->setRoles(['ROLE_USER']);
 
                 // Hash password
-                $user->setPassword($this->passwordEncoder->encodePassword($user, $request->request->get('password')));
+                $user->setPassword($this->passwordEncoder->encodePassword($user, $jsonData['password']));
+
 
                 //$avatar = $request->files->get('avatar');
 
@@ -119,6 +123,7 @@ class UserController extends AbstractController
      */
     public function login(Request $request, UserRepository $userRepository)
     {
+        // I get the data from the request
         $jsonData = json_decode($request->getContent(), true);
 
         // Find user by email. If user exists we store the user in the $user variable.
