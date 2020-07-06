@@ -13,11 +13,11 @@ security:
     # used to reload user from session & other features (e.g. switch_user)
   firewalls:
     login:
-      pattern: ^/api/login
+      pattern: ^/api/v1/login
       stateless: true
       anonymous: true
       json_login:
-        check_path: /api/login_check
+        check_path: /api/v1/login_check
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
         require_previous_session: false
@@ -26,7 +26,7 @@ security:
       stateless: true
       anonymous: true
     api:
-      pattern: ^/api
+      pattern: ^/api/v1
       stateless: true
       guard:
         authenticators:
@@ -47,6 +47,6 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/v1/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/v1/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/api/v1, roles: IS_AUTHENTICATED_FULLY }

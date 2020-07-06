@@ -115,7 +115,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/login", name="login_user", METHODS={"POST"})
+     * @Route("/api/v1/login", name="login_user", METHODS={"POST"})
      */
     public function login(Request $request, UserRepository $userRepository)
     {
