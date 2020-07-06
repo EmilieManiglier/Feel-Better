@@ -7,9 +7,12 @@ import { Route, Switch } from 'react-router-dom';
 import Header from 'src/components/Header';
 import Home from 'src/components/Home';
 import Profile from 'src/components/Profile';
+import Suggestions from 'src/components/Suggestions';
 import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
+
 import Page404 from 'src/components/Page404';
+
 import Login from 'src/containers/Login';
 import Register from 'src/containers/Register';
 import './styles.scss';
@@ -37,6 +40,10 @@ const App = () => (
 
       <Route exact path="/register">
         <Register />
+      </Route>
+
+      <Route exact path="/suggestions">
+        <Suggestions />
       </Route>
 
       <Route>

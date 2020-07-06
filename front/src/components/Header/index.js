@@ -70,7 +70,7 @@ const Header = () => {
           <li>
             <NavLink
               exact
-              to="/activities"
+              to="/suggestions"
               className="nav-links"
               activeClassName="nav-links--active"
             >
