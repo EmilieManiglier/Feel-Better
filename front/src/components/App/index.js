@@ -10,8 +10,8 @@ import Profile from 'src/components/Profile';
 import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
 import Page404 from 'src/components/Page404';
-import Login from 'src/components/Login';
-import Register from 'src/components/Register';
+import Login from 'src/containers/Login';
+import Register from 'src/containers/Register';
 import './styles.scss';
 
 // == Composant
