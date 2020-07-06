@@ -13,19 +13,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class UserController extends AbstractController
 {
     private $em;
     private $passwordEncoder;
+    private $client;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, HttpClientInterface $client)
     {
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
+        $this->client = $client;
     }
+
     /**
-     * @Route("/register", name="register_user", METHODS={"POST"})
+     * @Route("/api/v1/register", name="register_user", METHODS={"POST"})
      */
     public function register(Request $request, UserRepository $userRepository)
     {
@@ -111,7 +115,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="login_user", METHODS={'POST'})
+     * @Route("/api/login", name="login_user", METHODS={"POST"})
      */
     public function login(Request $request, UserRepository $userRepository)
     {
@@ -122,6 +126,21 @@ class UserController extends AbstractController
         // If the user does not exist, a new JSON error message is returned to the user
         if ($user !== null) {
             if ($this->passwordEncoder->isPasswordValid($user, $request->request->get('password'))) {
+                $test = $this->client->request(
+                    'POST',
+                    '/api/login_check',
+                    array(),
+                    array(),
+                    array('CONTENT_TYPE' => 'application/json'),
+                    json_encode(array(
+                        '_username' => $request->request->get('email'),
+                        '_password' => $request->request->get('password'),
+                        ))
+                );
+
+                dd($test);
+
+                
                 return new JsonResponse([
                     'logged' => true,
                      'user' => [
