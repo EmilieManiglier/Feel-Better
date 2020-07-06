@@ -25,7 +25,7 @@ class UserController extends AbstractController
         $this->passwordEncoder = $passwordEncoder;
     }
     /**
-     * @Route("/register", name="register_user")
+     * @Route("/register", name="register_user", METHODS={"POST"})
      */
     public function register(Request $request, UserRepository $userRepository)
     {
@@ -107,6 +107,40 @@ class UserController extends AbstractController
         } else {
             // If an email is already exist in the database, I send a 403 error
             return new JsonResponse(['registred' => false, 'error' => ['email' => false]], Response::HTTP_FORBIDDEN);
+        }
+    }
+
+    /**
+     * @Route("/login", name="login_user", METHODS={'POST'})
+     */
+    public function login(Request $request, UserRepository $userRepository)
+    {
+        // Find user by email. If user exists we store the user in the $user variable.
+        $user = $userRepository->findByEmail($request->request->get('email'));
+
+        // If the user exists, we check the password and return a new JSON object with the credentials
+        // If the user does not exist, a new JSON error message is returned to the user
+        if ($user !== null) {
+            if ($this->passwordEncoder->isPasswordValid($user, $request->request->get('password'))) {
+                return new JsonResponse([
+                    'logged' => true,
+                     'user' => [
+                         'id' => $user->getId(),
+                         'email' => $user->getEmail(),
+                         'firstname' => $user->getFirstname(),
+                         'lastname' => $user->getLastname(),
+                         'role' => $user->getRoles(),
+                         'birthday' => $user->getBirthday()->format('Y-m-d'),
+                         'city' => $user->getCity(),
+                    ]
+                ], Response::HTTP_OK);
+            } else {
+                // If the passwords do not match, we return a JSON error
+                return new JsonResponse(['logged' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
+            }
+        } else {
+            // The email does not exist, we return a JSON error
+            return new JsonResponse(['logged' => false, 'error' => ['email' => false]], Response::HTTP_FORBIDDEN);
         }
     }
 }
