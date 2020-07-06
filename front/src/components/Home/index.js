@@ -12,7 +12,7 @@ const Home = () => (
     </div>
 
     <div className="main-content-container">
-      <p className="main-description">Feel Better est un générateur de bonnes idées qui vous proposera des activités à faire en fonction de votre humeur. <br /> Inscrivez-vous et profitez !
+      <p className="main-description"><strong>Feel Better</strong> est un générateur de bonnes idées qui vous proposera des activités à faire en fonction de votre humeur. <br /> Inscrivez-vous et profitez !
       </p>
 
       <div className="btn-group">

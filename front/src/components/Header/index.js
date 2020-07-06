@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import './header.scss';
 
@@ -32,9 +32,9 @@ const Header = () => {
         </span>
 
         <h1 className="main-title">
-          <a href="#" className="logo">
+          <Link to="/" className="logo">
             Feel Better
-          </a>
+          </Link>
         </h1>
         <ul className={addClass ? 'main-nav active' : 'main-nav'}>
           <li>

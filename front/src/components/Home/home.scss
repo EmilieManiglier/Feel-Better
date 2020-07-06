@@ -5,6 +5,7 @@
   min-height: 75vh;
   max-width: 100vw;
   margin: auto;
+  color: $light-text;
 
   .main-img {
     width: 100%;
@@ -25,6 +26,10 @@
       display: block;
       margin: 1rem auto;
       font-size: 1.5rem;
+
+      & > strong {
+        font-weight: 600;
+      }
     }
   
     .btn-group {
@@ -68,6 +73,7 @@
     .main-content-container {
       .main-description {
         font-size: 1.5em;
+        padding: 1.5rem;
       }
 
       .btn-group {

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 // == Import npm
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -7,6 +8,7 @@ import Header from 'src/components/Header';
 import Home from 'src/components/Home';
 import Profile from 'src/components/Profile';
 import Footer from 'src/components/Footer';
+import Team from 'src/components/Team';
 import Page404 from 'src/components/Page404';
 import './styles.scss';
 
@@ -21,6 +23,10 @@ const App = () => (
 
       <Route exact path="/profile">
         <Profile />
+      </Route>
+
+      <Route exact path="/team">
+        <Team />
       </Route>
 
       <Route>
