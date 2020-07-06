@@ -14,14 +14,14 @@ const Register = ({
   birthday,
   avatar,
   updateField,
-  submitLogin,
+  submitRegister,
 }) => (
   <main className="register">
     <form
       className="register-form"
       onSubmit={(evt) => {
         evt.preventDefault();
-        submitLogin();
+        submitRegister();
       }}
     >
       <div className="register-container">
@@ -184,7 +184,7 @@ Register.propTypes = {
   birthday: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
   updateField: PropTypes.func.isRequired,
-  submitLogin: PropTypes.func.isRequired,
+  submitRegister: PropTypes.func.isRequired,
 };
 
 export default Register;

@@ -1,20 +1,65 @@
 import axios from 'axios';
-import { LOG_IN, connectUser } from 'src/actions/authentification';
+import {
+  LOG_IN,
+  connectUser,
+  REGISTER,
+} from 'src/actions/authentification';
 
 const authMiddleware = (store) => (next) => (action) => {
+  const apiUrl = 'http://34.203.193.182/api/v1';
+
   switch (action.type) {
     case LOG_IN: {
+      // Get user's email and user's password in the state to send to the API
       const { email, password } = store.getState().auth;
 
-      axios.post('http://localhost:3001/login', {
+      axios.post(`${apiUrl}/login`, {
         email,
         password,
       }, {
-        // withCredentials : autorize cookie access
+        // withCredentials : allow cookie access
         withCredentials: true,
       })
         .then((response) => {
-          store.dispatch(connectUser(response.data, response.logged));
+          // console.log('response: ', response);
+          // Store user'informations received from API response in the state
+          store.dispatch(connectUser(response.data.user, response.data.logged));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
+
+    case REGISTER: {
+      const {
+        firstname,
+        lastname,
+        email,
+        password,
+        confirm_password,
+        city,
+        birthday,
+        avatar,
+      } = store.getState().auth;
+
+      axios.post(`${apiUrl}/register`, {
+        firstname,
+        lastname,
+        email,
+        password,
+        confirm_password,
+        city,
+        birthday,
+        avatar,
+      }, {
+        // withCredentials : allow cookie access
+        withCredentials: true,
+      })
+        .then((response) => {
+          console.log('response: ', response);
         })
         .catch((error) => {
           console.warn(error);

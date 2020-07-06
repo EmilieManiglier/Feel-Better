@@ -11,9 +11,10 @@ export const submitLogin = () => ({
   type: SUBMIT_LOGIN,
 });
 
-// === Midleware actions
+// === Middleware actions
 export const LOG_IN = 'LOG_IN';
 export const CONNECT_USER = 'CONNECT_USER';
+export const REGISTER = 'REGISTER';
 
 export const logIn = () => ({
   type: LOG_IN,
@@ -23,4 +24,8 @@ export const connectUser = (data, isLogged) => ({
   type: CONNECT_USER,
   data,
   isLogged,
+});
+
+export const register = () => ({
+  type: REGISTER,
 });

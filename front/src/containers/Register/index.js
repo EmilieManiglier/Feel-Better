@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import Register from 'src/components/Register';
 
-import { updateLoginField, submitLogin } from 'src/actions/authentification';
+import { updateLoginField, register } from 'src/actions/authentification';
 
 // === mapStateToProps
 const mapStateToProps = (state) => ({
+  // Send state information to REgister component
   email: state.auth.email,
   password: state.auth.password,
   firstname: state.auth.firstname,
@@ -20,8 +21,8 @@ const mapDispatchToProps = (dispatch) => ({
   updateField: (identifier, newValue) => {
     dispatch(updateLoginField(identifier, newValue));
   },
-  submitLogin: () => {
-    dispatch(submitLogin());
+  submitRegister: () => {
+    dispatch(register());
   },
 });
 

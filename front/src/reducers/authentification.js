@@ -18,13 +18,18 @@ const register = (state = initialState, action = {}) => {
   switch (action.type) {
     case UPDATE_LOGIN_FIELD:
       return {
+        // Return whole state
         ...state,
+        // If action.identfier === email, update the value of email in the state
+        // with the info written in the input by the user
+        // If action.identifier === password, update the value of password in the state
         [action.identifier]: action.newValue,
       };
 
     case SUBMIT_LOGIN:
       return {
         ...state,
+        // Clear all the input when the form is submitted
         firstname: '',
         lastname: '',
         email: '',
@@ -38,6 +43,7 @@ const register = (state = initialState, action = {}) => {
     case CONNECT_USER:
       return {
         ...state,
+        // Store user'informations received from API response in the state
         data: action.data,
         isLogged: action.isLogged,
       };

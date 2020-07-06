@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from 'src/reducers';
 import authMiddleware from 'src/middlewares/authMiddleware';
 
-// Combine reduxDevlTools with middleware
+// Combine reduxDevTools with middleware
 const enhancers = composeWithDevTools(
   applyMiddleware(
     authMiddleware,
