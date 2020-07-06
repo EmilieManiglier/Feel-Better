@@ -13,19 +13,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 class UserController extends AbstractController
 {
     private $em;
     private $passwordEncoder;
-    private $client;
+    private $JWTManager;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, HttpClientInterface $client)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, JWTTokenManagerInterface $JWTManager)
     {
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
-        $this->client = $client;
+        $this->JWTManager = $JWTManager;
     }
 
     /**
@@ -65,7 +65,7 @@ class UserController extends AbstractController
                 // If the form is sent and it is valid
                 if ($form->isSubmitted() && $form->isValid()) {
 
-                /*if ($avatar) {
+                    /*if ($avatar) {
 
                 $originalFileName = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFileName);
@@ -89,17 +89,17 @@ class UserController extends AbstractController
 
                     // I send the answer in json
                     return new JsonResponse([
-                    'registred' => true,
-                     'user' => [
-                         'id' => $user->getId(),
-                         'email' => $user->getEmail(),
-                         'firstname' => $user->getFirstname(),
-                         'lastname' => $user->getLastname(),
-                         'role' => $user->getRoles(),
-                         'birthday' => $user->getBirthday()->format('Y-m-d'),
-                         'city' => $user->getCity(),
-                     ]
-                ], Response::HTTP_CREATED);
+                        'registred' => true,
+                        'user' => [
+                            'id' => $user->getId(),
+                            'email' => $user->getEmail(),
+                            'firstname' => $user->getFirstname(),
+                            'lastname' => $user->getLastname(),
+                            'role' => $user->getRoles(),
+                            'birthday' => $user->getBirthday()->format('Y-m-d'),
+                            'city' => $user->getCity(),
+                        ]
+                    ], Response::HTTP_CREATED);
                 } else {
                     // If the form was not good, I send a 403 error
                     return new JsonResponse(['registred' => false, 'error' => ['validated' => false]], Response::HTTP_FORBIDDEN);
@@ -126,31 +126,22 @@ class UserController extends AbstractController
         // If the user does not exist, a new JSON error message is returned to the user
         if ($user !== null) {
             if ($this->passwordEncoder->isPasswordValid($user, $request->request->get('password'))) {
-                $test = $this->client->request(
-                    'POST',
-                    '/api/login_check',
-                    array(),
-                    array(),
-                    array('CONTENT_TYPE' => 'application/json'),
-                    json_encode(array(
-                        '_username' => $request->request->get('email'),
-                        '_password' => $request->request->get('password'),
-                        ))
-                );
 
-                dd($test);
+                // Generate the token
+                $token = $this->JWTManager->create($user);
 
-                
+                // Return all the datas with the token in a JSON response
                 return new JsonResponse([
                     'logged' => true,
-                     'user' => [
-                         'id' => $user->getId(),
-                         'email' => $user->getEmail(),
-                         'firstname' => $user->getFirstname(),
-                         'lastname' => $user->getLastname(),
-                         'role' => $user->getRoles(),
-                         'birthday' => $user->getBirthday()->format('Y-m-d'),
-                         'city' => $user->getCity(),
+                    'user' => [
+                        'id' => $user->getId(),
+                        'email' => $user->getEmail(),
+                        'firstname' => $user->getFirstname(),
+                        'lastname' => $user->getLastname(),
+                        'role' => $user->getRoles(),
+                        'birthday' => $user->getBirthday()->format('Y-m-d'),
+                        'city' => $user->getCity(),
+                        'token' => $token
                     ]
                 ], Response::HTTP_OK);
             } else {
