@@ -1,4 +1,4 @@
-import { UPDATE_LOGIN_FIELD, SUBMIT_LOGIN } from 'src/actions/authentification';
+import { UPDATE_LOGIN_FIELD, SUBMIT_LOGIN, CONNECT_USER } from 'src/actions/authentification';
 
 const initialState = {
   firstname: '',
@@ -9,6 +9,8 @@ const initialState = {
   city: '',
   birthday: '',
   avatar: '',
+  isLogged: false,
+  data: {},
 };
 
 const register = (state = initialState, action = {}) => {
@@ -30,6 +32,13 @@ const register = (state = initialState, action = {}) => {
         city: '',
         birthday: '',
         avatar: '',
+      };
+
+    case CONNECT_USER:
+      return {
+        ...state,
+        data: action.data,
+        isLogged: action.isLogged,
       };
 
     default: return state;

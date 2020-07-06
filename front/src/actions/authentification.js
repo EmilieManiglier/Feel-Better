@@ -10,3 +10,17 @@ export const updateLoginField = (identifier, newValue) => ({
 export const submitLogin = () => ({
   type: SUBMIT_LOGIN,
 });
+
+// === Midleware actions
+export const LOG_IN = 'LOG_IN';
+export const CONNECT_USER = 'CONNECT_USER';
+
+export const logIn = () => ({
+  type: LOG_IN,
+});
+
+export const connectUser = (data, isLogged) => ({
+  type: CONNECT_USER,
+  data,
+  isLogged,
+});
