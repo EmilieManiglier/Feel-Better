@@ -5,14 +5,14 @@ import { updateLoginField, submitLogin } from 'src/actions/authentification';
 
 // === mapStateToProps
 const mapStateToProps = (state) => ({
-  email: state.register.email,
-  password: state.register.password,
-  firstname: state.register.firstname,
-  lastname: state.register.lastname,
-  confirm_password: state.register.confirm_password,
-  city: state.register.city,
-  birthday: state.register.birthday,
-  avatar: state.register.avatar,
+  email: state.auth.email,
+  password: state.auth.password,
+  firstname: state.auth.firstname,
+  lastname: state.auth.lastname,
+  confirm_password: state.auth.confirm_password,
+  city: state.auth.city,
+  birthday: state.auth.birthday,
+  avatar: state.auth.avatar,
 });
 
 // === mapDispatchToProps
