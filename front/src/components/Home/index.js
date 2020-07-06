@@ -17,12 +17,13 @@ const Home = () => (
       </p>
 
       <div className="btn-group">
-        <button
+        <Link
+          to="/register"
           type="button"
           className="btn register-btn"
         >
           S'inscrire
-        </button>
+        </Link>
 
         <Link
           to="/login"

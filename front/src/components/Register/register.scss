@@ -1,0 +1,82 @@
+@import 'src/styles/vars';
+@import 'src/styles/btn';
+
+.register {
+  min-height: 80vh;
+  text-align: center;
+
+  .register-container {
+    margin: 2rem auto;
+    position: relative;
+    width: 90%;
+
+    .register-label {
+      position: absolute;
+      top: -30%;
+      left: 0;
+      padding: 10px 0;
+      font-size: 1rem;
+      color: $light-default-color;
+      transform: 0.5s;
+    }
+
+    .register-input {
+      border: none;
+      border-bottom: 2px solid $light-default-color;
+      background: none;
+      padding: 1rem 0;
+      font-family: $dosis-font;
+      width: 100%;
+    }
+  }
+
+  .register-button {
+    @include btn-style;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .register {
+    padding-top: 7rem;
+
+    .register-form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 60%;
+      margin: auto;
+
+      .register-container {
+        width: 40%;
+      }
+
+      .register-container-email,
+      .register-container-avatar, 
+      .register-container-cgu  {
+        width: 90%;
+      }
+
+      .register-container-cgu {
+        display: flex;
+
+        .register-label {
+          top: -37%;
+        }
+
+        .register-input {
+          width: 30%;
+          background-color: green;
+        }
+
+      }
+    }
+
+    .register-button {
+      width: 40%;
+      &:before {
+        left: 1.5rem;
+      }
+    }
+
+  }
+}
