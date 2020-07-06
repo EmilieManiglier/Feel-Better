@@ -119,13 +119,15 @@ class UserController extends AbstractController
      */
     public function login(Request $request, UserRepository $userRepository)
     {
+        $jsonData = json_decode($request->getContent(), true);
+
         // Find user by email. If user exists we store the user in the $user variable.
-        $user = $userRepository->findByEmail($request->request->get('email'));
+        $user = $userRepository->findByEmail($jsonData['email']);
 
         // If the user exists, we check the password and return a new JSON object with the credentials
         // If the user does not exist, a new JSON error message is returned to the user
         if ($user !== null) {
-            if ($this->passwordEncoder->isPasswordValid($user, $request->request->get('password'))) {
+            if ($this->passwordEncoder->isPasswordValid($user, $jsonData['password'])) {
 
                 // Generate the token
                 $token = $this->JWTManager->create($user);
