@@ -40,7 +40,7 @@ class Mood
     private $userMoodDates;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Idea::class, inversedBy="moods")
+     * @ORM\ManyToMany(targetEntity=Idea::class, mappedBy="moods")
      */
     private $ideas;
 

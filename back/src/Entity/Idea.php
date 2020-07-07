@@ -45,7 +45,7 @@ class Idea
     private $updated_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Mood::class, mappedBy="ideas")
+     * @ORM\ManyToMany(targetEntity=Mood::class, inversedBy="ideas")
      */
     private $moods;
 
