@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
   // Send state information to Login component
   email: state.auth.email,
   password: state.auth.password,
+  isLogged: state.auth.isLogged,
 });
 
 // === mapDispatchToProps

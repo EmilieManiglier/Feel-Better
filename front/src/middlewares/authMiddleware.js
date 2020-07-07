@@ -60,7 +60,7 @@ const authMiddleware = (store) => (next) => (action) => {
       })
         .then((response) => {
           console.log('response: ', response);
-          store.dispatch(connectUser(response.data.registred, response.data.user));
+          store.dispatch(connectUser(response.data.user, response.data.registered));
         })
         .catch((error) => {
           console.warn(error);

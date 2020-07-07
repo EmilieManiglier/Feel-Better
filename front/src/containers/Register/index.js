@@ -13,7 +13,8 @@ const mapStateToProps = (state) => ({
   confirm_password: state.auth.confirm_password,
   city: state.auth.city,
   birthday: state.auth.birthday,
-  avatar: state.auth.avatar,
+  isLogged: state.auth.isLogged,
+  // avatar: state.auth.avatar,
 });
 
 // === mapDispatchToProps

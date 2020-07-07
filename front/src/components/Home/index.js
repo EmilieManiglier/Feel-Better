@@ -6,7 +6,7 @@ import './home.scss';
 
 import people from 'src/assets/images/people-emotions.png';
 
-const Home = ({ isLogged, firstname }) => (
+const Home = ({ isLogged }) => (
   <main className="main">
 
     <div className="main-img">
@@ -16,7 +16,7 @@ const Home = ({ isLogged, firstname }) => (
     {
       isLogged && (
         <div className="main-quote">
-          <span>Bonjour {firstname} </span>
+          <span>Bonjour</span>
           <span>
             « Être heureuse, c’est cultiver notre part de lumière, et accueillir notre part d’ombre. »
           </span>
@@ -56,7 +56,11 @@ const Home = ({ isLogged, firstname }) => (
 
 Home.propTypes = {
   isLogged: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
-  firstname: PropTypes.string.isRequired,
+  // firstname: PropTypes.string,
 };
+
+// Home.defaultProps = {
+//   firstname: '',
+// };
 
 export default Home;
