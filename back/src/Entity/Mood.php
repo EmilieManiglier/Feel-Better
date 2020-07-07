@@ -57,7 +57,7 @@ class Mood
 
     public function __toString()
     {
-        return $this->getNameEn();
+        return $this->getNameFr();
     }
 
     public function getId(): ?int
