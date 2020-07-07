@@ -22,7 +22,7 @@ class Mood
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $name;
+    private $name_en;
 
     /**
      * @ORM\Column(type="datetime")
@@ -44,6 +44,11 @@ class Mood
      */
     private $ideas;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $name_fr;
+
     public function __construct()
     {
         $this->userMoodDates = new ArrayCollection();
@@ -55,14 +60,14 @@ class Mood
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNameEn(): ?string
     {
-        return $this->name;
+        return $this->name_en;
     }
 
-    public function setName(string $name): self
+    public function setNameEn(string $name_en): self
     {
-        $this->name = $name;
+        $this->name_en = $name_en;
 
         return $this;
     }
@@ -141,6 +146,18 @@ class Mood
         if ($this->ideas->contains($idea)) {
             $this->ideas->removeElement($idea);
         }
+
+        return $this;
+    }
+
+    public function getNameFr(): ?string
+    {
+        return $this->name_fr;
+    }
+
+    public function setNameFr(string $name_fr): self
+    {
+        $this->name_fr = $name_fr;
 
         return $this;
     }
