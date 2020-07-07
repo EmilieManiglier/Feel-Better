@@ -70,6 +70,7 @@ class UserController extends AbstractController
                 // If the form is sent and it is valid
                 if ($form->isSubmitted() && $form->isValid()) {
 
+                    dd($jsonData);
                     /*if ($avatar) {
 
                 $originalFileName = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
@@ -88,13 +89,14 @@ class UserController extends AbstractController
 
                 $user->setAvatar($newFilename);
                 }*/
+                    $token = $this->JWTManager->create($user);
                     // I save in user database
                     $this->em->persist($user);
                     $this->em->flush();
 
                     // I send the answer in json
                     return new JsonResponse([
-                        'registred' => true,
+                        'registered' => true,
                         'user' => [
                             'id' => $user->getId(),
                             'email' => $user->getEmail(),
@@ -103,6 +105,7 @@ class UserController extends AbstractController
                             'role' => $user->getRoles(),
                             'birthday' => $user->getBirthday()->format('Y-m-d'),
                             'city' => $user->getCity(),
+                            'token' => $token
                         ]
                     ], Response::HTTP_CREATED);
                 } else {
