@@ -1,14 +1,18 @@
 import React from 'react';
 
+import climbing from 'src/assets/images/activities/climbing.svg';
 import './suggestion.scss';
 
 const Suggestion = () => (
   <div className="suggestion-container">
     <div className="picture-activity">
-      <img src="" alt="" className="" />
+      <img src={climbing} alt="Faire de l'escalade" className="" />
     </div>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, culpa!
+    <p className="category">
+      Catégorie : Sport
+    </p>
+    <p className="name-activity">
+      Faire de l'escalade
     </p>
   </div>
 );
