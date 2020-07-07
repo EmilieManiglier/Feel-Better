@@ -49,6 +49,11 @@ class Category
         $this->ideas = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getNameEn();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
