@@ -30,7 +30,7 @@ class RegisterType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('city', TextType::class)
-        ;
+            ->add('avatar', FileType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

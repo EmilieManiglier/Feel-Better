@@ -36,6 +36,7 @@ class UserController extends AbstractController
         // I get the data from the request
         $jsonData = json_decode($request->getContent(), true);
 
+
         //I check if the email exists in the database
         $emailInDb = $userRepository->findByEmail($jsonData['email']);
         // If not, I process the form
