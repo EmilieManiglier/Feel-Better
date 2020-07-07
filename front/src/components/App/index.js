@@ -6,8 +6,8 @@ import { Route, Switch } from 'react-router-dom';
 // == Local import
 import Header from 'src/components/Header';
 import Home from 'src/containers/Home';
-import Profile from 'src/components/Profile';
-import Suggestions from 'src/components/Suggestions';
+import Profile from 'src/containers/Profile';
+import Suggestions from 'src/containers/Suggestions';
 // import Moodform from 'src/components/MoodForm';
 import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
