@@ -14,15 +14,25 @@
     padding-bottom: 1rem;
     padding-left: 1rem;
     .picture-activity {
-      width: 100px;
-      height: 100px;
-      border: 2px solid blue;
-      border-radius: 50%;
-      padding-left: 6rem;
+
+      .picture {
+       width: 100px;
+       border: 2px solid blue;
+       border-radius: 50%;
+      }
     }
-    p {
-      padding-left: 2rem;
+
+    .suggestion {
+      padding-left: 0.5rem;
+      flex-wrap: wrap;
+       h3 {
+     
+      }
+      p {
+        padding-left: 2rem;
+      }
     }
+   
   }
 }
 
