@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import './login.scss';
 
@@ -61,6 +61,8 @@ const Login = ({
           Valider
         </button>
       </form>
+
+      <Link to="/register" className="login-redirect">Pas encore inscrit ? C'est par ici !</Link>
     </main>
   );
 };

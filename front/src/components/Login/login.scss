@@ -1,55 +1,78 @@
 @import 'src/styles/vars';
 @import 'src/styles/btn';
 
-.login-form {
-  width: 90%;
+.login {
   height: 60vh;
-  margin: auto;
   text-align: center;
-  padding-top: 3rem;
 
-  .input-container {
-    position: relative;
-    margin-top: 2rem;
-
-    .login-input {
-      width: 100%;
-      padding: 10px 0;
-      font-size: 1rem;
-      color: $light-default-color;
-      margin-bottom: 2rem;
-      border: none;
-      border-bottom: 1px solid $light-default-color;
-      outline: none;
-      background: transparent;
+  .login-form {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    padding-top: 3rem;
+    margin-bottom: 2rem;
+  
+    .input-container {
+      position: relative;
+      margin-top: 2rem;
+  
+      .login-input {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 1rem;
+        color: $light-default-color;
+        margin-bottom: 2rem;
+        border: none;
+        border-bottom: 1px solid $light-default-color;
+        outline: none;
+        background: transparent;
+      }
+  
+      .login-label {
+        position: absolute;
+        top: -30%;
+        left: 0;
+        padding: 10px 0;
+        font-size: 1rem;
+        color: $light-default-color;
+        transform: 0.5s;
+      }
     }
-
-    .login-label {
-      position: absolute;
-      top: -30%;
-      left: 0;
-      padding: 10px 0;
-      font-size: 1rem;
-      color: $light-default-color;
-      transform: 0.5s;
+  
+    .login-button {
+      @include btn-style;
     }
+  
   }
+  .login-redirect {
+    display: inline-block;
+    padding: 0.5rem;
+    color: $light-default-color;
+    box-shadow: inset 0 -1px 0 $light-default-color;
+    transition: background 0.5s cubic-bezier(.33,.66,.66,1);
 
-  .login-button {
-    @include btn-style;
+    &:hover {
+      background: $light-default-color;
+      color: $light-main-color;
+    }
   }
 }
 
 @media screen and (min-width: 768px) {
-  .login-form {
+  .login {
     min-height: 90vh;
-    padding-top: 10rem;
-    width: 30%;
 
-    .login-button {
-      &:before {
-        left: 1.3rem;
+    .login-form {
+      padding-top: 10rem;
+      width: 30%;
+  
+      .login-button {
+        &:before {
+          left: 1.3rem;
+        }
       }
     }
+
   }
+
 }

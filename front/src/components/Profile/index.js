@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import './profile.scss';
 
 const Profile = ({ isLogged }) => {
-  console.log('isLogged: ', isLogged);
   if (isLogged === false) {
     return <Redirect to="/login" />;
   }
