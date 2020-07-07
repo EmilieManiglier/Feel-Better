@@ -6,7 +6,7 @@ import {
 } from 'src/actions/authentification';
 
 const authMiddleware = (store) => (next) => (action) => {
-  const apiUrl = 'http://34.203.193.182/api/v1';
+  const apiUrl = 'http://34.201.124.197/api/v1';
 
   switch (action.type) {
     case LOG_IN: {
@@ -21,7 +21,7 @@ const authMiddleware = (store) => (next) => (action) => {
         withCredentials: true,
       })
         .then((response) => {
-          // console.log('response: ', response);
+          console.log('response: ', response);
           // Store user'informations received from API response in the state
           store.dispatch(connectUser(response.data.user, response.data.logged));
         })
@@ -42,7 +42,7 @@ const authMiddleware = (store) => (next) => (action) => {
         confirm_password,
         city,
         birthday,
-        avatar,
+        // avatar,
       } = store.getState().auth;
 
       axios.post(`${apiUrl}/register`, {
@@ -53,13 +53,14 @@ const authMiddleware = (store) => (next) => (action) => {
         confirm_password,
         city,
         birthday,
-        avatar,
+        // avatar,
       }, {
         // withCredentials : allow cookie access
         withCredentials: true,
       })
         .then((response) => {
           console.log('response: ', response);
+          store.dispatch(connectUser(response.data.registred, response.data.user));
         })
         .catch((error) => {
           console.warn(error);

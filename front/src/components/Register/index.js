@@ -12,7 +12,7 @@ const Register = ({
   confirm_password,
   city,
   birthday,
-  avatar,
+  // avatar,
   updateField,
   submitRegister,
 }) => (
@@ -136,6 +136,7 @@ const Register = ({
           }}
         />
       </div>
+      {/*
       <div className="register-container register-container-avatar">
         <label className="register-label" htmlFor="avatar">
           Choisir une photo de profil
@@ -145,13 +146,14 @@ const Register = ({
           name="avatar"
           id="avatar"
           type="file"
-          value={avatar}
+          accept="image/png, image/jpeg, image/gif, image/jpg"
           onChange={(evt) => {
-            updateField(evt.currentTarget.name, evt.currentTarget.value);
+            updateField(evt.currentTarget.name, evt.target.files[0]);
+            console.log('evt.target.files[0]: ', evt.target.files[0]);
           }}
         />
       </div>
-
+      */}
       <div className="register-container register-container-cgu">
         <label className="register-label" htmlFor="cgu">
           Accepter les CGU
@@ -182,7 +184,7 @@ Register.propTypes = {
   confirm_password: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   birthday: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
+  // avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   updateField: PropTypes.func.isRequired,
   submitRegister: PropTypes.func.isRequired,
 };

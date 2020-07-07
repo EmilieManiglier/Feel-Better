@@ -55,7 +55,7 @@ const Home = ({ isLogged, firstname }) => (
 );
 
 Home.propTypes = {
-  isLogged: PropTypes.bool.isRequired,
+  isLogged: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
   firstname: PropTypes.string.isRequired,
 };
 

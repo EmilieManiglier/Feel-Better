@@ -8,7 +8,7 @@ import Header from 'src/components/Header';
 import Home from 'src/containers/Home';
 import Profile from 'src/components/Profile';
 import Suggestions from 'src/components/Suggestions';
-import Moodform from 'src/components/MoodForm';
+// import Moodform from 'src/components/MoodForm';
 import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
 
@@ -25,7 +25,6 @@ const App = () => (
     <Switch>
       <Route exact path="/">
         <Home />
-        <Moodform />
       </Route>
 
       <Route exact path="/profile">
