@@ -1,7 +1,8 @@
 easy_admin:
-    entities:
-        # List the entity class name you want to manage
-        - App\Entity\User
-        - App\Entity\Mood
-        - App\Entity\Idea
-        - App\Entity\Category
+  entities:
+    # List the entity class name you want to manage
+    - App\Entity\User
+    - App\Entity\Mood
+    - App\Entity\Idea
+    - App\Entity\Category
+    - App\Entity\UserMoodDate

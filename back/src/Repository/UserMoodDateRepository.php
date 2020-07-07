@@ -47,4 +47,13 @@ class UserMoodDateRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function findWithAllDataForSuggestion()
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin("user_mood_date.users", "user")
+            ->getQuery()
+            ->getResult();
+    }
 }

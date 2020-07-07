@@ -34,6 +34,11 @@ class UserMoodDate
      */
     private $moods;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $budget;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -105,6 +110,18 @@ class UserMoodDate
         if ($this->moods->contains($mood)) {
             $this->moods->removeElement($mood);
         }
+
+        return $this;
+    }
+
+    public function getBudget(): ?int
+    {
+        return $this->budget;
+    }
+
+    public function setBudget(int $budget): self
+    {
+        $this->budget = $budget;
 
         return $this;
     }

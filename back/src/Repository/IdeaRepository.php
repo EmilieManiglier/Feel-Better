@@ -47,4 +47,14 @@ class IdeaRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllByMood($idMood)
+    {
+        return $this->createQueryBuilder('i')
+            ->join('i.moods', 'idea_mood')
+            ->where('idea_mood.id = :idMood')
+            ->setParameter('idMood', $idMood)
+            ->getQuery()
+            ->getResult();
+    }
 }

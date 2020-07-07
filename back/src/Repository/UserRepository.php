@@ -44,8 +44,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->where('u.email = :email')
             ->setParameter('email', $email)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
 
     /*
@@ -59,4 +58,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+
+
+    public function findByEmailWithAllDataForSuggestion($email)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.email = :email')
+            ->setParameter('email', $email)
+
+            ->getQuery()
+            ->getResult();
+    }
 }
