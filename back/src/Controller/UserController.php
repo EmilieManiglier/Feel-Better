@@ -66,11 +66,11 @@ class UserController extends AbstractController
 
                 //$avatar = $request->files->get('avatar');
 
-
+                dd($jsonData);
                 // If the form is sent and it is valid
                 if ($form->isSubmitted() && $form->isValid()) {
 
-                    dd($jsonData);
+
                     /*if ($avatar) {
 
                 $originalFileName = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
