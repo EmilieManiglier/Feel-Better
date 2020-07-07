@@ -1,5 +1,6 @@
 export const UPDATE_LOGIN_FIELD = 'UPDATE_LOGIN_FIELD';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
+export const CHECK_TOKEN = 'CHECK_TOKEN';
 
 export const updateLoginField = (identifier, newValue) => ({
   type: UPDATE_LOGIN_FIELD,
@@ -28,4 +29,8 @@ export const connectUser = (data, isLogged) => ({
 
 export const register = () => ({
   type: REGISTER,
+});
+
+export const checkToken = () => ({
+  type: CHECK_TOKEN,
 });

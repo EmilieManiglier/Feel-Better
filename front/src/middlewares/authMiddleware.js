@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable import/no-unresolved */
 import axios from 'axios';
 import {
   LOG_IN,
@@ -24,6 +26,8 @@ const authMiddleware = (store) => (next) => (action) => {
           console.log('response: ', response);
           // Store user'informations received from API response in the state
           store.dispatch(connectUser(response.data.user, response.data.logged));
+          // Save the JWT in localStorage
+          localStorage.setItem('userToken', response.data.user.token);
         })
         .catch((error) => {
           console.warn(error);

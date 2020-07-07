@@ -2,6 +2,7 @@
 // == Import npm
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // == Local import
 import Header from 'src/components/Header';
@@ -19,42 +20,55 @@ import Register from 'src/containers/Register';
 import './styles.scss';
 
 // == Composant
-const App = () => (
-  <div className="app">
-    <Header />
-    <Switch>
-      <Route exact path="/">
-        <Home />
-      </Route>
+const App = ({ checkToken }) => {
+  // Check if token exist in localstorage
+  const token = localStorage.getItem('userToken');
+  // If token exist, user remains connected
+  if (token) {
+    checkToken();
+  }
 
-      <Route exact path="/profile">
-        <Profile />
-      </Route>
+  return (
+    <div className="app">
+      <Header />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
 
-      <Route exact path="/team">
-        <Team />
-      </Route>
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
 
-      <Route exact path="/login">
-        <Login />
-      </Route>
+        <Route exact path="/team">
+          <Team />
+        </Route>
 
-      <Route exact path="/register">
-        <Register />
-      </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
 
-      <Route exact path="/suggestions">
-        <Suggestions />
-      </Route>
+        <Route exact path="/register">
+          <Register />
+        </Route>
 
-      <Route>
-        <Page404 />
-      </Route>
-    </Switch>
+        <Route exact path="/suggestions">
+          <Suggestions />
+        </Route>
 
-    <Footer />
-  </div>
-);
+        <Route>
+          <Page404 />
+        </Route>
+      </Switch>
+
+      <Footer />
+    </div>
+  );
+};
+
+App.propTypes = {
+  checkToken: PropTypes.func.isRequired,
+};
 
 // == Export
 export default App;
