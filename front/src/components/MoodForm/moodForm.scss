@@ -1,0 +1,42 @@
+@import 'src/styles/vars';
+
+.mood {
+  /* overlay */
+  background-color: rgba(#7F8C8D, 0.8);
+  min-height: 100vh;
+  min-width: 100vw;
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .mood-form {
+    background-color: $light-main-color;
+    border-radius: $border-radius;
+    min-width: 95%;
+    min-height: 85%;
+    position: absolute;
+    top: 60%;
+    left: 60%;
+    transform: translate(-60%, -60%);
+    padding: 2rem;
+
+    .moods {
+      .moods-title {
+        font-weight: 600;
+        font-family: $patrick-font;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+
+      .moods-icons {
+
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  
+}
