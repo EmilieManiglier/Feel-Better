@@ -1,6 +1,7 @@
 export const UPDATE_LOGIN_FIELD = 'UPDATE_LOGIN_FIELD';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const CHECK_LOGGED = 'CHECK_LOGGED';
+export const LOG_OUT = 'LOG_OUT';
 
 export const updateLoginField = (identifier, newValue) => ({
   type: UPDATE_LOGIN_FIELD,
@@ -33,4 +34,8 @@ export const register = () => ({
 
 export const checkLogged = () => ({
   type: CHECK_LOGGED,
+});
+
+export const logOut = () => ({
+  type: LOG_OUT,
 });

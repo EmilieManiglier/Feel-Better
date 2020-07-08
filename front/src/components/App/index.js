@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // == Local import
-import Header from 'src/components/Header';
+import Header from 'src/containers/Header';
 import Home from 'src/containers/Home';
 import Profile from 'src/containers/Profile';
 import Suggestions from 'src/containers/Suggestions';

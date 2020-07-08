@@ -3,6 +3,7 @@ import {
   UPDATE_LOGIN_FIELD,
   SUBMIT_LOGIN,
   CONNECT_USER,
+  LOG_OUT,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -51,6 +52,13 @@ const register = (state = initialState, action = {}) => {
         // Store user'informations received from API response in the state
         data: action.data,
         isLogged: action.isLogged,
+      };
+
+    case LOG_OUT:
+      localStorage.removeItem('userToken');
+      return {
+        ...state,
+        isLogged: false,
       };
 
     default: return state;

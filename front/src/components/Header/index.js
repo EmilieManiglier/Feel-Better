@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
+import PropTypes from 'prop-types';
+
 import './header.scss';
 
-const Header = () => {
+const Header = ({ isLogged, logout }) => {
   const [addClass, setAddClass] = useState(false);
 
   return (
@@ -77,10 +79,27 @@ const Header = () => {
               Activités
             </NavLink>
           </li>
+          {isLogged && (
+            <li>
+              <NavLink
+                exact
+                to="/"
+                className="nav-links"
+                onClick={logout}
+              >
+                Se déconnecter
+              </NavLink>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
   );
+};
+
+Header.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 export default Header;
