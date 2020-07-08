@@ -44,7 +44,7 @@ class JwtDecodeService
                 'city' => $user->getCity(),
                 'token' => $token
             ]
-        ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 
     public function tokenDecode($token)
