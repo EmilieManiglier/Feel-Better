@@ -179,56 +179,62 @@ class UserController extends AbstractController
 
         $user = $userRepository->findByEmail($tokenService['username']);
 
-        $form = $this->createForm(UpdateType::class, $user);
-        //dd($jsonData['firstname']);
-        if (!empty($jsonData['firstname'])) {
-            $user->setFirstname($jsonData['firstname']);
-        } else {
-            $jsonData['firstname'] = $user->getFirstname();
-        }
-        if (!empty($jsonData['lastname'])) {
-            $user->setLastname($jsonData['lastname']);
-        } else {
-            $jsonData['lastname'] = $user->getLastname();
-        }
-        if (!empty($jsonData['city'])) {
-            $user->setCity($jsonData['city']);
-        } else {
-            $jsonData['city'] = $user->getCity();
-        }
-        if (!empty($jsonData['email'])) {
-            $user->setEmail($jsonData['email']);
-        } else {
-            $jsonData['email'] = $user->getEmail();
-        }
+        if ($this->passwordEncoder->isPasswordValid($user, $jsonData['password'])) {
+            $form = $this->createForm(UpdateType::class, $user);
+            //dd($jsonData['firstname']);
+            if (!empty($jsonData['firstname'])) {
+                $user->setFirstname($jsonData['firstname']);
+            } else {
+                $jsonData['firstname'] = $user->getFirstname();
+            }
+            if (!empty($jsonData['lastname'])) {
+                $user->setLastname($jsonData['lastname']);
+            } else {
+                $jsonData['lastname'] = $user->getLastname();
+            }
+            if (!empty($jsonData['city'])) {
+                $user->setCity($jsonData['city']);
+            } else {
+                $jsonData['city'] = $user->getCity();
+            }
+            if (!empty($jsonData['email'])) {
+                $user->setEmail($jsonData['email']);
+            } else {
+                $jsonData['email'] = $user->getEmail();
+            }
 
-        $form->submit($jsonData);
+            $jsonData['password'] = $user->getPassword();
+            $form->submit($jsonData);
 
-        $user->setUpdatedAt(new DateTime());
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setUpdatedAt(new DateTime());
 
 
-            // I save in user database
-            $this->em->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            // I send the answer in json
-            return new JsonResponse([
-                'updated' => true,
-                'user' => [
-                    'id' => $user->getId(),
-                    'email' => $user->getEmail(),
-                    'firstname' => $user->getFirstname(),
-                    'lastname' => $user->getLastname(),
-                    'role' => $user->getRoles(),
-                    'birthday' => $user->getBirthday()->format('Y-m-d'),
-                    'city' => $user->getCity()
-                ]
-            ], Response::HTTP_OK);
+
+                // I save in user database
+                $this->em->flush();
+
+                // I send the answer in json
+                return new JsonResponse([
+                    'updated' => true,
+                    'user' => [
+                        'id' => $user->getId(),
+                        'email' => $user->getEmail(),
+                        'firstname' => $user->getFirstname(),
+                        'lastname' => $user->getLastname(),
+                        'role' => $user->getRoles(),
+                        'birthday' => $user->getBirthday()->format('Y-m-d'),
+                        'city' => $user->getCity()
+                    ]
+                ], Response::HTTP_OK);
+            } else {
+                // If the form was not good, I send a 403 error
+                return new JsonResponse(['updated' => false, 'error' => ['validated' => false]], Response::HTTP_FORBIDDEN);
+            }
         } else {
             // If the form was not good, I send a 403 error
-            return new JsonResponse(['updated' => false, 'error' => ['validated' => false]], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['updated' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
         }
     }
 }
