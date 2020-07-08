@@ -25,10 +25,6 @@ class UpdateType extends AbstractType
             ->add('firstname', TextType::class, [
                 'required' => false
             ])
-            ->add('birthday', DateType::class, [
-                'widget' => 'single_text',
-                'required' => false
-            ])
             ->add('city', TextType::class, [
                 'required' => false
             ])

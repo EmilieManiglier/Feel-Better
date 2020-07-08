@@ -191,11 +191,6 @@ class UserController extends AbstractController
         } else {
             $jsonData['lastname'] = $user->getLastname();
         }
-        if (!empty($jsonData['birthday'])) {
-            $user->setBirthday(new DateTime($jsonData['birthday']));
-        } else {
-            $jsonData['birthday'] = new DateTime($user->getBirthday());
-        }
         if (!empty($jsonData['city'])) {
             $user->setCity($jsonData['city']);
         } else {
@@ -206,6 +201,7 @@ class UserController extends AbstractController
         } else {
             $jsonData['email'] = $user->getEmail();
         }
+
         $form->submit($jsonData);
 
         $user->setUpdatedAt(new DateTime());
