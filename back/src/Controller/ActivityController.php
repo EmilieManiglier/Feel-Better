@@ -94,7 +94,7 @@ class ActivityController extends AbstractController
         $userMoodDate = new UserMoodDate;
         $userMoodDate->addUser($userEntity);
         $userMoodDate->addMood($moodEntity);
-        $userMoodDate->setBudget($jsonData['budget']);
+        $userMoodDate->setBudget($jsonData['estimation']);
         $userMoodDate->setMoodDate($date);
 
         $this->em->persist($userMoodDate);
