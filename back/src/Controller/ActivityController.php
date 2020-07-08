@@ -38,8 +38,10 @@ class ActivityController extends AbstractController
      */
     public function suggestion()
     {
-        $tokenService = $this->jwtDecodeService->tokenDecode("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTQxMjE3MzgsImV4cCI6MTU5NDEyNTMzOCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoicXVlbnRpbi5iYXJyYXVkQGdtYWlsLmNvbSJ9.P0XZASjRX_OInfgU7gSRLJrt7hMbkqQ1-hZtuOkDd2QDnnyYLM4HBfC33l21_9BsbZbZFHCZOQtPjqX_T6Tb00rmhXkJudaCZbVYkM3bVWfegilsmdRIZu6zAfDSuMRYFO4dCjuHF3zPcJB7c_GpxBPI8iKAlXtkJiPZqOfPWjsWQz_iQQCDA9ctMk9fe-1holP1bhw9EpJdmhOyyi-QVA54Bh75yZ3QuLQdBTrqE01yvRwhCOdarxMBhVb5JYum2cq8PRsIoEC2QdYKGgIFaLW-ctZyaz2DRQpTQoDnn4p0xVrwrmYwCBd2gLbl3xKjjUL2bKLfZ-mCUteGZyGEH3bUyiq4htCONMYg4yQekwB-NbnNpIi3uYjnSqNG5chbYxm4t7OpsZ1cAOm86sf84R4VyqIdRqsppxoT2y6HO2ZAzfd87txtjisr1y6BAf-61eyprYOQOv1s0-j49ges_1jWhCfjOBbiF0Avf12z0LFcRSXk2W6_zfHiRPc7SMNnk2u9ovZNzutprNKYexc92POX4oPW7SumjbO_kUz8K2bptAknobl68W0E6KpM2Brlu1GJp-buRtREOFil2AoObsIb_2SeDENQJwqW3mb9WFzvC9dGduuwpCrO8AiXYIMuywBa76nroGMRMl0r5fYzfZq-AfxbBJohwIDVsHhV1lY");
-        $user = $this->userRepository->findByEmail($tokenService->username);
+        $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTQxOTQyNjQsImV4cCI6MTU5NDE5Nzg2NCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoicXVlbnRpbi5iYXJyYXVkQGdtYWlsLmNvbSJ9.qc4G4PtNYVN_vRM3OxJGGv3ODYBFPBsqhlThZE5J2YgLurLOIltOqK-h--PdDQXXrSjjD8vaw_ixY9Gdx4NOtSHo_BODP7cGO8p-wHag30C7be3IRbJU0ZhGzZhPK3BoC2_UUdk7zHJ3PP83p3WzEX52Qcc-eBniHl4On_lLDc2E1IGUUq8O7CaSfdNvQJ8peP5qGl_87ZOZpgTlKQkmhsYanwpc7u82SBccRwRWqKx5W-IxV6KUzNRrjCImOXgA0cS0CVkmQ3HRelr9UAQ00LjjWWkaNXGRwYA765H6DCE3rK4sma6Yedy-7Ik5h7d1IhsytNZgKbWUvw-ldY8l0DzDUX0C5JiejMD-yJrBqNPUBG92HjeHKzWXqk5WAmQ3XQJgqkKt1daQ51-tuemOwLluhaYK7Fk7o-lYoYF439txSx9y2j-ZsUCj36RM_vvQtdlCNB3BPOfvGAprM9isNSf8VwgCSl1CavD3Cw2rkCAqXr-TV8UaZ_YXt9WR9J3SZ1A3kBBmuozGmNoDnqx4rWdK-JUBDSPYLj0krNW-u2zaV-BqSF9A2Rcp64YtGQVOyG-VBujYkcCYs3DqwqY5UDwjqSXhQEYNkQrR5ZM4LLe2iEM-Tf47mxn43Ag1gtJ1B37SR3-SuECMBnJnJPbra0ylS2yM79ll0Yv-dN2o9vo";
+        $tokenService = $this->jwtDecodeService->tokenDecode($token);
+
+        $user = $this->userRepository->findByEmail($tokenService['username']);
 
         $userMoodDateAll = $user->getUserMoodDates()->getValues();
         $userMoodDate = $userMoodDateAll[count($userMoodDateAll) - 1];

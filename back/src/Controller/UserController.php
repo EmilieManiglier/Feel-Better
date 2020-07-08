@@ -139,6 +139,7 @@ class UserController extends AbstractController
 
                 // Generate the token
                 $token = $this->JWTManager->create($user);
+                
 
                 // Return all the datas with the token in a JSON response
                 return new JsonResponse([
