@@ -31,7 +31,7 @@ const App = ({ checkLogged, isLogged }) => {
       <Switch>
         <Route exact path="/">
           <Home />
-          {isLogged && <MoodForm />}
+          {/* {isLogged && <MoodForm />} */}
         </Route>
 
         <Route exact path="/profile">

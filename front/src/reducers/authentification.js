@@ -4,6 +4,7 @@ import {
   SUBMIT_LOGIN,
   CONNECT_USER,
   LOG_OUT,
+  UPDATE_PROFILE_FIELD,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -29,6 +30,12 @@ const register = (state = initialState, action = {}) => {
         // If action.identfier === email, update the value of email in the state
         // with the info written in the input by the user
         // If action.identifier === password, update the value of password in the state
+        [action.identifier]: action.newValue,
+      };
+
+    case UPDATE_PROFILE_FIELD:
+      return {
+        ...state,
         [action.identifier]: action.newValue,
       };
 

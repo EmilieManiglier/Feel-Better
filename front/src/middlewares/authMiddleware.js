@@ -6,6 +6,7 @@ import {
   connectUser,
   REGISTER,
   CHECK_LOGGED,
+  SUBMIT_PROFILE,
 } from 'src/actions/authentification';
 
 const authMiddleware = (store) => (next) => (action) => {
@@ -81,6 +82,46 @@ const authMiddleware = (store) => (next) => (action) => {
           // Connects user and store data in the state
           console.log('response for check logged: ', response);
           store.dispatch(connectUser(response.data.user, response.data.logged));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
+
+    case SUBMIT_PROFILE: {
+      const {
+        firstname,
+        lastname,
+        email,
+        password,
+        city,
+        // avatar,
+      } = store.getState().auth;
+
+      const token = localStorage.getItem('userToken');
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      axios.post(`${apiUrl}/edituser`, {
+        firstname,
+        lastname,
+        email,
+        password,
+        city,
+        token,
+        // avatar,
+      },
+      config)
+        .then((response) => {
+          console.log('response for profile: ', response);
+          store.dispatch(connectUser(response.data.user, response.data.updated));
         })
         .catch((error) => {
           console.warn(error);

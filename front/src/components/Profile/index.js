@@ -13,6 +13,8 @@ const Profile = ({
   email,
   city,
   birthday,
+  updateField,
+  handleSubmit,
 }) => {
   if (isLogged === false) {
     return <Redirect to="/login" />;
@@ -32,7 +34,13 @@ const Profile = ({
         </button>
       </div>
 
-      <form className="profile-form">
+      <form
+        className="profile-form"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleSubmit();
+        }}
+      >
         <div className="inputs-container">
           <div className="inputBox">
             <input
@@ -40,7 +48,10 @@ const Profile = ({
               name="firstname"
               id="firstname"
               className="profile-input"
-              value={firstname}
+              placeholder={firstname}
+              onChange={(event) => {
+                updateField(event.currentTarget.name, event.currentTarget.value);
+              }}
             />
             <label className="profile-label" htmlFor="firstname">Mon prénom</label>
           </div>
@@ -51,7 +62,10 @@ const Profile = ({
               name="lastname"
               id="lastname"
               className="profile-input"
-              value={lastname}
+              placeholder={lastname}
+              onChange={(event) => {
+                updateField(event.currentTarget.name, event.currentTarget.value);
+              }}
             />
             <label className="profile-label" htmlFor="lastname">Mon nom</label>
           </div>
@@ -62,7 +76,10 @@ const Profile = ({
               name="email"
               id="email"
               className="profile-input"
-              value={email}
+              placeholder={email}
+              onChange={(event) => {
+                updateField(event.currentTarget.name, event.currentTarget.value);
+              }}
             />
             <label className="profile-label" htmlFor="email">Mon adresse email</label>
           </div>
@@ -73,7 +90,10 @@ const Profile = ({
               name="password"
               id="password"
               className="profile-input"
-              value=""
+              required
+              onChange={(event) => {
+                updateField(event.currentTarget.name, event.currentTarget.value);
+              }}
             />
             <label className="profile-label" htmlFor="password">Mon mot de passe</label>
           </div>
@@ -84,7 +104,10 @@ const Profile = ({
               name="city"
               id="city"
               className="profile-input"
-              value={city}
+              placeholder={city}
+              onChange={(event) => {
+                updateField(event.currentTarget.name, event.currentTarget.value);
+              }}
             />
             <label className="profile-label" htmlFor="city">Ma ville</label>
           </div>
@@ -96,12 +119,18 @@ const Profile = ({
               id="birthday"
               className="profile-input"
               value={birthday}
+              readOnly
             />
             <label className="profile-label" htmlFor="birthday">Ma date de naissance</label>
           </div>
         </div>
 
-        <button type="submit" className="profile-submit-btn">Modifier mes informations</button>
+        <button
+          type="submit"
+          className="profile-submit-btn"
+        >
+          Modifier mes informations
+        </button>
       </form>
     </div>
   );
@@ -114,6 +143,8 @@ Profile.propTypes = {
   email: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   birthday: PropTypes.string.isRequired,
+  updateField: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default Profile;
