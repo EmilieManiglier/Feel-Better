@@ -194,7 +194,7 @@ class UserController extends AbstractController
         if (!empty($jsonData['birthday'])) {
             $user->setBirthday(new DateTime($jsonData['birthday']));
         } else {
-            $jsonData['birthday'] = $user->getBirthday();
+            $jsonData['birthday'] = new DateTime($user->getBirthday());
         }
         if (!empty($jsonData['city'])) {
             $user->setCity($jsonData['city']);
