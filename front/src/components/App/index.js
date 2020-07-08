@@ -9,7 +9,7 @@ import Header from 'src/components/Header';
 import Home from 'src/containers/Home';
 import Profile from 'src/containers/Profile';
 import Suggestions from 'src/containers/Suggestions';
-// import Moodform from 'src/components/MoodForm';
+import MoodForm from 'src/components/MoodForm';
 import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
 
@@ -34,6 +34,7 @@ const App = ({ checkToken }) => {
       <Switch>
         <Route exact path="/">
           <Home />
+          <MoodForm />
         </Route>
 
         <Route exact path="/profile">

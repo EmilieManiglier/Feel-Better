@@ -1,4 +1,5 @@
 @import 'src/styles/vars';
+@import 'src/styles/btn';
 
 .mood {
   /* overlay */
@@ -23,6 +24,8 @@
     padding: 2rem;
 
     .moods {
+      text-align: center;
+
       .moods-title {
         font-weight: 600;
         font-family: $patrick-font;
@@ -34,9 +37,55 @@
 
       }
     }
+
+    .stars {
+      display: flex;
+      flex-direction: column;
+    }
+   
+    input.star{
+      display: none;
+    }
+    
+    .star {
+      float: right;
+      padding: 10px;
+      font-size: 2.5rem;
+      color: #444;
+      transition: all .2s;
+    }
+    
+    input.star:checked ~ label.star:before {
+      content:'\f005';
+      color: #F62;
+      transition: all .25s;
+    }
+    
+    input.star-3:checked ~ label.star:before {
+      color:#FD4;
+      text-shadow: 0 0 20px #952;
+    }
+    
+    input.star-1:checked ~ label.star:before {
+      color: #FE7;
+    }
+    
+    label.star:hover{
+      transform: rotate(-5deg) scale(1.2);
+    }
+    
+    label.star:before{
+      content:'\f006';
+      font-family: FontAwesome;
+    }
+
+    .submit-button {
+      @include btn-style;
+    }
+    
   }
 }
 
 @media screen and (min-width: 768px) {
-  
+
 }
