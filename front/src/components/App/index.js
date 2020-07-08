@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 // == Import npm
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -20,13 +20,10 @@ import Register from 'src/containers/Register';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkToken }) => {
-  // Check if token exist in localstorage
-  const token = localStorage.getItem('userToken');
-  // If token exist, user remains connected
-  if (token) {
-    checkToken();
-  }
+const App = ({ checkLogged }) => {
+  useEffect(() => {
+    checkLogged();
+  }, []);
 
   return (
     <div className="app">
@@ -34,7 +31,7 @@ const App = ({ checkToken }) => {
       <Switch>
         <Route exact path="/">
           <Home />
-          <MoodForm />
+          {/* <MoodForm /> */}
         </Route>
 
         <Route exact path="/profile">
@@ -68,7 +65,7 @@ const App = ({ checkToken }) => {
 };
 
 App.propTypes = {
-  checkToken: PropTypes.func.isRequired,
+  checkLogged: PropTypes.func.isRequired,
 };
 
 // == Export

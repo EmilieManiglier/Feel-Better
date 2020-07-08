@@ -3,7 +3,6 @@ import {
   UPDATE_LOGIN_FIELD,
   SUBMIT_LOGIN,
   CONNECT_USER,
-  CHECK_TOKEN,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -52,11 +51,6 @@ const register = (state = initialState, action = {}) => {
         // Store user'informations received from API response in the state
         data: action.data,
         isLogged: action.isLogged,
-      };
-    case CHECK_TOKEN:
-      return {
-        ...state,
-        isLogged: true,
       };
 
     default: return state;

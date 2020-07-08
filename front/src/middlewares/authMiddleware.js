@@ -5,6 +5,7 @@ import {
   LOG_IN,
   connectUser,
   REGISTER,
+  CHECK_LOGGED,
 } from 'src/actions/authentification';
 
 const authMiddleware = (store) => (next) => (action) => {
@@ -23,7 +24,7 @@ const authMiddleware = (store) => (next) => (action) => {
         withCredentials: true,
       })
         .then((response) => {
-          console.log('response: ', response);
+          console.log('response for login: ', response);
           // Store user'informations received from API response in the state
           store.dispatch(connectUser(response.data.user, response.data.logged));
           // Save the JWT in localStorage
@@ -63,8 +64,32 @@ const authMiddleware = (store) => (next) => (action) => {
         withCredentials: true,
       })
         .then((response) => {
-          console.log('response: ', response);
+          console.log('response for register: ', response);
           store.dispatch(connectUser(response.data.user, response.data.registered));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
+
+    case CHECK_LOGGED: {
+      const token = localStorage.getItem('userToken');
+
+      // Send token store in localStorage
+      // If token exist and is valid,
+      // user data is send from server and user is connected persistently
+      // If not, user data is empty and user is redirect to login page
+      axios.post(`${apiUrl}/islogged`, { token }, {
+        // withCredentials : allow cookie access
+        withCredentials: true,
+      })
+        .then((response) => {
+          // Connects user and store data in the state
+          console.log('response for check logged: ', response);
+          store.dispatch(connectUser(response.data.user, response.data.logged));
         })
         .catch((error) => {
           console.warn(error);
