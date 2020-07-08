@@ -6,7 +6,14 @@ import PropTypes from 'prop-types';
 
 import './profile.scss';
 
-const Profile = ({ isLogged }) => {
+const Profile = ({
+  isLogged,
+  firstname,
+  lastname,
+  email,
+  city,
+  birthday,
+}) => {
   if (isLogged === false) {
     return <Redirect to="/login" />;
   }
@@ -16,7 +23,6 @@ const Profile = ({ isLogged }) => {
       <div className="icone-container">
         <div className="profile-icone">
           <Cat size={210} mood="excited" color="#dfe5f0" />
-
         </div>
         <button
           type="button"
@@ -34,7 +40,7 @@ const Profile = ({ isLogged }) => {
               name="firstname"
               id="firstname"
               className="profile-input"
-              value="Petit"
+              value={firstname}
             />
             <label className="profile-label" htmlFor="firstname">Mon prénom</label>
           </div>
@@ -45,7 +51,7 @@ const Profile = ({ isLogged }) => {
               name="lastname"
               id="lastname"
               className="profile-input"
-              value="Chat"
+              value={lastname}
             />
             <label className="profile-label" htmlFor="lastname">Mon nom</label>
           </div>
@@ -56,7 +62,7 @@ const Profile = ({ isLogged }) => {
               name="email"
               id="email"
               className="profile-input"
-              value="petit.chat@gmail.com"
+              value={email}
             />
             <label className="profile-label" htmlFor="email">Mon adresse email</label>
           </div>
@@ -67,7 +73,7 @@ const Profile = ({ isLogged }) => {
               name="password"
               id="password"
               className="profile-input"
-              value="petitchat"
+              value=""
             />
             <label className="profile-label" htmlFor="password">Mon mot de passe</label>
           </div>
@@ -78,7 +84,7 @@ const Profile = ({ isLogged }) => {
               name="city"
               id="city"
               className="profile-input"
-              value="Miaou"
+              value={city}
             />
             <label className="profile-label" htmlFor="city">Ma ville</label>
           </div>
@@ -89,7 +95,7 @@ const Profile = ({ isLogged }) => {
               name="birthday"
               id="birthday"
               className="profile-input"
-              value="1993-05-23"
+              value={birthday}
             />
             <label className="profile-label" htmlFor="birthday">Ma date de naissance</label>
           </div>
@@ -103,6 +109,11 @@ const Profile = ({ isLogged }) => {
 
 Profile.propTypes = {
   isLogged: PropTypes.bool.isRequired,
+  firstname: PropTypes.string.isRequired,
+  lastname: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
+  birthday: PropTypes.string.isRequired,
 };
 
 export default Profile;
