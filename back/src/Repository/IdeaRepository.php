@@ -48,12 +48,14 @@ class IdeaRepository extends ServiceEntityRepository
     }
     */
 
-    public function findAllByMood($idMood)
+    public function findAllByMood($idMood, $budgetUser)
     {
         return $this->createQueryBuilder('i')
             ->join('i.moods', 'idea_mood')
             ->where('idea_mood.id = :idMood')
-            ->setParameter('idMood', $idMood)
+            ->andWhere('i.estimation <= :budgetUser')
+            ->setParameters(['idMood' => $idMood, 'budgetUser' => $budgetUser])
+            //§->setParameters('budgetUser', $budgetUser)
             ->getQuery()
             ->getResult();
     }

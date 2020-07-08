@@ -47,4 +47,13 @@ class MoodRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByNameEn($nameEn): ?Mood
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.name_en = :nameEn')
+            ->setParameter('nameEn', $nameEn)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
