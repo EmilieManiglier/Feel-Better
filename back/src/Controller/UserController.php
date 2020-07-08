@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterType;
+use App\Form\UpdateType;
 use App\Repository\UserRepository;
+use App\Service\JwtDecodeService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,12 +22,14 @@ class UserController extends AbstractController
     private $em;
     private $passwordEncoder;
     private $JWTManager;
+    private $jwtDecodeService;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, JWTTokenManagerInterface $JWTManager)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, JWTTokenManagerInterface $JWTManager, JwtDecodeService $jwtDecodeService)
     {
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->JWTManager = $JWTManager;
+        $this->jwtDecodeService = $jwtDecodeService;
     }
 
     /**
@@ -139,7 +143,7 @@ class UserController extends AbstractController
 
                 // Generate the token
                 $token = $this->JWTManager->create($user);
-                
+
 
                 // Return all the datas with the token in a JSON response
                 return new JsonResponse([
@@ -162,6 +166,73 @@ class UserController extends AbstractController
         } else {
             // The email does not exist, we return a JSON error
             return new JsonResponse(['logged' => false, 'error' => ['email' => false]], Response::HTTP_FORBIDDEN);
+        }
+    }
+
+    /**
+     * @Route("/api/v1/edituser", name="edit_user", METHODS={"POST"})
+     */
+    public function edit(Request $request, UserRepository $userRepository)
+    {
+        $jsonData = json_decode($request->getContent(), true);
+        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData['token']);
+
+        $user = $userRepository->findByEmail($tokenService['username']);
+
+        $form = $this->createForm(UpdateType::class, $user);
+        //dd($jsonData['firstname']);
+        if (!empty($jsonData['firstname'])) {
+            $user->setFirstname($jsonData['firstname']);
+        } else {
+            $user->setFirstname($user->getFirstname());
+        }
+        if (!empty($jsonData['lastname'])) {
+            $user->setLastname($jsonData['lastname']);
+        } else {
+            $user->setLastname($user->getLastname());
+        }
+        if (!empty($jsonData['birthday'])) {
+            $user->setBirthday(new DateTime($jsonData['birthday']));
+        } else {
+            $user->setBirthday($user->getBirthday());
+        }
+        if (!empty($jsonData['city'])) {
+            $user->setCity($jsonData['city']);
+        } else {
+            $user->setCity($user->getCity());
+        }
+        if (!empty($jsonData['email'])) {
+            $user->setEmail($jsonData['email']);
+        } else {
+            $user->setEmail($user->getEmail());
+        }
+        $form->submit($jsonData);
+
+        $user->setUpdatedAt(new DateTime());
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            // I save in user database
+            $this->em->flush();
+
+            // I send the answer in json
+            return new JsonResponse([
+                'updated' => true,
+                'user' => [
+                    'id' => $user->getId(),
+                    'email' => $user->getEmail(),
+                    'firstname' => $user->getFirstname(),
+                    'lastname' => $user->getLastname(),
+                    'role' => $user->getRoles(),
+                    'birthday' => $user->getBirthday()->format('Y-m-d'),
+                    'city' => $user->getCity()
+                ]
+            ], Response::HTTP_OK);
+        } else {
+            // If the form was not good, I send a 403 error
+            return new JsonResponse(['updated' => false, 'error' => ['validated' => false]], Response::HTTP_FORBIDDEN);
         }
     }
 }
