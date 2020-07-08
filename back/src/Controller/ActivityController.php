@@ -53,10 +53,12 @@ class ActivityController extends AbstractController
         $randomIdea = array_rand($ideasAll, 5);
         $tableIdea = [];
         foreach ($randomIdea as $key => $value) {
-            $tableIdea[]['name'] = $ideasAll[$value]->getName();
-            $tableIdea[]['picture'] = $ideasAll[$value]->getPicture();
+            $tableIdea[] = [
+                "name" => $ideasAll[$value]->getName(),
+                "picture" => $ideasAll[$value]->getPicture()
+            ];
         }
 
-        return new JsonResponse(['suggestion' => true, 'ideas' => [$tableIdea]], Response::HTTP_FORBIDDEN);
+        return new JsonResponse(['suggestion' => true, 'ideas' => $tableIdea], Response::HTTP_OK);
     }
 }
