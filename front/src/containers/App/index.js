@@ -1,10 +1,11 @@
+/* eslint-disable import/no-unresolved */
 import { connect } from 'react-redux';
 import App from 'src/components/App';
 import { checkLogged } from 'src/actions/authentification';
 
 // === mapStateToProps
 const mapStateToProps = (state) => ({
-  token: state.auth.data.token,
+  isLogged: state.auth.isLogged,
 });
 
 // === mapDispatchToProps

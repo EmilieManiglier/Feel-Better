@@ -60,7 +60,6 @@ const register = (state = initialState, action = {}) => {
         ...state,
         isLogged: false,
       };
-
     default: return state;
   }
 };

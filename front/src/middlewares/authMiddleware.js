@@ -19,9 +19,6 @@ const authMiddleware = (store) => (next) => (action) => {
       axios.post(`${apiUrl}/login`, {
         email,
         password,
-      }, {
-        // withCredentials : allow cookie access
-        withCredentials: true,
       })
         .then((response) => {
           console.log('response for login: ', response);
@@ -59,9 +56,6 @@ const authMiddleware = (store) => (next) => (action) => {
         city,
         birthday,
         // avatar,
-      }, {
-        // withCredentials : allow cookie access
-        withCredentials: true,
       })
         .then((response) => {
           console.log('response for register: ', response);
@@ -82,10 +76,7 @@ const authMiddleware = (store) => (next) => (action) => {
       // If token exist and is valid,
       // user data is send from server and user is connected persistently
       // If not, user data is empty and user is redirect to login page
-      axios.post(`${apiUrl}/islogged`, { token }, {
-        // withCredentials : allow cookie access
-        withCredentials: true,
-      })
+      axios.post(`${apiUrl}/islogged`, { token })
         .then((response) => {
           // Connects user and store data in the state
           console.log('response for check logged: ', response);

@@ -16,24 +16,35 @@
     background-color: $light-main-color;
     border-radius: $border-radius;
     min-width: 95%;
-    min-height: 85%;
+    max-height: 85%;
+    overflow: auto;
     position: absolute;
     top: 60%;
     left: 60%;
     transform: translate(-60%, -60%);
     padding: 2rem;
+    text-align: center;
 
-    .moods {
+    .mood-wrapper {
       text-align: center;
 
-      .moods-title {
+      .mood-title {
         font-weight: 600;
         font-family: $patrick-font;
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        margin: 1rem 0;
       }
 
-      .moods-icons {
+      .mood-icons {
+        .mood-img {
+          margin: 0.6rem;
+          margin-bottom: 1rem;
+
+          .mood-img-input {
+            display: none;
+          }
+
+        }
 
       }
     }

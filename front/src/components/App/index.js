@@ -9,7 +9,7 @@ import Header from 'src/containers/Header';
 import Home from 'src/containers/Home';
 import Profile from 'src/containers/Profile';
 import Suggestions from 'src/containers/Suggestions';
-import MoodForm from 'src/components/MoodForm';
+import MoodForm from 'src/containers/MoodForm';
 import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
 
@@ -20,7 +20,7 @@ import Register from 'src/containers/Register';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkLogged }) => {
+const App = ({ checkLogged, isLogged }) => {
   useEffect(() => {
     checkLogged();
   }, []);
@@ -31,7 +31,7 @@ const App = ({ checkLogged }) => {
       <Switch>
         <Route exact path="/">
           <Home />
-          {/* <MoodForm /> */}
+          {isLogged && <MoodForm />}
         </Route>
 
         <Route exact path="/profile">
@@ -66,6 +66,7 @@ const App = ({ checkLogged }) => {
 
 App.propTypes = {
   checkLogged: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 // == Export
