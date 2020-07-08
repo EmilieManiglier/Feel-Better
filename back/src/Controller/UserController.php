@@ -184,27 +184,27 @@ class UserController extends AbstractController
         if (!empty($jsonData['firstname'])) {
             $user->setFirstname($jsonData['firstname']);
         } else {
-            $user->setFirstname($user->getFirstname());
+            $jsonData['firstname'] = $user->getFirstname();
         }
         if (!empty($jsonData['lastname'])) {
             $user->setLastname($jsonData['lastname']);
         } else {
-            $user->setLastname($user->getLastname());
+            $jsonData['lastname'] = $user->getLastname();
         }
         if (!empty($jsonData['birthday'])) {
             $user->setBirthday(new DateTime($jsonData['birthday']));
         } else {
-            $user->setBirthday($user->getBirthday());
+            $jsonData['birthday'] = $user->getBirthday();
         }
         if (!empty($jsonData['city'])) {
             $user->setCity($jsonData['city']);
         } else {
-            $user->setCity($user->getCity());
+            $jsonData['city'] = $user->getCity();
         }
         if (!empty($jsonData['email'])) {
             $user->setEmail($jsonData['email']);
         } else {
-            $user->setEmail($user->getEmail());
+            $jsonData['email'] = $user->getEmail();
         }
         $form->submit($jsonData);
 
