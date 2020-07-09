@@ -1,8 +1,9 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-import Suggestion from 'src/containers/Suggestions/Suggestion';
+import Suggestion from 'src/components/Suggestions/Suggestion';
 import './suggestion.scss';
 
 const Suggestions = ({ isLogged, setMood, ideas }) => {

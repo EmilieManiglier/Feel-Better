@@ -23,7 +23,7 @@ const Suggestion = ({
   return (
     <div className="suggestion-container">
       <div className="picture-activity">
-        <img src={`/assets/images/activities/${picture}`} alt="" className="picture" />
+        <img src={`/images/activities/${picture}`} alt="" className="picture" />
       </div>
       <div className="suggestion">
         <h3>{name}</h3>
