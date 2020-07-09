@@ -168,17 +168,23 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, UserRepository $userRepository)
     {
+        // Get the content of the Request and convert the json data to PHP data object 
         $data = $request->getContent();
         $jsonData = json_decode($data);
 
+        // Use the serializer to populate the User Object with the data of the request
         $userFront = $this->serializer->deserialize($data, User::class, 'json');
 
+        // Use the service jwtDecodeService to decode the token in the request content
         $tokenService = $this->jwtDecodeService->tokenDecode($jsonData->token);
 
+        // Use the userRespository to find the email of the user with the username stored in the tokenService
         $user = $userRepository->findByEmail($tokenService['username']);
 
+        // Use the passwordEncoder to check the validity of the password entered in the Request and the password in DB
         if ($this->passwordEncoder->isPasswordValid($user, $jsonData->password)) {
 
+            // If the firstname is not empty in the request we set the value with the data of the serializer
             if (!empty($jsonData->firstname)) {
                 $user->setFirstname($userFront->getFirstname());
             }
@@ -194,15 +200,17 @@ class UserController extends AbstractController
 
             $user->setUpdatedAt(new DateTime());
 
+            // Use the validator to check the errors of the $user 
             $errors = $this->validator->validate($user);
 
+            // If errors > 0 we return the detail of the error(s)
             if(count($errors) > 0) {
                 return $this->json($errors, Response::HTTP_BAD_REQUEST);
             }
-                // I save in user database
+                // Save the user in database
                 $this->em->flush();
 
-                // I send the answer in json
+                // Return the complete object with all data
                 return new JsonResponse([
                     'updated' => true,
                     'user' => [
