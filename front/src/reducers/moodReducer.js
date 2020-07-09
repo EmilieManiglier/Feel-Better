@@ -13,6 +13,8 @@ const initialState = {
   timestamp: 0,
   // Suggestions
   ideas: [],
+  // Display loader while waiting API response
+  isLoading: true,
 };
 
 const moodReducer = (state = initialState, action = {}) => {
@@ -43,6 +45,7 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         ideas: action.ideas,
+        isLoading: false,
       };
 
     default: return state;
