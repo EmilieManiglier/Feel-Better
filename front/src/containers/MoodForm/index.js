@@ -4,6 +4,7 @@ import { handleMoodSubmit, updateMood, updateEstimation } from 'src/actions/mood
 
 // === mapStateToProps
 const mapStateToProps = (state) => ({
+  setMood: state.mood.setMood,
 });
 
 // === mapDispatchToProps
