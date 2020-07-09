@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   mood: '',
-  estimation: '',
+  estimation: 0,
   setMood: false,
   timestamp: 0,
   // Suggestions
