@@ -29,10 +29,11 @@ export const submitProfile = () => ({
   type: SUBMIT_PROFILE,
 });
 
-// === Middleware actions
+// ==== Middleware actions ====
 export const LOG_IN = 'LOG_IN';
 export const CONNECT_USER = 'CONNECT_USER';
 export const REGISTER = 'REGISTER';
+export const UPDATE_LOADER = 'UPDATE_LOADER';
 
 // logs the user
 export const logIn = () => ({
@@ -59,4 +60,8 @@ export const checkLogged = () => ({
 // disconnects users
 export const logOut = () => ({
   type: LOG_OUT,
+});
+
+export const updateLoader = () => ({
+  type: UPDATE_LOADER,
 });

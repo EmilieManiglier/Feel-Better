@@ -5,6 +5,7 @@ import {
   CONNECT_USER,
   LOG_OUT,
   UPDATE_PROFILE_FIELD,
+  UPDATE_LOADER,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -19,6 +20,8 @@ const initialState = {
   data: {},
   // Determine if user is connected
   isLogged: false,
+  // Display loader while doing API request
+  isLoading: true,
 };
 
 const register = (state = initialState, action = {}) => {
@@ -59,6 +62,7 @@ const register = (state = initialState, action = {}) => {
         // Store user'informations received from API response in the state
         data: action.data,
         isLogged: action.isLogged,
+        isLoading: false,
       };
 
     case LOG_OUT:
@@ -67,6 +71,13 @@ const register = (state = initialState, action = {}) => {
         ...state,
         isLogged: false,
       };
+
+    case UPDATE_LOADER:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
     default: return state;
   }
 };

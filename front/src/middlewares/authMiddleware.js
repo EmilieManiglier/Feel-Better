@@ -7,6 +7,7 @@ import {
   REGISTER,
   CHECK_LOGGED,
   SUBMIT_PROFILE,
+  updateLoader,
 } from 'src/actions/authentification';
 
 const authMiddleware = (store) => (next) => (action) => {
@@ -85,6 +86,8 @@ const authMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.warn(error);
+          // Hide loader if user isn't connected and refresh page
+          store.dispatch(updateLoader());
         });
 
       next(action);

@@ -43,3 +43,9 @@ $dark-text: #f8f8f8;
 // -orange: #ff9933
 // blue : #3399ff
 
+// Loader
+$first-dot: color.scale($light-default-color, $lightness: 60%);
+$second-dot: color.scale($light-default-color, $lightness: 20%);
+$third-dot: color.scale($light-default-color, $lightness: 10%);
+$fourth-dot: color.scale($light-default-color, $lightness: -30%);
+$fifth-dot: color.scale($light-default-color, $lightness: -60%);
