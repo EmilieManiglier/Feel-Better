@@ -16,6 +16,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
@@ -23,13 +27,17 @@ class UserController extends AbstractController
     private $passwordEncoder;
     private $JWTManager;
     private $jwtDecodeService;
+    private $validator;
+    private $serializer;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, JWTTokenManagerInterface $JWTManager, JwtDecodeService $jwtDecodeService)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, JWTTokenManagerInterface $JWTManager, JwtDecodeService $jwtDecodeService, ValidatorInterface $validator, SerializerInterface $serializer)
     {
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->JWTManager = $JWTManager;
         $this->jwtDecodeService = $jwtDecodeService;
+        $this->validator = $validator;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -38,43 +46,34 @@ class UserController extends AbstractController
     public function register(Request $request, UserRepository $userRepository)
     {
         // I get the data from the request
-        $jsonData = json_decode($request->getContent(), true);
-
+        $data = $request->getContent();
+        $jsonData = json_decode($data);
+        $user = $this->serializer->deserialize($data, User::class, 'json');
 
         //I check if the email exists in the database
-        $emailInDb = $userRepository->findByEmail($jsonData['email']);
+        $emailInDb = $userRepository->findByEmail($user->getEmail());
         // If not, I process the form
         if ($emailInDb === null) {
-            if ($jsonData['confirm_password'] === $jsonData['password']) {
+            if ($jsonData->confirm_password === $jsonData->password) {
                 // Initialization of the entity
-                $user = new User;
 
-
-                // Creation of the validation form
-                $form = $this->createForm(RegisterType::class, $user);
-                $form->submit($jsonData);
-
-                // Attributing values ​​to the entity
-                $user->setFirstname($jsonData['firstname']);
-                $user->setLastname($jsonData['lastname']);
-                $user->setBirthday(new DateTime($jsonData['birthday']));
-                $user->setCity($jsonData['city']);
-                $user->setEmail($jsonData['email']);
                 $user->setAvatar(null);
                 $user->setCreatedAt(new DateTime());
                 $user->setRoles(['ROLE_USER']);
 
-                // Hash password
-                $user->setPassword($this->passwordEncoder->encodePassword($user, $jsonData['password']));
 
+                // Hash password
+                $user->setPassword($this->passwordEncoder->encodePassword($user, $jsonData->password));
 
                 //$avatar = $request->files->get('avatar');
 
-                // If the form is sent and it is valid
-                if ($form->isSubmitted() && $form->isValid()) {
+                $errors = $this->validator->validate($user);
 
+                if (count($errors) > 0) {
+                    return $this->json($errors, Response::HTTP_BAD_REQUEST);
+                }
 
-                    /*if ($avatar) {
+                /*if ($avatar) {
 
                 $originalFileName = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFileName);
@@ -92,29 +91,25 @@ class UserController extends AbstractController
 
                 $user->setAvatar($newFilename);
                 }*/
-                    $token = $this->JWTManager->create($user);
-                    // I save in user database
-                    $this->em->persist($user);
-                    $this->em->flush();
+                $token = $this->JWTManager->create($user);
+                // I save in user database
+                $this->em->persist($user);
+                $this->em->flush();
 
-                    // I send the answer in json
-                    return new JsonResponse([
-                        'registered' => true,
-                        'user' => [
-                            'id' => $user->getId(),
-                            'email' => $user->getEmail(),
-                            'firstname' => $user->getFirstname(),
-                            'lastname' => $user->getLastname(),
-                            'role' => $user->getRoles(),
-                            'birthday' => $user->getBirthday()->format('Y-m-d'),
-                            'city' => $user->getCity(),
-                            'token' => $token
-                        ]
-                    ], Response::HTTP_CREATED);
-                } else {
-                    // If the form was not good, I send a 403 error
-                    return new JsonResponse(['registred' => false, 'error' => ['validated' => false]], Response::HTTP_FORBIDDEN);
-                }
+                // I send the answer in json
+                return new JsonResponse([
+                    'registered' => true,
+                    'user' => [
+                        'id' => $user->getId(),
+                        'email' => $user->getEmail(),
+                        'firstname' => $user->getFirstname(),
+                        'lastname' => $user->getLastname(),
+                        'role' => $user->getRoles(),
+                        'birthday' => $user->getBirthday()->format('Y-m-d'),
+                        'city' => $user->getCity(),
+                        'token' => $token
+                    ]
+                ], Response::HTTP_CREATED);
             } else {
                 // If the two passwords do not match, I send a 403 error
                 return new JsonResponse(['registred' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
@@ -143,7 +138,6 @@ class UserController extends AbstractController
 
                 // Generate the token
                 $token = $this->JWTManager->create($user);
-
 
                 // Return all the datas with the token in a JSON response
                 return new JsonResponse([
@@ -174,44 +168,37 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, UserRepository $userRepository)
     {
-        $jsonData = json_decode($request->getContent(), true);
-        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData['token']);
+        $data = $request->getContent();
+        $jsonData = json_decode($data);
+
+        $userFront = $this->serializer->deserialize($data, User::class, 'json');
+
+        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData->token);
 
         $user = $userRepository->findByEmail($tokenService['username']);
 
-        if ($this->passwordEncoder->isPasswordValid($user, $jsonData['password'])) {
-            $form = $this->createForm(UpdateType::class, $user);
-            //dd($jsonData['firstname']);
-            if (!empty($jsonData['firstname'])) {
-                $user->setFirstname($jsonData['firstname']);
-            } else {
-                $jsonData['firstname'] = $user->getFirstname();
-            }
-            if (!empty($jsonData['lastname'])) {
-                $user->setLastname($jsonData['lastname']);
-            } else {
-                $jsonData['lastname'] = $user->getLastname();
-            }
-            if (!empty($jsonData['city'])) {
-                $user->setCity($jsonData['city']);
-            } else {
-                $jsonData['city'] = $user->getCity();
-            }
-            if (!empty($jsonData['email'])) {
-                $user->setEmail($jsonData['email']);
-            } else {
-                $jsonData['email'] = $user->getEmail();
-            }
+        if ($this->passwordEncoder->isPasswordValid($user, $jsonData->password)) {
 
-            $jsonData['password'] = $user->getPassword();
-            $form->submit($jsonData);
+            if (!empty($jsonData->firstname)) {
+                $user->setFirstname($userFront->getFirstname());
+            }
+            if (!empty($jsonData->lastname)) {
+                $user->setLastname($userFront->getLastname());
+            }
+            if (!empty($jsonData->city)) {
+                $user->setCity($userFront->getCity());
+            }
+            if (!empty($jsonData->email)) {
+                $user->setEmail($userFront->getEmail());
+            }
 
             $user->setUpdatedAt(new DateTime());
 
+            $errors = $this->validator->validate($user);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-
-
+            if(count($errors) > 0) {
+                return $this->json($errors, Response::HTTP_BAD_REQUEST);
+            }
                 // I save in user database
                 $this->em->flush();
 
@@ -228,10 +215,7 @@ class UserController extends AbstractController
                         'city' => $user->getCity()
                     ]
                 ], Response::HTTP_OK);
-            } else {
-                // If the form was not good, I send a 403 error
-                return new JsonResponse(['updated' => false, 'error' => ['validated' => false]], Response::HTTP_FORBIDDEN);
-            }
+            
         } else {
             // If the form was not good, I send a 403 error
             return new JsonResponse(['updated' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);

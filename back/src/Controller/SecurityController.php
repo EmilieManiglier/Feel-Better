@@ -22,7 +22,7 @@ class SecurityController extends AbstractController
      */
     public function isLogged(Request $request)
     {
-        $jsonData = json_decode($request->getContent(), true);
-        return $this->jwtDecodeService->tokenVerifyUser($jsonData['token']);
+        $jsonData = json_decode($request->getContent());
+        return $this->jwtDecodeService->tokenVerifyUser($jsonData->token);
     }
 }

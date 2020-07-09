@@ -38,11 +38,15 @@ class ActivityController extends AbstractController
      */
     public function suggestion(Request $request)
     {
-        $jsonData = json_decode($request->getContent(), true);
-        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData['token']);
+        $jsonData = json_decode($request->getContent());
+        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData->token);
         $user = $this->userRepository->findByEmail($tokenService['username']);
 
         $userMoodDateAll = $user->getUserMoodDates()->getValues();
+
+        if(count($userMoodDateAll) <= 0) {
+            return $this->json(['errorMoodDate' => true], Response::HTTP_BAD_REQUEST);
+        }
         $userMoodDate = $userMoodDateAll[count($userMoodDateAll) - 1];
 
         $userBudget = $userMoodDate->getBudget();
@@ -84,17 +88,17 @@ class ActivityController extends AbstractController
      */
     public function setMood(Request $request)
     {
-        $jsonData = json_decode($request->getContent(), true);
+        $jsonData = json_decode($request->getContent());
 
-        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData['token']);
+        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData->token);
 
         $userEntity = $this->userRepository->findByEmail($tokenService['username']);
-        $moodEntity = $this->moodRepository->findByNameEn($jsonData['mood']);
+        $moodEntity = $this->moodRepository->findByNameEn($jsonData->mood);
         $date = new DateTime();
         $userMoodDate = new UserMoodDate;
         $userMoodDate->addUser($userEntity);
         $userMoodDate->addMood($moodEntity);
-        $userMoodDate->setBudget($jsonData['estimation']);
+        $userMoodDate->setBudget($jsonData->estimation);
         $userMoodDate->setMoodDate($date);
 
         $this->em->persist($userMoodDate);
