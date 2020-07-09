@@ -3,7 +3,7 @@ import axios from 'axios';
 import { HANDLE_MOOD_SUBMIT, saveMood } from 'src/actions/mood';
 
 const moodMiddleware = (store) => (next) => (action) => {
-  const apiUrl = 'http://34.201.124.197/api/v1';
+  const apiUrl = 'http://18.232.116.23/api/v1';
 
   switch (action.type) {
     case HANDLE_MOOD_SUBMIT: {
