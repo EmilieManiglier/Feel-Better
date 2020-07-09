@@ -54,7 +54,7 @@
       .btn {
         @include btn-style;
         width: 100%;
-        text-align: center;
+        margin: 1rem;
       }
 
       .register-btn {
@@ -95,8 +95,7 @@
         justify-content: center;
 
         .btn {
-          width: 25%;
-          margin: 1rem;
+          width: fit-content;
         }
       }
     }

@@ -48,13 +48,13 @@
       margin: auto;
 
       .register-container {
-        width: 40%;
+        width: 45%;
       }
 
       .register-container-email,
       .register-container-avatar, 
       .register-container-cgu  {
-        width: 90%;
+        width: 95%;
       }
 
       .register-container-cgu {
@@ -66,18 +66,8 @@
 
         .register-input {
           width: 30%;
-          background-color: green;
         }
-
       }
     }
-
-    .register-button {
-      width: 40%;
-      &:before {
-        left: 1.5rem;
-      }
-    }
-
   }
 }

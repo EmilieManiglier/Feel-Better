@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Loader from 'src/components/Loader';
 
 import Suggestion from 'src/components/Suggestions/Suggestion';
@@ -19,7 +19,7 @@ const Suggestions = ({
 
   if (!setMood) {
     return (
-      <div className="suggestions-container">Vous n'avez pas répondu au formulaire !</div>
+      <div className="suggestions-container">Vous n'avez pas encore répondu au <Link to="/mood" className="redirect-mood-link">formulaire d'humeur</Link> !</div>
     );
   }
 

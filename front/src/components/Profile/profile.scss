@@ -3,8 +3,10 @@
 
 .profile {
   .icone-container {
-    text-align: center;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
     .profile-icone {
       display:inline-block;
       width:200px;
@@ -56,14 +58,19 @@
     }
 
     .profile-submit-btn {
-      border: 2px solid $light-default-color;
-      outline: none;
-      padding: 0.8rem 1.2rem;
-      border-radius: $border-radius;
-      font-size: 1.2rem;
-      background-color: $light-default-color;
+      @include btn-style;
       color: $light-main-color;
-      text-transform: uppercase;
+      background-color: $light-default-color;
+
+
+      &:before {
+        left: -5%;
+        background-color: $light-main-color;
+      }
+
+      &:hover {
+        color: $light-default-color;
+      }
     }
   }
 
@@ -77,8 +84,11 @@
     align-items: center;
     min-height: 90vh;
 
+    .icone-container {
+      padding: 2rem 4rem;
+    }
+
     .profile-form {
-      width: 60%;
       padding: 0 2rem;
       margin: 0;
 

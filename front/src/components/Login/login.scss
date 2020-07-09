@@ -8,7 +8,6 @@
   .login-form {
     width: 90%;
     margin: auto;
-    text-align: center;
     padding-top: 3rem;
     margin-bottom: 2rem;
   
@@ -61,16 +60,11 @@
 @media screen and (min-width: 768px) {
   .login {
     min-height: 90vh;
+    padding-top: 10rem;
 
     .login-form {
-      padding-top: 10rem;
+      padding: 1.5rem;
       width: 30%;
-  
-      .login-button {
-        &:before {
-          left: 1.3rem;
-        }
-      }
     }
 
   }
