@@ -22,3 +22,11 @@ export const saveMood = (setMood, timestamp) => ({
   setMood,
   timestamp,
 });
+
+// === Middleware actions
+export const LOAD_SUGGESTIONS = 'LOAD_SUGGESTIONS';
+
+export const loadSuggestions = (ideas) => ({
+  type: LOAD_SUGGESTIONS,
+  ideas,
+});

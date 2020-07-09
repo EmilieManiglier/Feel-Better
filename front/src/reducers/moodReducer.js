@@ -3,6 +3,7 @@ import {
   UPDATE_MOOD,
   UPDATE_ESTIMATION,
   SAVE_MOOD,
+  LOAD_SUGGESTIONS,
 } from 'src/actions/mood';
 
 const initialState = {
@@ -10,6 +11,8 @@ const initialState = {
   estimation: '',
   setMood: false,
   timestamp: 0,
+  // Suggestions
+  ideas: [],
 };
 
 const moodReducer = (state = initialState, action = {}) => {
@@ -35,6 +38,11 @@ const moodReducer = (state = initialState, action = {}) => {
         ...state,
         setMood: action.setMood,
         timestamp: action.timestamp,
+      };
+    case LOAD_SUGGESTIONS:
+      return {
+        ...state,
+        ideas: action.ideas,
       };
 
     default: return state;

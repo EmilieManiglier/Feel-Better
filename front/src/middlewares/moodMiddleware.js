@@ -1,6 +1,10 @@
 /* eslint-disable import/no-unresolved */
 import axios from 'axios';
-import { HANDLE_MOOD_SUBMIT, saveMood } from 'src/actions/mood';
+import {
+  HANDLE_MOOD_SUBMIT,
+  saveMood,
+  loadSuggestions,
+} from 'src/actions/mood';
 
 const moodMiddleware = (store) => (next) => (action) => {
   const apiUrl = 'http://18.232.116.23/api/v1';
@@ -20,10 +24,22 @@ const moodMiddleware = (store) => (next) => (action) => {
         estimation,
         token,
       }, config)
+        // Send mood and estimation to API
         .then((response) => {
           console.log('response for mood: ', response);
-          // Store user'informations received from API response in the state
+          // Store response received from API in the state
           store.dispatch(saveMood(response.data.setMood, response.data.timestamp));
+        })
+        // And then we store suggestion's data in the state
+        .then(() => {
+          axios.post(`${apiUrl}/suggestion`, {
+            token,
+          }, config)
+            .then((response) => {
+              console.log('response for suggestions: ', response);
+              // Store suggestions received from API response in the state
+              store.dispatch(loadSuggestions(response.data.ideas));
+            });
         })
         .catch((error) => {
           console.warn(error);
