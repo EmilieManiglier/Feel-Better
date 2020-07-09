@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-
 import PropTypes from 'prop-types';
+import logo from 'src/assets/images/logo.png';
 
 import './header.scss';
 
@@ -35,7 +35,7 @@ const Header = ({ isLogged, logout }) => {
 
         <h1 className="main-title">
           <Link to="/" className="logo">
-            Feel Better
+            <img src={logo} alt="Logo Feel Better" />
           </Link>
         </h1>
         <ul className={addClass ? 'main-nav active' : 'main-nav'}>
