@@ -27,6 +27,7 @@ class User implements UserInterface
      * message = "Tu n'aurais pas oublié de remplir ton e-mail ?"
      * )
      * @Assert\Email(
+     * mode = "strict",
      * message = "Il me semble que ce n'est pas une adresse e-mail valide :("
      * )
      */
