@@ -7,7 +7,11 @@ import moods from 'src/data/moods';
 
 import './moodForm.scss';
 
-const MoodForm = ({ handleMoodSubmit, updateMood, updateEstimation }) => (
+const MoodForm = ({
+  handleMoodSubmit,
+  updateMood,
+  updateEstimation,
+}) => (
   <div className="mood">
     <form
       className="mood-form"
@@ -22,21 +26,24 @@ const MoodForm = ({ handleMoodSubmit, updateMood, updateEstimation }) => (
 
           <div className="mood-icons">
             {moods.map((mood) => (
-              <label
+              <div
                 className="mood-img"
                 key={mood.name}
               >
-                <input
-                  type="radio"
-                  name="mood"
-                  className="mood-img-input"
-                  value={mood.name}
-                  onChange={(evt) => {
-                    updateMood(evt.currentTarget.value);
-                  }}
-                />
-                <img src={mood.picture} alt="" />
-              </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="mood"
+                    className="mood-img-input"
+                    value={mood.name}
+                    onChange={(evt) => {
+                      updateMood(evt.currentTarget.value);
+                    }}
+                  />
+                  <span className="mood-tooltip" aria-label={mood.tooltip} />
+                  <img src={mood.picture} alt="" />
+                </label>
+              </div>
             ))}
           </div>
         </div>
@@ -56,6 +63,7 @@ const MoodForm = ({ handleMoodSubmit, updateMood, updateEstimation }) => (
               }}
             />
             <label className="star star-3" htmlFor="star-3">Élevé</label>
+
             <input
               className="star star-2"
               id="star-2"
@@ -67,6 +75,7 @@ const MoodForm = ({ handleMoodSubmit, updateMood, updateEstimation }) => (
               }}
             />
             <label className="star star-2" htmlFor="star-2">Faible</label>
+
             <input
               className="star star-1"
               id="star-1"

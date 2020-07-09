@@ -15,13 +15,14 @@
   .mood-form {
     background-color: $light-main-color;
     border-radius: $border-radius;
+    display: inline-block;
     min-width: 95%;
     max-height: 85%;
     overflow: auto;
     position: absolute;
-    top: 60%;
-    left: 60%;
-    transform: translate(-60%, -60%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 2rem;
     text-align: center;
 
@@ -39,19 +40,71 @@
         .mood-img {
           margin: 0.6rem;
           margin-bottom: 1rem;
+          position: relative;
+          display: inline-block;
 
           .mood-img-input {
             display: none;
           }
+          .mood-tooltip {
+            //Tooltip text container
+            &::before {
+              position: absolute;
+              top: -4rem;
+              left: 0rem;
+              background-color: #2B222A;
+              border-radius: $border-radius;
+              color: #fff;
+              content: attr(aria-label); //This pulls in the text from the element with the tooltip
+              padding: 1rem;
+              transition: all 0.5s ease;
+              width: 100px;
+            }
 
+            //Tooltip arrow
+            &::after {
+              position: absolute;
+              top: -1.1rem;
+              left: 2.5rem;
+              border-left: 10px solid transparent;
+              border-right: 10px solid transparent;
+              border-top: 10px solid #2B222A;
+              content: " ";
+              font-size: 0;
+              line-height: 0;
+              margin-left: -0.3rem;
+              width: 0;
+            }
+
+              //Setting up the transition
+              &::before,
+              &::after {
+                color: #efefef;
+                font-size: 1rem;
+                opacity: 0;
+                pointer-events: none;
+                text-align: center;
+              }
+          }
+
+          &:hover {
+            transform: scale(1.2);
+            .mood-tooltip {
+              //Triggering the transition
+              &:before, &:after {
+                opacity: 1;
+                transition: all 0.75s ease;
+              }
+            } 
+          }
         }
-
       }
     }
 
     .stars {
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
    
     input.star{
@@ -59,21 +112,22 @@
     }
     
     .star {
-      float: right;
-      padding: 10px;
-      font-size: 2.5rem;
+      padding: 0.6rem;
+      font-size: 1.5rem;
       color: #444;
       transition: all .2s;
+      float: right;
     }
+
     
     input.star:checked ~ label.star:before {
       content:'\f005';
-      color: #F62;
+      color: #eeb140;
       transition: all .25s;
     }
     
     input.star-3:checked ~ label.star:before {
-      color:#FD4;
+      color:#F62;
       text-shadow: 0 0 20px #952;
     }
     
@@ -88,15 +142,13 @@
     label.star:before{
       content:'\f006';
       font-family: FontAwesome;
+      font-size: 2.2rem;
     }
 
     .submit-button {
       @include btn-style;
+      width: fit-content;
     }
     
   }
-}
-
-@media screen and (min-width: 768px) {
-
 }
