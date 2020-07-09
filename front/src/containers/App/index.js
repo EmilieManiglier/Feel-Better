@@ -6,6 +6,8 @@ import { checkLogged } from 'src/actions/authentification';
 // === mapStateToProps
 const mapStateToProps = (state) => ({
   isLogged: state.auth.isLogged,
+  timestamp: state.mood.timestamp,
+  setMood: state.mood.setMood,
 });
 
 // === mapDispatchToProps

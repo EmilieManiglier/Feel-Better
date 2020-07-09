@@ -59,6 +59,17 @@ const Header = ({ isLogged, logout }) => {
               Profil
             </NavLink>
           </li>
+          {isLogged && (
+            <li>
+              <NavLink
+                exact
+                to="/mood"
+                className="nav-links"
+              >
+                Mon humeur
+              </NavLink>
+            </li>
+          )}
           <li>
             <NavLink
               exact

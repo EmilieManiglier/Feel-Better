@@ -16,7 +16,6 @@ const Home = ({ isLogged }) => (
     {
       isLogged && (
         <div className="main-quote">
-          <span>Bonjour</span>
           <span>
             « Être heureuse, c’est cultiver notre part de lumière, et accueillir notre part d’ombre. »
           </span>

@@ -20,7 +20,7 @@ import Register from 'src/containers/Register';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkLogged, isLogged }) => {
+const App = ({ checkLogged }) => {
   useEffect(() => {
     checkLogged();
   }, []);
@@ -31,11 +31,14 @@ const App = ({ checkLogged, isLogged }) => {
       <Switch>
         <Route exact path="/">
           <Home />
-          {isLogged && <MoodForm />}
         </Route>
 
         <Route exact path="/profile">
           <Profile />
+        </Route>
+
+        <Route exact path="/mood">
+          <MoodForm />
         </Route>
 
         <Route exact path="/team">
@@ -66,7 +69,6 @@ const App = ({ checkLogged, isLogged }) => {
 
 App.propTypes = {
   checkLogged: PropTypes.func.isRequired,
-  isLogged: PropTypes.bool.isRequired,
 };
 
 // == Export
