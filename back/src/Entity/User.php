@@ -24,10 +24,10 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(
-     * message = "email"
+     * message = "Tu n'aurais pas oublié de remplir ton e-mail ?"
      * )
      * @Assert\Email(
-     * message = "email"
+     * message = "Il me semble que ce n'est pas une adresse e-mail valide :("
      * )
      */
     private $email;
@@ -41,7 +41,7 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\NotBlank(
-     * message = "password"
+     * message = "hep hep hep, un p'tit mot de passe s'il te plait !"
      * )
      */
     private $password;
@@ -49,13 +49,13 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=75)
      * @Assert\NotBlank(
-     * message = "lastname"
+     * message = "Tu n'a pas de nom de famille ?"
      * )
      * @Assert\Length(
      *      min = 2,
      *      max = 75,
-     *      minMessage = "lastname",
-     *      maxMessage = "lastname",
+     *      minMessage = "Il n'est pas un peu court ?",
+     *      maxMessage = "Un poil trop long ? :o",
      * )
      */
     private $lastname;
@@ -63,13 +63,13 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=75)
      * @Assert\NotBlank(
-     * message = "firstname"
+     * message = "Tu t'appel comment ?"
      * )
      * @Assert\Length(
      *      min = 2,
      *      max = 75,
-     *      minMessage = "firstname",
-     *      maxMessage = "firstname",
+     *      minMessage = "C'est un peu court ...",
+     *      maxMessage = "Ca ce prononce comment ? c'est un peu long pour moi ...",
      * )
      */
     private $firstname;
@@ -77,7 +77,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank(
-     * message = "birthday"
+     * message = "Hé ! Ta quel âge ?"
      * )
      */
     private $birthday;
@@ -85,13 +85,13 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(
-     * message = "city"
+     * message = "T'habite ou ? pour te trouver des activités c'ets essentiel !"
      * )
      * @Assert\Length(
      *      min = 2,
      *      max = 100,
-     *      minMessage = "city",
-     *      maxMessage = "city",
+     *      minMessage = "Un peu court ton nom de ville",
+     *      maxMessage = "C'est un peu long pour moi ...",
      * )
      */
     private $city;
