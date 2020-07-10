@@ -6,7 +6,7 @@ import logo from 'src/assets/images/logo.png';
 
 import './header.scss';
 
-const Header = ({ isLogged, logout, toggleTheme }) => {
+const Header = ({ isLogged, logout, themeToggler }) => {
   const [addClass, setAddClass] = useState(false);
 
   return (
@@ -44,7 +44,7 @@ const Header = ({ isLogged, logout, toggleTheme }) => {
               type="checkbox"
               className="dn"
               id="dn"
-              onChange={toggleTheme}
+              onChange={themeToggler}
             />
             <label htmlFor="dn" className="toggle">
               <span className="toggle__handler">
@@ -132,7 +132,7 @@ const Header = ({ isLogged, logout, toggleTheme }) => {
 Header.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
-  toggleTheme: PropTypes.func.isRequired,
+  themeToggler: PropTypes.func.isRequired,
 };
 
 export default Header;

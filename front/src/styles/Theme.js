@@ -1,15 +1,15 @@
 export const lightTheme = {
-  body: '#e0dede',
-  header: '#f5f5f5',
+  body: 'linear-gradient(to top, $light-gradient-1 0%, $light-gradient-1 1%, $light-gradient-2 31%, $light-gradient-3 75%, $light-gradient-4 100%);',
   text: '#202040',
-  input: '#202040',
-  loader: '#202040',
+  moodTitle: '#202040',
+  headerLink: '#202040',
+  headerLinkHover: '#f8f8f8',
 };
 
 export const darkTheme = {
-  body: '#202040',
-  header: '#303960',
+  body: 'linear-gradient(0deg, #150d33 0%, #383a56 74%);',
   text: '#e0dede',
-  input: '#f8f3eb',
-  loader: '#e0dede',
+  moodTitle: '#202040',
+  headerLink: '#f8f8f8',
+  headerLinkHover: '#202040',
 };
