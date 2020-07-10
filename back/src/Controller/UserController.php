@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegisterType;
-use App\Form\UpdateType;
 use App\Repository\UserRepository;
 use App\Service\JwtDecodeService;
 use DateTime;
@@ -16,8 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
-use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -204,26 +200,25 @@ class UserController extends AbstractController
             $errors = $this->validator->validate($user);
 
             // If errors > 0 we return the detail of the error(s)
-            if(count($errors) > 0) {
+            if (count($errors) > 0) {
                 return $this->json($errors, Response::HTTP_BAD_REQUEST);
             }
-                // Save the user in database
-                $this->em->flush();
+            // Save the user in database
+            $this->em->flush();
 
-                // Return the complete object with all data
-                return new JsonResponse([
-                    'updated' => true,
-                    'user' => [
-                        'id' => $user->getId(),
-                        'email' => $user->getEmail(),
-                        'firstname' => $user->getFirstname(),
-                        'lastname' => $user->getLastname(),
-                        'role' => $user->getRoles(),
-                        'birthday' => $user->getBirthday()->format('Y-m-d'),
-                        'city' => $user->getCity()
-                    ]
-                ], Response::HTTP_OK);
-            
+            // Return the complete object with all data
+            return new JsonResponse([
+                'updated' => true,
+                'user' => [
+                    'id' => $user->getId(),
+                    'email' => $user->getEmail(),
+                    'firstname' => $user->getFirstname(),
+                    'lastname' => $user->getLastname(),
+                    'role' => $user->getRoles(),
+                    'birthday' => $user->getBirthday()->format('Y-m-d'),
+                    'city' => $user->getCity()
+                ]
+            ], Response::HTTP_OK);
         } else {
             // If the form was not good, I send a 403 error
             return new JsonResponse(['updated' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
