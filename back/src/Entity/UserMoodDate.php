@@ -45,11 +45,6 @@ class UserMoodDate
         $this->moods = new ArrayCollection();
     }
 
-    public function __toString()
-    {
-        return $this->getMoodDate();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
