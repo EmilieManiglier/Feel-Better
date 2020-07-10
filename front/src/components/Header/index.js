@@ -52,12 +52,12 @@ const Header = ({ isLogged, logout, themeToggler }) => {
                 <span className="crater crater--2" />
                 <span className="crater crater--3" />
               </span>
-              <span className="star star--1" />
-              <span className="star star--2" />
-              <span className="star star--3" />
-              <span className="star star--4" />
-              <span className="star star--5" />
-              <span className="star star--6" />
+              <span className="toggleStar star--1" />
+              <span className="toggleStar star--2" />
+              <span className="toggleStar star--3" />
+              <span className="toggleStar star--4" />
+              <span className="toggleStar star--5" />
+              <span className="toggleStar star--6" />
             </label>
           </div>
           <li>
@@ -110,7 +110,7 @@ const Header = ({ isLogged, logout, themeToggler }) => {
             >
               Activités
             </NavLink>
-          </li> 
+          </li>
           {isLogged && (
             <li>
               <NavLink
