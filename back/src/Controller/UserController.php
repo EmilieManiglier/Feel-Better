@@ -66,7 +66,7 @@ class UserController extends AbstractController
                 $errors = $this->validator->validate($user);
 
                 if (count($errors) > 0) {
-                    return $this->json($errors, Response::HTTP_OK);
+                    return $this->json($errors, Response::HTTP_BAD_REQUEST);
                 }
 
                 /*if ($avatar) {
@@ -201,7 +201,7 @@ class UserController extends AbstractController
 
             // If errors > 0 we return the detail of the error(s)
             if (count($errors) > 0) {
-                return $this->json($errors, Response::HTTP_OK);
+                return $this->json($errors, Response::HTTP_BAD_REQUEST);
             }
             // Save the user in database
             $this->em->flush();
