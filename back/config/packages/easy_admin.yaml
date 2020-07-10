@@ -1,8 +1,22 @@
 easy_admin:
+  site_name: 'Feel Better'
   entities:
     # List the entity class name you want to manage
-    - App\Entity\User
-    - App\Entity\Mood
-    - App\Entity\Idea
-    - App\Entity\Category
-    - App\Entity\UserMoodDate
+    User:
+      class: App\Entity\User
+      list:
+        fields: [
+        'id', 
+        'email', { property: 'email', label: 'E-mail' },
+        'lastname', { property: 'lastname', label: 'Nom'}
+        ]
+
+  design:
+    brand_color: '#1ABC9C'
+    menu:
+      - label: 'Feel Better'
+        children:
+          - {entity: 'User', icon: 'users', label: 'Utilisateurs'}
+
+    assets:
+      favicon: '/assets/backend/favicon.png'
