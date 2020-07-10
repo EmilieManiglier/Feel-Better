@@ -7,7 +7,7 @@ import {
 } from 'src/actions/mood';
 
 const moodMiddleware = (store) => (next) => (action) => {
-  const apiUrl = 'http://18.232.116.23/api/v1';
+  const apiUrl = 'http://3.81.107.64/api/v1';
 
   switch (action.type) {
     case HANDLE_MOOD_SUBMIT: {
