@@ -1,0 +1,103 @@
+@import 'src/styles/vars';
+@import 'src/styles/btn';
+
+.main {
+  min-height: 75vh;
+  max-width: 100vw;
+  margin: auto;
+  color: $light-text;
+
+  .main-img {
+    width: 100%;
+
+    .people {
+      width: 100%;
+      display: inline-block;
+      margin: auto;
+    }
+  }
+
+  .main-quote {
+    font-size: 2rem;
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    font-style: italic;
+    line-height: 40px;
+
+    & span {
+      display: block;
+    }
+  }
+
+  .main-content-container {
+    width: 60%;
+    margin: 0 auto;
+
+    .main-description {
+      text-align: center;
+      display: block;
+      margin: 1rem auto;
+      font-size: 1.5rem;
+
+      & > strong {
+        font-weight: 600;
+      }
+    }
+  
+    .btn-group {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .btn {
+        @include btn-style;
+        width: 100%;
+        margin: 1rem;
+      }
+
+      .register-btn {
+        background-color: $light-default-color;
+        color: $light-main-color;
+
+        &:before {
+          background-color: $light-main-color;
+        }
+
+        &:hover {
+          color: $light-default-color;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .main {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+
+    .main-img {
+      width: 60%;
+    }
+
+    .main-content-container {
+      .main-description {
+        font-size: 1.5em;
+        padding: 1.5rem;
+      }
+
+      .btn-group {
+        flex-direction: row;
+        justify-content: center;
+
+        .btn {
+          width: fit-content;
+        }
+      }
+    }
+  }
+}
