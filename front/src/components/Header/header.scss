@@ -1,4 +1,5 @@
 @import 'src/styles/vars';
+@import 'src/styles/toggle';
 
 .header {
   padding-bottom: 7rem;
@@ -48,9 +49,9 @@
 }
 
 .main-nav li {
-  padding: 1rem 0;
   font-size: 1.2em;
   text-align: center;
+  margin: 4rem 0 0.5rem;
 }
 
 .active {
@@ -147,6 +148,8 @@
   bottom: $bar-height;
   background-color: transparent; 
 }
+
+@include toggle-style;
 
 /*--------------------------*\
         RESPONSIVE
