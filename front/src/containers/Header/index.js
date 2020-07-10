@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import Header from 'src/components/Header';
 import { logOut } from 'src/actions/authentification';
+import { toggleTheme } from 'src/actions/themes';
 
 // === mapStateToProps
 const mapStateToProps = (state) => ({
@@ -12,6 +13,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   logout: () => {
     dispatch(logOut());
+  },
+
+  toggleTheme: () => {
+    dispatch(toggleTheme());
   },
 });
 

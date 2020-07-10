@@ -6,7 +6,7 @@ import logo from 'src/assets/images/logo.png';
 
 import './header.scss';
 
-const Header = ({ isLogged, logout }) => {
+const Header = ({ isLogged, logout, toggleTheme }) => {
   const [addClass, setAddClass] = useState(false);
 
   return (
@@ -40,7 +40,12 @@ const Header = ({ isLogged, logout }) => {
         </h1>
         <ul className={addClass ? 'main-nav active' : 'main-nav'}>
           <div className="toggleWrapper">
-            <input type="checkbox" className="dn" id="dn" />
+            <input
+              type="checkbox"
+              className="dn"
+              id="dn"
+              onChange={toggleTheme}
+            />
             <label htmlFor="dn" className="toggle">
               <span className="toggle__handler">
                 <span className="crater crater--1" />
@@ -127,6 +132,7 @@ const Header = ({ isLogged, logout }) => {
 Header.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
+  toggleTheme: PropTypes.func.isRequired,
 };
 
 export default Header;
