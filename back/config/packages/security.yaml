@@ -35,21 +35,18 @@ security:
       guard:
         authenticators:
           - lexik_jwt_authentication.jwt_token_authenticator
-    adminLogin:
-      pattern: ^/login
-      anonymous: true
-      guard:
-        authenticators:
-          - App\Security\AdminAuthenticator
-      logout:
-        path: app_logout
-        target: /login
+    main:
+        anonymous: lazy
+        provider: app_user_provider
+        guard:
+            authenticators:
+                - App\Security\AdminAuthenticator
+        logout:
+            path: app_logout
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
-    main:
-      anonymous: true
-      lazy: true
+
 
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#firewalls-authentication
