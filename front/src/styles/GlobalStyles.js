@@ -38,7 +38,6 @@ const GlobalStyles = createGlobalStyle`
       color:  ${({ theme }) => theme.headerLinkHover};
     }
   }
-
 `;
 
 export default GlobalStyles;
