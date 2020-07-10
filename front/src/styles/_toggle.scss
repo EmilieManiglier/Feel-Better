@@ -1,7 +1,7 @@
 @mixin toggle-style { 
   .toggleWrapper {
     position: absolute;
-    top: 20%;
+    top: 17%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
     
@@ -177,18 +177,19 @@
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 460px) {
     .toggleWrapper {
-      top: 50%;
-      left: 30%;
-    }
-  }
-
-  @media screen and (min-width: 1040px) {
-    .toggleWrapper {
-      top: 50%;
+      top: 10%;
       left: 50%;
     }
   }
+
+  @media screen and (min-width: 1024px) {
+    .toggleWrapper {
+      top: 50%;
+      left: 20%;
+    }
+  }
+
 }
 

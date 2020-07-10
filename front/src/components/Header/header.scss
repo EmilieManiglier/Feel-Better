@@ -18,7 +18,7 @@
     position: absolute;
     cursor: pointer;
     // Adjust top/right to center hamburger
-    top: 12px;
+    top: 30px;
     right: 20px;
   }
 
@@ -155,7 +155,7 @@
         RESPONSIVE
 /*--------------------------*/
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .header {
     padding-bottom: 0;
   }
