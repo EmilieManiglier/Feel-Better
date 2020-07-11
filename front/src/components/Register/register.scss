@@ -1,37 +1,173 @@
 @import 'src/styles/vars';
 @import 'src/styles/btn';
 
+//position absolute mixin
+@mixin position-absolute ($top: null, $left: null, $right: null, $bottom: null) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  right: $right;
+  bottom: $bottom;
+}
+
+//transitions mixin
+@mixin transition-mix($property: all, $duration: 0.2s, $timing: linear, $delay: 0s) {
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-timing-function: $timing;
+  transition-delay: $delay;
+}
+
 .register {
   min-height: 80vh;
   text-align: center;
 
-  .register-container {
-    margin: 2rem auto;
-    position: relative;
-    width: 90%;
 
-    .register-label {
-      position: absolute;
-      top: -30%;
-      left: 0;
-      padding: 10px 0;
-      font-size: 1rem;
-      color: $light-default-color;
-      transform: 0.5s;
-    }
-
-    .register-input {
-      border: none;
-      border-bottom: 2px solid $light-default-color;
-      background: none;
-      padding: 1rem 0;
-      font-family: $dosis-font;
-      width: 100%;
-    }
+  .register-title {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    background-color: #150d33;
+    color: #fff;
+    margin: auto;
+    width: 95%;
+    border-top-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+    padding: 1rem 0;
   }
 
-  .register-button {
-    @include btn-style;
+  .register-form {
+    width: 95%;
+    margin: auto;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background-color: rgba(#e6e6e6, 0.7);
+    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+  
+    .register-container {
+      position: relative;
+      margin-top: 2rem;
+  
+      .register-input {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 1rem;
+        color: $light-text;
+        margin-bottom: 2rem;
+        border: none;
+        border-bottom: 1px solid $light-default-color;
+        outline: none;
+        background: transparent;
+      }
+  
+      .register-label {
+        position: absolute;
+        top: 0%;
+        left: 0;
+        padding: 10px 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #150d33;
+        transition: .5s ease;
+      }
+
+      .register-input:focus ~ .register-label,
+      .register-input:valid ~ .register-label {
+        top: -30%;
+        color: $light-default-color;
+      }
+
+      .birthday-input ~ .register-label  {
+        top: -30%;
+      }
+
+      .cgu-input:not(:checked),
+      .cgu-input:checked{
+        // Move cgu checkbox out of screen
+        position: absolute;
+        left: -9999px;
+        opacity: 0;
+      }
+      
+      // Position and color of cgu label
+      .cgu-input ~ .register-label,
+      .cgu-input:focus ~ .register-label,
+      .cgu-input:valid ~ .register-label {
+        top: -15%;
+        color: #150d33;
+      }
+
+      .cgu-input:checked ~ .register-label {
+        color: $light-default-color;
+      }
+
+      // Custom checkbox
+      .cgu-input:not(:checked) + .register-label:after,
+      .cgu-input:checked + .register-label:after {
+        content: "";
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #5a5a5a;;
+        box-sizing: border-box;
+        border-radius: 3px;
+        margin-left: 20px;
+        @include transition-mix($delay: 0.2s);
+      }
+
+      // Icon inside checkbox
+      .cgu-input:not(:checked) + .register-label:before,
+      .cgu-input:checked + .register-label:before {
+        content: "\f00c";
+        font: {
+          family: fontawesome;
+          size: 22px;
+        }
+        display: flex;
+        height: 100%;
+        align-items:center;
+        @include position-absolute($right: 2px, $top: 0);
+        color: $light-default-color;
+        @include transition-mix;
+        transform-origin: center center;
+        opacity: 0;
+      }     
+      .cgu-input:not(:checked) + .register-label:before {
+        transform: scale(0);
+      }
+      
+      .cgu-input:checked + .register-label:after {
+        transform: scale(0);
+        opacity: 0;
+        @include transition-mix;
+      }
+      
+      .cgu-input:checked + .register-label:before {
+        transform: scale(1);
+        opacity: 1;
+        @include transition-mix($delay: 0.2s, $timing: cubic-bezier(0.57, 1.9, 0, 1.52));
+      }       
+
+    }
+  
+    .register-button {
+      @include btn-style;
+      margin-top: 4rem;
+    }
+  
+  }
+
+  .register-redirect {
+    display: inline-block;
+    padding: 0.5rem;
+    color: $light-default-color;
+    box-shadow: inset 0 -1px 0 $light-default-color;
+    transition: background 0.5s cubic-bezier(.33,.66,.66,1);
+
+    &:hover {
+      background: $light-default-color;
+      color: $light-main-color;
+    }
   }
 }
 
@@ -40,34 +176,39 @@
     padding-top: 7rem;
     min-height: 100vh;
 
+    .register-title {
+      width: 65%;
+      margin-top: 3rem;
+    }
+
     .register-form {
+      width: 65%;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      width: 60%;
-      margin: auto;
 
       .register-container {
         width: 45%;
+        margin: 1rem 0.5rem;
       }
 
-      .register-container-email,
-      .register-container-avatar, 
-      .register-container-cgu  {
-        width: 95%;
-      }
-
-      .register-container-cgu {
-        display: flex;
-
-        .register-label {
-          top: -37%;
-        }
-
-        .register-input {
-          width: 30%;
-        }
+      .email-container {
+        width: 92%;
       }
     }
   }
 }
+
+
+@media screen and (min-width: 1460px) {
+  .register {
+
+    .register-title {
+      width: 50%;
+    }
+
+    .register-form {
+      width: 50%;
+    }
+  }
+}
+

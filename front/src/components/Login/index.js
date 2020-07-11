@@ -18,6 +18,7 @@ const Login = ({
 
   return (
     <main className="login">
+      <h2 className="login-title">Se connecter</h2>
       <form
         className="login-form"
         onSubmit={(evt) => {
