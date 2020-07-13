@@ -49,7 +49,7 @@ class ActivityController extends AbstractController
         $userMoodDateAll = $user->getUserMoodDates()->getValues();
 
         // If the count of the userMoodDateAll is inferior or equal to 0, return errorMoodDate true
-        if(count($userMoodDateAll) <= 0) {
+        if (count($userMoodDateAll) <= 0) {
             return $this->json(['errorMoodDate' => true], Response::HTTP_BAD_REQUEST);
         }
         // Retrieve the last MoodDate
@@ -124,5 +124,45 @@ class ActivityController extends AbstractController
         $this->em->flush();
 
         return new JsonResponse(['setMood' => true, 'timestamp' => $date->getTimestamp()], Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/api/v1/moodcalendar", name="mood_calendar")
+     */
+    public function moodCalendar(Request $request)
+    {
+        // Retrieve the content of the $request and convert the json data to PHP data object
+        $jsonData = json_decode($request->getContent());
+
+        // Use the service jwtDecodeService to decode the token in the request content
+        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData->token);
+
+        // Use the userRespository to find the email of the user with the username stored in the tokenService
+        $userEntity = $this->userRepository->findByEmail($tokenService['username']);
+
+        $userMoodDates = $userEntity->getUserMoodDates()->getValues();
+
+        $resultCalendar = [];
+        $moodDateTable = [];
+        foreach ($userMoodDates as $key => $moodDate) {
+
+            $moodDateTable[$key]['mood'] = [];
+
+            $moodDataTable = $moodDate->getMoods()->getValues();
+            $moodData = end($moodDataTable);
+
+            $moodDateTable[$key]['date'] = $moodDate->getMoodDate()->format('Y-m-d');
+
+            $moodDateTable[$key]['mood']['moodName'] = $moodData->getNameEn();
+            $moodDateTable[$key]['mood']['idea'] = "test 2";
+
+
+            array_push($resultCalendar, $moodDateTable[$key]);
+        }
+
+
+
+
+        return new JsonResponse(['moodCalendar' => true, 'moodDatas' => $resultCalendar], Response::HTTP_CREATED);
     }
 }
