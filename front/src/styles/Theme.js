@@ -4,6 +4,7 @@ export const lightTheme = {
   moodTitle: '#202040',
   headerLink: '#202040',
   headerLinkHover: '#f8f8f8',
+  quoteText: '#000',
 };
 
 export const darkTheme = {
@@ -12,4 +13,5 @@ export const darkTheme = {
   moodTitle: '#202040',
   headerLink: '#f8f8f8',
   headerLinkHover: '#202040',
+  quoteText: '#fff',
 };

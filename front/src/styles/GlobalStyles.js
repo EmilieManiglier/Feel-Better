@@ -38,6 +38,20 @@ const GlobalStyles = createGlobalStyle`
       color:  ${({ theme }) => theme.headerLinkHover};
     }
   }
+
+  .main-quote {
+    color: ${({ theme }) => theme.quoteText};
+
+    .quote-content {
+      &:before {
+        color: rgba(${({ theme }) => theme.quoteText}, 0.1);
+      }
+
+      &:after {
+        color: rgba(${({ theme }) => theme.quoteText}, 0.1);
+      }
+    }
+  }
 `;
 
 export default GlobalStyles;
