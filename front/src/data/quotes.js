@@ -57,7 +57,7 @@ export default [
   },
   {
     author: 'Proverbe Chinois',
-    content: 'Pour pouvoir contempler un arc-en-ciel il d\'abord endurer la pluie.',
+    content: 'Pour pouvoir contempler un arc-en-ciel il faut d\'abord endurer la pluie.',
   },
   {
     author: 'Inconnu',
