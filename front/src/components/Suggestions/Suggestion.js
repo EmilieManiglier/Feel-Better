@@ -9,6 +9,7 @@ const Suggestion = ({
   picture,
   category,
   estimation,
+  city,
 }) => {
   // Create a label corresponding to the estimation
   let newEstimation = '';
@@ -59,10 +60,13 @@ const Suggestion = ({
           className="suggestion-search"
           aria-label="Suggestion search button"
           title="Rechercher près de chez moi"
+          onClick={() => {
+            // Open google search screen with activity name and user's city
+            window.open(`//google.com/search?q=${name}&q=${city}`);
+          }}
         />
 
       </div>
-
     </div>
   );
 };
@@ -72,6 +76,7 @@ Suggestion.propTypes = {
   picture: PropTypes.string.isRequired,
   category: PropTypes.array.isRequired,
   estimation: PropTypes.number.isRequired,
+  city: PropTypes.string.isRequired,
 };
 
 export default Suggestion;
