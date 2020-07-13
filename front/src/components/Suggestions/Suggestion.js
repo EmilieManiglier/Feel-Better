@@ -60,12 +60,12 @@ const Suggestion = ({
           className="suggestion-search"
           aria-label="Suggestion search button"
           title="Rechercher près de chez moi"
-          onClick={() => {
+          name={name}
+          onClick={(evt) => {
             // Open google search screen with activity name and user's city
-            window.open(`//google.com/search?q=${name}&q=${city}`);
+            window.open(`//bing.com/search?q=${evt.currentTarget.name}+${city}`, '_blank');
           }}
         />
-
       </div>
     </div>
   );
