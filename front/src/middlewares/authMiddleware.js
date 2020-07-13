@@ -11,7 +11,7 @@ import {
 } from 'src/actions/authentification';
 
 const authMiddleware = (store) => (next) => (action) => {
-  const apiUrl = 'http://3.81.107.64/api/v1';
+  const apiUrl = 'http://3.89.193.249/api/v1';
 
   switch (action.type) {
     case LOG_IN: {

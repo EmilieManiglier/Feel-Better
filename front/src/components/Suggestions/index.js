@@ -19,7 +19,7 @@ const Suggestions = ({
 
   if (!setMood) {
     return (
-      <div className="suggestions-container">Vous n'avez pas encore répondu au <Link to="/mood" className="redirect-mood-link">formulaire d'humeur</Link> !</div>
+      <div className="suggestions">Vous n'avez pas encore répondu au <Link to="/mood" className="redirect-mood-link">formulaire d'humeur</Link> !</div>
     );
   }
 
@@ -30,9 +30,9 @@ const Suggestions = ({
   }
   if (!isLoading) {
     return (
-      <div className="suggestions-container">
-        <h2 className="title">Nous vous proposons les cinq activitées suivantes : </h2>
-        <div className="suggestions-activities">
+      <div className="suggestions">
+        <h2 className="suggestions-title">Nous vous proposons les cinq activités suivantes : </h2>
+        <div className="suggestions-wrapper">
           {ideas.map((idea) => (
             <Suggestion
               key={idea.name}

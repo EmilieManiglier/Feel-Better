@@ -31,7 +31,7 @@ const Suggestion = ({
   return (
     <div className="suggestion-container">
       <div className="suggestion-picture">
-        <img src={picture} alt="" />
+        <img src={`assets/images/activities/${picture}`} alt="" />
       </div>
       <div className="suggestion-budget">
         <p>Budget</p>
@@ -60,7 +60,9 @@ const Suggestion = ({
           aria-label="Suggestion search button"
           title="Rechercher près de chez moi"
         />
+
       </div>
+
     </div>
   );
 };
