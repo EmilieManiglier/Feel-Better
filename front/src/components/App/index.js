@@ -16,6 +16,7 @@ import Suggestions from 'src/containers/Suggestions';
 import MoodForm from 'src/containers/MoodForm';
 import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
+import MoodCalendar from 'src/containers/MoodCalendar';
 
 import Page404 from 'src/components/Page404';
 
@@ -55,6 +56,10 @@ const App = ({ checkLogged }) => {
 
           <Route exact path="/team">
             <Team />
+          </Route>
+
+          <Route exact path="/calendar">
+            <MoodCalendar />
           </Route>
 
           <Route exact path="/login">

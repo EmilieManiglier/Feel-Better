@@ -4,6 +4,8 @@ import {
   UPDATE_ESTIMATION,
   SAVE_MOOD,
   LOAD_SUGGESTIONS,
+  SET_DATE,
+  SHOW_MOOD,
 } from 'src/actions/mood';
 
 const initialState = {
@@ -15,6 +17,52 @@ const initialState = {
   ideas: [],
   // Display loader while waiting API response
   isLoading: true,
+  // Date selected on the calendar
+  calendarDate: '',
+  showMood: false,
+  // Informations related to user's mood
+  moodDatas: [
+    {
+      date: '2020-07-01',
+      mood: {
+        moodName: 'glad',
+        moodIdeas: 'Sauter en parachute',
+      },
+    },
+
+    {
+      date: '2020-07-10',
+      mood: {
+        moodName: 'angry',
+        moodIdeas: 'Ecouter de la musique',
+      },
+    },
+
+    {
+      date: '2020-07-10',
+      mood: {
+        moodName: 'worried',
+        moodIdeas: 'Faire de la patisserie',
+      },
+
+    },
+
+    {
+      date: '2020-05-23',
+      mood: {
+        moodName: 'joyful',
+        moodIdeas: 'Arts martiaux',
+      },
+    },
+
+    {
+      date: '2020-06-24',
+      mood: {
+        moodName: 'sad',
+        moodIdeas: 'Aller à des meetup',
+      },
+    },
+  ],
 };
 
 const moodReducer = (state = initialState, action = {}) => {
@@ -48,6 +96,16 @@ const moodReducer = (state = initialState, action = {}) => {
         isLoading: false,
       };
 
+    case SET_DATE:
+      return {
+        ...state,
+        calendarDate: action.date,
+      };
+    case SHOW_MOOD:
+      return {
+        ...state,
+        showMood: true,
+      };
     default: return state;
   }
 };
