@@ -127,6 +127,31 @@ class ActivityController extends AbstractController
     }
 
     /**
+     * @Route("/api/v1/setidea", name="set_idea")
+     */
+    public function setIdea(Request $request)
+    {
+        // Retrieve the content of the $request and convert the json data to PHP data object
+        $jsonData = json_decode($request->getContent());
+
+        // Use the service jwtDecodeService to decode the token in the request content
+        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData->token);
+
+        // Use the userRespository to find the email of the user with the username stored in the tokenService
+        $userEntity = $this->userRepository->findByEmail($tokenService['username']);
+
+        $ideaEntity = $this->ideaRepository->findByName($jsonData->idea);
+
+        $userMoodDateAllForUser = $userEntity->getUserMoodDates()->getValues();
+        $lastuserMoodDateForUser = $userMoodDateAllForUser[count($userMoodDateAllForUser) - 1];
+        $lastuserMoodDateForUser->addIdea(end($ideaEntity));
+
+        $this->em->flush();
+
+        return new JsonResponse(['setIdea' => true], Response::HTTP_OK);
+    }
+
+    /**
      * @Route("/api/v1/moodcalendar", name="mood_calendar")
      */
     public function moodCalendar(Request $request)
@@ -150,11 +175,12 @@ class ActivityController extends AbstractController
 
             $moodDataTable = $moodDate->getMoods()->getValues();
             $moodData = end($moodDataTable);
-
+            $ideaDataTable = $moodDate->getIdeas()->getValues();
+            $ideaData = end($ideaDataTable);
             $moodDateTable[$key]['date'] = $moodDate->getMoodDate()->format('Y-m-d');
 
             $moodDateTable[$key]['mood']['moodName'] = $moodData->getNameEn();
-            $moodDateTable[$key]['mood']['idea'] = "test 2";
+            $moodDateTable[$key]['mood']['idea'] = $ideaData->getName();
 
 
             array_push($resultCalendar, $moodDateTable[$key]);
