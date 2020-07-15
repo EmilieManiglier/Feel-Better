@@ -6,6 +6,7 @@ import {
   LOAD_SUGGESTIONS,
   SET_DATE,
   SHOW_MOOD,
+  UPDATE_SUGGESTION,
 } from 'src/actions/mood';
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   // Date selected on the calendar
   calendarDate: '',
   showMood: false,
+  suggestion: null,
   // Informations related to user's mood
   moodDatas: [
     {
@@ -105,6 +107,11 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         showMood: true,
+      };
+    case UPDATE_SUGGESTION:
+      return {
+        ...state,
+        suggestion: action.suggestion,
       };
     default: return state;
   }

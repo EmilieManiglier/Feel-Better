@@ -5,6 +5,9 @@ export const lightTheme = {
   headerLink: '#202040',
   headerLinkHover: '#f8f8f8',
   quoteText: '#000',
+  suggestionBtnText: '#fff',
+  suggestionBtnBackground: '#150d33',
+  suggestionCheckbox: '#5a5a5a',
 };
 
 export const darkTheme = {
@@ -14,4 +17,7 @@ export const darkTheme = {
   headerLink: '#f8f8f8',
   headerLinkHover: '#202040',
   quoteText: '#fff',
+  suggestionBtnText: '#150d33',
+  suggestionBtnBackground: '#fff',
+  suggestionCheckbox: '#fff',
 };

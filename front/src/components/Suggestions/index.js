@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import Loader from 'src/components/Loader';
 
-import Suggestion from 'src/components/Suggestions/Suggestion';
+import Suggestion from 'src/containers/Suggestions/Suggestion';
 import './suggestion.scss';
 
 const Suggestions = ({
@@ -12,7 +12,6 @@ const Suggestions = ({
   setMood,
   ideas,
   isLoading,
-  city,
 }) => {
   if (isLogged === false) {
     return <Redirect to="/login" />;
@@ -38,7 +37,6 @@ const Suggestions = ({
             <Suggestion
               key={idea.name}
               {...idea}
-              city={city}
             />
           ))}
         </div>
@@ -56,7 +54,6 @@ Suggestions.propTypes = {
   setMood: PropTypes.bool.isRequired,
   ideas: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  city: PropTypes.string.isRequired,
 };
 
 export default Suggestions;

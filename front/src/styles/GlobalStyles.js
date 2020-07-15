@@ -52,6 +52,20 @@ const GlobalStyles = createGlobalStyle`
       }
     }
   }
+
+  .choose-suggestion-input:not(:checked) + span:after,
+  .choose-suggestion-input:checked + span:after {
+    border: 2px solid ${({ theme }) => theme.suggestionCheckbox};
+  }
+
+  .choose-suggestion-btn {
+    color: ${({ theme }) => theme.suggestionBtnText};
+    background-color: ${({ theme }) => theme.suggestionBtnBackground};
+
+    &:hover {
+      color: ${({ theme }) => theme.suggestionBtnBackground};
+    }
+  }
 `;
 
 export default GlobalStyles;

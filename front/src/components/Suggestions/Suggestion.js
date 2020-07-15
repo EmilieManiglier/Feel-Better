@@ -10,6 +10,8 @@ const Suggestion = ({
   category,
   estimation,
   city,
+  updateSuggestion,
+  handleSuggestionSubmit,
 }) => {
   // Create a label corresponding to the estimation
   let newEstimation = '';
@@ -29,8 +31,46 @@ const Suggestion = ({
     budgetStar.push('1', '2');
   }
 
+  const selectOneCheckbox = (checkboxId) => {
+    // Get all checkbox 'choose-suggestion' in the DOM
+    const checkboxList = document.getElementsByName('choose-suggestion');
+
+    // Uncheck all checkbox
+    checkboxList.forEach((element) => {
+      element.checked = false;
+    });
+    // Check the chosen checkbox
+    checkboxId.checked = true;
+  };
+
   return (
     <div className="suggestion-container">
+      <form
+        className="suggestion-form"
+        onSubmit={(evt) => {
+          evt.preventDefault();
+          // Send activity name to server
+          handleSuggestionSubmit();
+        }}
+      >
+        <label className="choose-suggestion-label" htmlFor={name}>
+          <input
+            className="choose-suggestion-input"
+            name="choose-suggestion"
+            id={name}
+            value={name}
+            type="checkbox"
+            onChange={(evt) => {
+              selectOneCheckbox(evt.currentTarget);
+              updateSuggestion(evt.currentTarget.value);
+            }}
+          />
+          <span>Je choisis cette activité !</span>
+          <div className="suggestion-checkbox" />
+          <button type="submit" className="choose-suggestion-btn">Confirmer</button>
+        </label>
+      </form>
+
       <div className="suggestion-picture">
         <img src={`assets/images/activities/${picture}`} alt="" />
       </div>
@@ -77,6 +117,8 @@ Suggestion.propTypes = {
   category: PropTypes.array.isRequired,
   estimation: PropTypes.number.isRequired,
   city: PropTypes.string.isRequired,
+  updateSuggestion: PropTypes.func.isRequired,
+  handleSuggestionSubmit: PropTypes.func.isRequired,
 };
 
 export default Suggestion;
