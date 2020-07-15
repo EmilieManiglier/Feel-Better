@@ -194,6 +194,7 @@ class ActivityController extends AbstractController
 
             $moodDateTable[$key]['mood']['moodName'] = $moodData->getNameEn();
             $moodDateTable[$key]['mood']['idea'] = $idea;
+            $moodDateTable[$key]['mood']['id'] = uniqid();
 
 
             array_push($resultCalendar, $moodDateTable[$key]);
@@ -202,6 +203,6 @@ class ActivityController extends AbstractController
 
 
 
-        return new JsonResponse(['moodCalendar' => true, 'moodDatas' => $resultCalendar], Response::HTTP_CREATED);
+        return new JsonResponse(['moodCalendar' => true, 'moodDatas' => $resultCalendar], Response::HTTP_OK);
     }
 }
