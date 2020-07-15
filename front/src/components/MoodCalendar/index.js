@@ -82,8 +82,8 @@ const MoodCalendar = ({
       {showMood && (
         <div className="calendar-current-mood">
           {findDate.map((date) => (
-            <div className="calendar-current-mood-container" key={date.mood.moodName}>
-              <span className="calendar-current-mood-name">{date.mood.moodIdeas}</span>
+            <div className="calendar-current-mood-container" key={date.mood.id}>
+              <span className="calendar-current-mood-name">{date.mood.idea}</span>
               <img className="calendar-current-mood-img" src={`assets/images/moods/${date.mood.moodName}.png`} alt="" />
             </div>
           ))}

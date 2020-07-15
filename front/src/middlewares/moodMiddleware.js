@@ -6,6 +6,8 @@ import {
   loadSuggestions,
   HANDLE_SUGGESTION_SUBMIT,
   saveIdeaBool,
+  LOAD_CALENDAR,
+  saveCalendar,
 } from 'src/actions/mood';
 
 const moodMiddleware = (store) => (next) => (action) => {
@@ -30,7 +32,7 @@ const moodMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           console.log('response for mood: ', response);
           // Store response received from API in the state
-          store.dispatch(saveMood(response.data.setMood, response.data.timestamp));
+          store.dispatch(saveMood(response.data.setMood));
 
           // Store mood color in the local storage
           // localStorage.setItem('color', response.data.color);
@@ -71,6 +73,31 @@ const moodMiddleware = (store) => (next) => (action) => {
           console.log('response for setideas: ', response);
           // Store response received from API in the state
           store.dispatch(saveIdeaBool(response.data.setIdea));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
+
+    case LOAD_CALENDAR: {
+      const token = localStorage.getItem('userToken');
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      axios.post(`${apiUrl}/moodcalendar`, {
+        token,
+      }, config)
+        // Send mood and estimation to API
+        .then((response) => {
+          console.log('response for moodcalendar: ', response);
+          // Store response received from API in the state
+          store.dispatch(saveCalendar(response.data.moodDatas));
         })
         .catch((error) => {
           console.warn(error);

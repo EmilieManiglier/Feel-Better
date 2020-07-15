@@ -26,9 +26,10 @@ import Register from 'src/containers/Register';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkLogged, mood }) => {
+const App = ({ checkLogged, mood, loadCalendar }) => {
   useEffect(() => {
     checkLogged();
+    loadCalendar();
   }, []);
 
   let color = '';
@@ -141,6 +142,7 @@ const App = ({ checkLogged, mood }) => {
 
 App.propTypes = {
   checkLogged: PropTypes.func.isRequired,
+  loadCalendar: PropTypes.func.isRequired,
   mood: PropTypes.string.isRequired,
 };
 

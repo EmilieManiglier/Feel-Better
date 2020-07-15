@@ -24,10 +24,9 @@ export const updateEstimation = (estimation) => ({
 });
 
 // Save data received from API in the state once mood form is submitted
-export const saveMood = (setMood, timestamp) => ({
+export const saveMood = (setMood) => ({
   type: SAVE_MOOD,
   setMood,
-  timestamp,
 });
 
 // Update date state with the date selected on the calendar
@@ -51,6 +50,8 @@ export const updateSuggestion = (suggestion) => ({
 export const LOAD_SUGGESTIONS = 'LOAD_SUGGESTIONS';
 export const HANDLE_SUGGESTION_SUBMIT = 'HANDLE_SUGGESTION_SUBMIT';
 export const SAVE_IDEA_BOOL = 'SAVE_IDEA_BOOL';
+export const LOAD_CALENDAR = 'LOAD_CALENDAR';
+export const SAVE_CALENDAR = 'SAVE_CALENDAR';
 
 // Request to API in order to get the suggestions according to user's mood
 export const loadSuggestions = (ideas) => ({
@@ -58,11 +59,24 @@ export const loadSuggestions = (ideas) => ({
   ideas,
 });
 
+// Send the suggestion chosen by the user to the server
 export const handleSuggestionSubmit = () => ({
   type: HANDLE_SUGGESTION_SUBMIT,
 });
 
+// Save the bool from server response in the state
 export const saveIdeaBool = (setIdea) => ({
   type: SAVE_IDEA_BOOL,
   setIdea,
+});
+
+// Save calendar data in the state
+export const saveCalendar = (calendar) => ({
+  type: SAVE_CALENDAR,
+  calendar,
+});
+
+// Send request to API in order to get the datas for the calendar
+export const loadCalendar = () => ({
+  type: LOAD_CALENDAR,
 });

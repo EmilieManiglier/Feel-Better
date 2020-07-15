@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import {
   HANDLE_MOOD_SUBMIT,
   UPDATE_MOOD,
@@ -8,65 +9,28 @@ import {
   SHOW_MOOD,
   UPDATE_SUGGESTION,
   SAVE_IDEA_BOOL,
+  SAVE_CALENDAR,
 } from 'src/actions/mood';
 
 const initialState = {
   mood: '',
+  // Estimation in the mood form
   estimation: 0,
   setMood: false,
-  timestamp: 0,
   // Suggestions
   ideas: [],
   // Display loader while waiting API response
   isLoading: true,
   // Date selected on the calendar
   calendarDate: '',
+  // Display loader while waiting API response
   showMood: false,
+  // Suggestion chosen by the user
+  suggestion: '',
+  // Bool received in API response, if true the form was successfully submitted
   setIdea: false,
-  suggestion: null,
   // Informations related to user's mood
-  moodDatas: [
-    {
-      date: '2020-07-01',
-      mood: {
-        moodName: 'glad',
-        moodIdeas: 'Sauter en parachute',
-      },
-    },
-
-    {
-      date: '2020-07-10',
-      mood: {
-        moodName: 'angry',
-        moodIdeas: 'Ecouter de la musique',
-      },
-    },
-
-    {
-      date: '2020-07-10',
-      mood: {
-        moodName: 'worried',
-        moodIdeas: 'Faire de la patisserie',
-      },
-
-    },
-
-    {
-      date: '2020-05-23',
-      mood: {
-        moodName: 'joyful',
-        moodIdeas: 'Arts martiaux',
-      },
-    },
-
-    {
-      date: '2020-06-24',
-      mood: {
-        moodName: 'sad',
-        moodIdeas: 'Aller à des meetup',
-      },
-    },
-  ],
+  moodDatas: [],
 };
 
 const moodReducer = (state = initialState, action = {}) => {
@@ -119,6 +83,11 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         setIdea: action.setIdea,
+      };
+    case SAVE_CALENDAR:
+      return {
+        ...state,
+        moodDatas: action.calendar,
       };
     default: return state;
   }

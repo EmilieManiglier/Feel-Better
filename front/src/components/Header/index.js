@@ -6,7 +6,11 @@ import logo from 'src/assets/images/logo.png';
 
 import './header.scss';
 
-const Header = ({ isLogged, logout, themeToggler }) => {
+const Header = ({
+  isLogged,
+  logout,
+  themeToggler,
+}) => {
   const [addClass, setAddClass] = useState(false);
 
   return (
