@@ -50,6 +50,7 @@ export const updateSuggestion = (suggestion) => ({
 // === Middleware actions
 export const LOAD_SUGGESTIONS = 'LOAD_SUGGESTIONS';
 export const HANDLE_SUGGESTION_SUBMIT = 'HANDLE_SUGGESTION_SUBMIT';
+export const SAVE_IDEA_BOOL = 'SAVE_IDEA_BOOL';
 
 // Request to API in order to get the suggestions according to user's mood
 export const loadSuggestions = (ideas) => ({
@@ -59,4 +60,9 @@ export const loadSuggestions = (ideas) => ({
 
 export const handleSuggestionSubmit = () => ({
   type: HANDLE_SUGGESTION_SUBMIT,
+});
+
+export const saveIdeaBool = (setIdea) => ({
+  type: SAVE_IDEA_BOOL,
+  setIdea,
 });

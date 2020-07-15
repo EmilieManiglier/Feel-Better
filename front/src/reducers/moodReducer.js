@@ -7,6 +7,7 @@ import {
   SET_DATE,
   SHOW_MOOD,
   UPDATE_SUGGESTION,
+  SAVE_IDEA_BOOL,
 } from 'src/actions/mood';
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
   // Date selected on the calendar
   calendarDate: '',
   showMood: false,
+  setIdea: false,
   suggestion: null,
   // Informations related to user's mood
   moodDatas: [
@@ -112,6 +114,11 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         suggestion: action.suggestion,
+      };
+    case SAVE_IDEA_BOOL:
+      return {
+        ...state,
+        setIdea: action.setIdea,
       };
     default: return state;
   }

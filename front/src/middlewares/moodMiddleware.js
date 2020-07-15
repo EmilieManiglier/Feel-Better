@@ -4,6 +4,8 @@ import {
   HANDLE_MOOD_SUBMIT,
   saveMood,
   loadSuggestions,
+  HANDLE_SUGGESTION_SUBMIT,
+  saveIdeaBool,
 } from 'src/actions/mood';
 
 const moodMiddleware = (store) => (next) => (action) => {
@@ -43,6 +45,32 @@ const moodMiddleware = (store) => (next) => (action) => {
               // Store suggestions received from API response in the state
               store.dispatch(loadSuggestions(response.data.ideas));
             });
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
+    case HANDLE_SUGGESTION_SUBMIT: {
+      const { suggestion: idea } = store.getState().mood;
+      const token = localStorage.getItem('userToken');
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      axios.post(`${apiUrl}/setidea`, {
+        idea,
+        token,
+      }, config)
+        // Send mood and estimation to API
+        .then((response) => {
+          console.log('response for setideas: ', response);
+          // Store response received from API in the state
+          store.dispatch(saveIdeaBool(response.data.setIdea));
         })
         .catch((error) => {
           console.warn(error);
