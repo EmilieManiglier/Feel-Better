@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\UserMoodDate;
+use App\Repository\ColorRepository;
 use App\Repository\IdeaRepository;
 use App\Repository\MoodRepository;
 use App\Repository\UserRepository;
@@ -22,14 +23,16 @@ class ActivityController extends AbstractController
     private $userRepository;
     private $ideaRepository;
     private $moodRepository;
+    private $colorRepository;
     private $em;
 
-    public function __construct(JwtDecodeService $jwtDecodeService, UserRepository $userRepository, IdeaRepository $ideaRepository, MoodRepository $moodRepository, EntityManagerInterface $em)
+    public function __construct(JwtDecodeService $jwtDecodeService, UserRepository $userRepository, IdeaRepository $ideaRepository, MoodRepository $moodRepository, ColorRepository $colorRepository, EntityManagerInterface $em)
     {
         $this->jwtDecodeService = $jwtDecodeService;
         $this->userRepository = $userRepository;
         $this->ideaRepository = $ideaRepository;
         $this->moodRepository = $moodRepository;
+        $this->colorRepository = $colorRepository;
         $this->em = $em;
     }
 
@@ -111,6 +114,9 @@ class ActivityController extends AbstractController
         $userEntity = $this->userRepository->findByEmail($tokenService['username']);
         // Retrieve mood by nameEn in the content of the Request ($jsonData)
         $moodEntity = $this->moodRepository->findByNameEn($jsonData->mood);
+
+        $colorEntity = $this->colorRepository->findByMood($moodEntity);
+        $colorData = end($colorEntity);
         $date = new DateTime();
         // Create a new UserMoodDate object and add user, mood, budget and mood date
         $userMoodDate = new UserMoodDate;
@@ -123,7 +129,7 @@ class ActivityController extends AbstractController
         $this->em->persist($userMoodDate);
         $this->em->flush();
 
-        return new JsonResponse(['setMood' => true, 'timestamp' => $date->getTimestamp()], Response::HTTP_CREATED);
+        return new JsonResponse(['setMood' => true, 'color' => $colorData->getHexadecimal()], Response::HTTP_CREATED);
     }
 
     /**
@@ -177,10 +183,17 @@ class ActivityController extends AbstractController
             $moodData = end($moodDataTable);
             $ideaDataTable = $moodDate->getIdeas()->getValues();
             $ideaData = end($ideaDataTable);
+
+            if (!$ideaData) {
+                $idea = null;
+            } else {
+                $idea = $ideaData->getName();
+            }
+
             $moodDateTable[$key]['date'] = $moodDate->getMoodDate()->format('Y-m-d');
 
             $moodDateTable[$key]['mood']['moodName'] = $moodData->getNameEn();
-            $moodDateTable[$key]['mood']['idea'] = $ideaData->getName();
+            $moodDateTable[$key]['mood']['idea'] = $idea;
 
 
             array_push($resultCalendar, $moodDateTable[$key]);
