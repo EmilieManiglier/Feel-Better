@@ -35,7 +35,7 @@
 
       .profile-input {
         border: none;
-        border-bottom: 1px solid $light-default-color;
+        // border-bottom: 1px solid $light-default-color;
         outline: none;
         background: transparent;
         margin-bottom: 2rem;
@@ -59,7 +59,7 @@
     .profile-submit-btn {
       @include btn-style;
       color: $light-main-color;
-      background-color: $light-default-color;
+      // background-color: $light-default-color;
 
 
       &:before {
@@ -68,7 +68,7 @@
       }
 
       &:hover {
-        color: $light-default-color;
+        // color: $light-default-color;
       }
     }
   }

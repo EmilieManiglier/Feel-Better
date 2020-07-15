@@ -28,7 +28,7 @@ $background: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);
         content: "";
         width: 100%;
         height: 100%;
-        background-color: $light-default-color;
+        // background-color: $light-default-color;
         border-radius:100%;
         position: absolute;
         top: -100%;
@@ -45,7 +45,7 @@ $background: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);
         width: 110%;
         height: 110%;
         border-radius: 50%;
-        background-color: $light-default-color;
+        // background-color: $light-default-color;
         position: absolute;
         top: -6px;
         left: -6px;
@@ -58,7 +58,7 @@ $background: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);
       font-size: 1.2rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
-      color: $light-default-color;
+      // color: $light-default-color;
     }
 
     .title {
@@ -72,7 +72,7 @@ $background: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);
       width: 100%;
       padding: 0;
       margin: 0;
-      background-color: $light-default-color;
+      // background-color: $light-default-color;
       position: absolute;
       bottom: -100px;
       left: 0;

@@ -26,10 +26,59 @@ import Register from 'src/containers/Register';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkLogged }) => {
+const App = ({ checkLogged, mood }) => {
   useEffect(() => {
     checkLogged();
   }, []);
+
+  let color = '';
+
+  switch (mood) {
+    case 'agressive':
+      color = '#2E8B57'; // vert
+      break;
+    case 'angry':
+      color = '#6482E3'; // bleu indigo
+      break;
+    case 'confident':
+      color = '#A14B3C'; // orange foncé
+      break;
+    case 'glad':
+      color = '#DB7093'; // rose
+      break;
+    case 'indecisive':
+      color = '#858585'; // gris
+      break;
+    case 'inLove':
+      color = '#D94452'; // rouge
+      break;
+    case 'joyful':
+      color = '#ffc900'; // jaune
+      break;
+    case 'lack-of-self-confidence':
+      color = '#3399ff'; // bleu clair
+      break;
+    case 'lonely':
+      color = '#f7be16'; // jaune
+      break;
+    case 'pessimistic':
+      color = '#ff9933'; // orange
+      break;
+    case 'relaxed':
+      color = '#8A2BE2'; // violet
+      break;
+    case 'sad':
+      color = '#c70039'; // rouge
+      break;
+    case 'stressed':
+      color = '#3797a4'; // bleu pastel
+      break;
+    case 'worried':
+      color = '#2c786c'; // vert
+      break;
+    default:
+      color = '#858585'; // gris
+  }
 
   // ===== Dark / Light Theme =====
   // Custom hook which contains the chosen theme and the toggle function to switch between modes
@@ -92,6 +141,7 @@ const App = ({ checkLogged }) => {
 
 App.propTypes = {
   checkLogged: PropTypes.func.isRequired,
+  mood: PropTypes.string.isRequired,
 };
 
 // == Export

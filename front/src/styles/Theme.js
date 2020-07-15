@@ -1,5 +1,5 @@
 export const lightTheme = {
-  body: 'linear-gradient(to top, $light-gradient-1 0%, $light-gradient-1 1%, $light-gradient-2 31%, $light-gradient-3 75%, $light-gradient-4 100%);',
+  body: 'linear-gradient(to bottom left, #F5EDD4, #FFFFFF);',
   text: '#202040',
   moodTitle: '#202040',
   headerLink: '#202040',

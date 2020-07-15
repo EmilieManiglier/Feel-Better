@@ -24,13 +24,13 @@
 
   .redirect-mood-link {
     padding: 0.5rem;
-    color: $light-default-color;
-    border-bottom: 1px solid $light-default-color;
-    box-shadow: inset 0 -1px 0 $light-default-color;
+    // color: $light-default-color;
+    // border-bottom: 1px solid $light-default-color;
+    // box-shadow: inset 0 -1px 0 $light-default-color;
     transition: background 0.5s cubic-bezier(.33,.66,.66,1);
 
     &:hover {
-      background: $light-default-color;
+      // background: $light-default-color;
       color: $light-main-color;
     }
   }
@@ -91,7 +91,7 @@
         height: 100%;
         align-items:center;
         @include position-absolute($right: 2px, $top: 0);
-        color: $light-default-color;
+        // color: $light-default-color;
         @include transition-mix;
         transform-origin: center center;
         opacity: 0;
@@ -127,7 +127,7 @@
 
 
         &:hover {
-          background: $light-default-color;
+          // background: $light-default-color;
           letter-spacing: 1px;
           -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
           -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
@@ -143,7 +143,7 @@
 
 
     .suggestion-picture {
-      background: linear-gradient(to top, $fourth-dot, $light-default-color, $second-dot);
+      // background: linear-gradient(to top, $fourth-dot, $light-default-color, $second-dot);
       border-radius: 50%;
       border: 12px solid #fff;
       width: 155px;
@@ -176,8 +176,8 @@
       }
 
       & > svg {
-        color: $light-default-color;
-        fill: $light-default-color;
+        // color: $light-default-color;
+        // fill: $light-default-color;
       }
 
       .budget-tooltip {
@@ -241,7 +241,7 @@
 
       .category-name {
         display: inline-block;
-        background-color: $light-default-color;
+        // background-color: $light-default-color;
         color: $light-main-color;
         border-radius: $border-radius;
         margin: 0.5rem 0.25rem;
@@ -265,7 +265,7 @@
       margin-right: 1rem;
       text-transform: uppercase;
       font-weight: 600;
-      background: linear-gradient(to top, $fourth-dot, $light-default-color, $second-dot);
+      // background: linear-gradient(to top, $fourth-dot, $light-default-color, $second-dot);
 
       .suggestion-search {
         background: transparent;

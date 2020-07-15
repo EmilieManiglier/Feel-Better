@@ -29,6 +29,9 @@ const moodMiddleware = (store) => (next) => (action) => {
           console.log('response for mood: ', response);
           // Store response received from API in the state
           store.dispatch(saveMood(response.data.setMood, response.data.timestamp));
+
+          // Store mood color in the local storage
+          // localStorage.setItem('color', response.data.color);
         })
         // And then we store suggestion's data in the state
         .then(() => {
