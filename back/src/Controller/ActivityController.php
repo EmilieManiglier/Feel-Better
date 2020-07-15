@@ -65,11 +65,11 @@ class ActivityController extends AbstractController
 
         // Retrieve All the ideas with the mood id and the budget of the user
         $ideasAll = $this->ideaRepository->findAllByMood($mood[count($mood) - 1]->getId(), $userBudget);
-        // Fix the number of activities to 5
-        $nbActivitiesForResult = 5;
+        // Fix the number of activities to 6
+        $nbActivitiesForResult = 6;
 
         // We determine the number of activities for the result
-        for ($i = 0; $i <= count($ideasAll) && $i <= 5; $i++) {
+        for ($i = 0; $i <= count($ideasAll) && $i <= 6; $i++) {
             $nbActivitiesForResult = $i;
         }
 
