@@ -27,7 +27,7 @@
     .rectangle1 {
       width: 250px;
       height: 420px;
-      // background-color: rgba($light-default-color, 0.5);
+      opacity: 0.5;
       border: 1px solid rgba(255,255,255, 0.5);
       position: absolute;
       top: 7%;
@@ -37,7 +37,7 @@
     .rectangle2 {
       width: 250px;
       height: 420px;
-      // background-color: rgba($light-default-color, 0.5);
+      opacity: 0.5;
       border: 1px solid rgba(255,255,255, 0.5);
       position: absolute;
       top: 10%;
@@ -124,15 +124,10 @@
       }
 
       .register-btn {
-        // background-color: $light-default-color;
-        color: $light-main-color;
+        // color: $light-main-color;
 
         &:before {
           // background-color: $light-main-color;
-        }
-
-        &:hover {
-          // color: $light-default-color;
         }
       }
     }

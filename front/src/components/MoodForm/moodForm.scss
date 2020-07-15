@@ -48,6 +48,7 @@
           .mood-img-input {
             display: none;
           }
+
           //Tooltip text container 
           .mood-tooltip {
             &::before {
@@ -91,6 +92,10 @@
 
           .mood-icon {
             width: 90%;
+          }
+
+          .mood-img-input[value=pessimistic] ~ .mood-icon {
+            width: 110%;
           }
 
           &:hover {
@@ -176,6 +181,11 @@
     .submit-button {
       @include btn-style;
       width: fit-content;
+      background-color: transparent;
+
+      &:hover {
+        color: #f8f8f8;
+      }
     }
     
   }
@@ -185,6 +195,12 @@
   .mood {
     .mood-form {
       .mood-wrapper {
+        .stars {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: center;
+        }
+
         .mood-icons {
           .mood-img {
             width: 30%;
@@ -203,6 +219,11 @@
             }
             .mood-icon {
               width: 60%;
+            }
+
+
+            .mood-img-input[value=pessimistic] ~ .mood-icon {
+              width: 70%;
             }
 
             .mood-checked {
@@ -259,6 +280,10 @@
               width: 50%;
             }
 
+            .mood-img-input[value=pessimistic] ~ .mood-icon {
+              width: 60%;
+            }
+
             .mood-checked {
               right: 2rem;
 
@@ -292,6 +317,10 @@
             }
             .mood-icon {
               width: 40%;
+            }
+
+            .mood-img-input[value=pessimistic] ~ .mood-icon {
+              width: 50%;
             }
 
             .mood-checked {

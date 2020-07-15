@@ -35,7 +35,7 @@ const moodMiddleware = (store) => (next) => (action) => {
           store.dispatch(saveMood(response.data.setMood));
 
           // Store mood color in the local storage
-          // localStorage.setItem('color', response.data.color);
+          localStorage.setItem('color', response.data.color);
         })
         // And then we store suggestion's data in the state
         .then(() => {
@@ -93,7 +93,6 @@ const moodMiddleware = (store) => (next) => (action) => {
       axios.post(`${apiUrl}/moodcalendar`, {
         token,
       }, config)
-        // Send mood and estimation to API
         .then((response) => {
           console.log('response for moodcalendar: ', response);
           // Store response received from API in the state

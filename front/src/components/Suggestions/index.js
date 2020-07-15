@@ -31,7 +31,7 @@ const Suggestions = ({
   if (!isLoading) {
     return (
       <div className="suggestions">
-        <h2 className="suggestions-title">Nous vous proposons les cinq activités suivantes : </h2>
+        <h2 className="suggestions-title">Nous vous proposons les activités suivantes : </h2>
         <div className="suggestions-wrapper">
           {ideas.map((idea) => (
             <Suggestion

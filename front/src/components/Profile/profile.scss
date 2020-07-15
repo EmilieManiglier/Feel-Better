@@ -35,7 +35,6 @@
 
       .profile-input {
         border: none;
-        // border-bottom: 1px solid $light-default-color;
         outline: none;
         background: transparent;
         margin-bottom: 2rem;
@@ -52,23 +51,16 @@
         padding: 0.6rem 0;
         font-size: 1rem;
         font-weight: 600;
-        color: $label;
       }
     }
 
     .profile-submit-btn {
       @include btn-style;
       color: $light-main-color;
-      // background-color: $light-default-color;
-
 
       &:before {
         left: -5%;
         background-color: $light-main-color;
-      }
-
-      &:hover {
-        // color: $light-default-color;
       }
     }
   }

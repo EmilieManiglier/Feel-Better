@@ -9,7 +9,6 @@ const mapStateToProps = (state) => ({
   isLogged: state.auth.isLogged,
   timestamp: state.mood.timestamp,
   setMood: state.mood.setMood,
-  mood: state.mood.mood,
 });
 
 // === mapDispatchToProps
@@ -20,6 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(checkLogged());
   },
 
+  // Request to API to get calendar datas
   loadCalendar: () => {
     dispatch(loadCalendar());
   },

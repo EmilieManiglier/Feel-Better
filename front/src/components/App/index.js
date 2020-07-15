@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
+import Chromotherapy from 'src/styles/Chromotherapy';
 import GlobalStyles from 'src/styles/GlobalStyles';
 import useDarkMode from 'src/styles/useDarkMode';
 import { lightTheme, darkTheme } from 'src/styles/Theme';
@@ -26,60 +27,16 @@ import Register from 'src/containers/Register';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkLogged, mood, loadCalendar }) => {
+const App = ({ checkLogged, loadCalendar }) => {
   useEffect(() => {
+    // Send request to API in order to check if user token exist and is valid
     checkLogged();
+    // Send request to API in order to get calendar data
     loadCalendar();
   }, []);
 
-  let color = '';
-
-  switch (mood) {
-    case 'agressive':
-      color = '#2E8B57'; // vert
-      break;
-    case 'angry':
-      color = '#6482E3'; // bleu indigo
-      break;
-    case 'confident':
-      color = '#A14B3C'; // orange foncé
-      break;
-    case 'glad':
-      color = '#DB7093'; // rose
-      break;
-    case 'indecisive':
-      color = '#858585'; // gris
-      break;
-    case 'inLove':
-      color = '#D94452'; // rouge
-      break;
-    case 'joyful':
-      color = '#ffc900'; // jaune
-      break;
-    case 'lack-of-self-confidence':
-      color = '#3399ff'; // bleu clair
-      break;
-    case 'lonely':
-      color = '#f7be16'; // jaune
-      break;
-    case 'pessimistic':
-      color = '#ff9933'; // orange
-      break;
-    case 'relaxed':
-      color = '#8A2BE2'; // violet
-      break;
-    case 'sad':
-      color = '#c70039'; // rouge
-      break;
-    case 'stressed':
-      color = '#3797a4'; // bleu pastel
-      break;
-    case 'worried':
-      color = '#2c786c'; // vert
-      break;
-    default:
-      color = '#858585'; // gris
-  }
+  // Defines color according to user's mood
+  const color = localStorage.getItem('color') ? localStorage.getItem('color') : '#858585';
 
   // ===== Dark / Light Theme =====
   // Custom hook which contains the chosen theme and the toggle function to switch between modes
@@ -90,6 +47,7 @@ const App = ({ checkLogged, mood, loadCalendar }) => {
   return (
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
+      <Chromotherapy color={color} />
       <div className="app">
         <Header themeToggler={themeToggler} />
         <Switch>
@@ -143,7 +101,6 @@ const App = ({ checkLogged, mood, loadCalendar }) => {
 App.propTypes = {
   checkLogged: PropTypes.func.isRequired,
   loadCalendar: PropTypes.func.isRequired,
-  mood: PropTypes.string.isRequired,
 };
 
 // == Export

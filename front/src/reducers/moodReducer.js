@@ -16,6 +16,7 @@ const initialState = {
   mood: '',
   // Estimation in the mood form
   estimation: 0,
+  // Bool received in API response, if true the mood form was successfully submitted
   setMood: false,
   // Suggestions
   ideas: [],
@@ -27,7 +28,7 @@ const initialState = {
   showMood: false,
   // Suggestion chosen by the user
   suggestion: '',
-  // Bool received in API response, if true the form was successfully submitted
+  // Bool received in API response, if true the suggestion form was successfully submitted
   setIdea: false,
   // Informations related to user's mood
   moodDatas: [],
