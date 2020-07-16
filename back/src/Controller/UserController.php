@@ -56,6 +56,7 @@ class UserController extends AbstractController
                 $user->setAvatar(null);
                 $user->setCreatedAt(new DateTime());
                 $user->setRoles(['ROLE_USER']);
+                $user->setCountActivities(0);
 
 
                 // Hash password
