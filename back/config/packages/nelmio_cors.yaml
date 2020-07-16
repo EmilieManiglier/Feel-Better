@@ -11,8 +11,16 @@ nelmio_cors:
     forced_allow_origin_value: ~
   paths:
     "^/api/v1/":
-      allow_origin: ["http://localhost:8080"]
-      allow_headers: ["X-API-KEY", "Origin", "X-Requested-With", "Content-Type", "Accept", "Access-Control-Request-Method", "Authorization"]
+      allow_origin: ["http://3.84.11.250"]
+      allow_headers:
+        [
+          "X-API-KEY",
+          "Origin",
+          "X-Requested-With",
+          "Content-Type",
+          "Accept",
+          "Access-Control-Request-Method",
+          "Authorization",
+        ]
       allow_methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS"]
       max_age: 3600
-
