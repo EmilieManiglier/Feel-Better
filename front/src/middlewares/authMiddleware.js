@@ -83,7 +83,6 @@ const authMiddleware = (store) => (next) => (action) => {
           // Connects user and store data in the state
           console.log('response for check logged: ', response);
           store.dispatch(connectUser(response.data.verifyUser.user, response.data.verifyUser.logged));
-          console.log('response.data.verifyUser.user: ', response.data.verifyUser.user);
         })
         .catch((error) => {
           console.warn(error);
