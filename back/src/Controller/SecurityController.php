@@ -30,11 +30,10 @@ class SecurityController extends AbstractController
     {
         $jsonData = json_decode($request->getContent());
 
-
         if (empty($this->session->get('suggestion'))) {
-            return new JsonResponse(['suggestionBool' => false], $this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getStatusCode());
+            return new JsonResponse(['suggestionBool' => false, 'verifyUser' => json_decode($this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getContent())], $this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getStatusCode());
         } else {
-            return new JsonResponse(['suggestionBool' => true, 'suggestion' => $this->session->get('suggestion')], $this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getStatusCode());
+            return new JsonResponse(['suggestionBool' => true, 'suggestion' => $this->session->get('suggestion'), 'verifyUser' =>  json_decode($this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getContent())], $this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getStatusCode());
         }
     }
 
