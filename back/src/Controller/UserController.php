@@ -135,6 +135,40 @@ class UserController extends AbstractController
                 // Generate the token
                 $token = $this->JWTManager->create($user);
 
+                if ($user->getCountActivities() >= 5) {
+                    $user->setCountActivities(0);
+                    $this->em->flush();
+                    // Return all the datas with the token in a JSON response
+                    return new JsonResponse([
+                        'logged' => true,
+                        'satisfaction' => true,
+                        'user' => [
+                            'id' => $user->getId(),
+                            'email' => $user->getEmail(),
+                            'firstname' => $user->getFirstname(),
+                            'lastname' => $user->getLastname(),
+                            'role' => $user->getRoles(),
+                            'birthday' => $user->getBirthday()->format('Y-m-d'),
+                            'city' => $user->getCity(),
+                            'token' => $token
+                        ]
+                    ], Response::HTTP_OK);
+                } else {
+                    return new JsonResponse([
+                        'logged' => true,
+                        'satisfaction' => false,
+                        'user' => [
+                            'id' => $user->getId(),
+                            'email' => $user->getEmail(),
+                            'firstname' => $user->getFirstname(),
+                            'lastname' => $user->getLastname(),
+                            'role' => $user->getRoles(),
+                            'birthday' => $user->getBirthday()->format('Y-m-d'),
+                            'city' => $user->getCity(),
+                            'token' => $token
+                        ]
+                    ], Response::HTTP_OK);
+                }
                 // Return all the datas with the token in a JSON response
                 return new JsonResponse([
                     'logged' => true,

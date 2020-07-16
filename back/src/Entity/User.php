@@ -118,6 +118,11 @@ class User implements UserInterface
      */
     private $userMoodDates;
 
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $count_activities;
+
     public function __construct()
     {
         $this->userMoodDates = new ArrayCollection();
@@ -314,6 +319,18 @@ class User implements UserInterface
             $this->userMoodDates->removeElement($userMoodDate);
             $userMoodDate->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getCountActivities(): ?int
+    {
+        return $this->count_activities;
+    }
+
+    public function setCountActivities(int $count_activities): self
+    {
+        $this->count_activities = $count_activities;
 
         return $this;
     }

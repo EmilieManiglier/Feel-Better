@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ActivityController extends AbstractController
@@ -25,8 +26,9 @@ class ActivityController extends AbstractController
     private $moodRepository;
     private $colorRepository;
     private $em;
+    private $session;
 
-    public function __construct(JwtDecodeService $jwtDecodeService, UserRepository $userRepository, IdeaRepository $ideaRepository, MoodRepository $moodRepository, ColorRepository $colorRepository, EntityManagerInterface $em)
+    public function __construct(JwtDecodeService $jwtDecodeService, UserRepository $userRepository, IdeaRepository $ideaRepository, MoodRepository $moodRepository, ColorRepository $colorRepository, EntityManagerInterface $em, SessionInterface $session)
     {
         $this->jwtDecodeService = $jwtDecodeService;
         $this->userRepository = $userRepository;
@@ -34,6 +36,7 @@ class ActivityController extends AbstractController
         $this->moodRepository = $moodRepository;
         $this->colorRepository = $colorRepository;
         $this->em = $em;
+        $this->session = $session;
     }
 
     /**
@@ -41,6 +44,7 @@ class ActivityController extends AbstractController
      */
     public function suggestion(Request $request)
     {
+        $this->session->set('suggestion', []);
         // Retrieve the content of the $request and convert the json data to PHP data object
         $jsonData = json_decode($request->getContent());
         // Use the service jwtDecodeService to decode the token in the request content
@@ -93,7 +97,7 @@ class ActivityController extends AbstractController
             }
         }
 
-
+        //$this->session->set('suggestion', $tableIdea);
 
         return new JsonResponse(['suggestion' => true, 'ideas' => $tableIdea], Response::HTTP_OK);
     }
@@ -145,12 +149,16 @@ class ActivityController extends AbstractController
 
         // Use the userRespository to find the email of the user with the username stored in the tokenService
         $userEntity = $this->userRepository->findByEmail($tokenService['username']);
+        $countActivites = $userEntity->getCountActivities();
 
         $ideaEntity = $this->ideaRepository->findByName($jsonData->idea);
 
         $userMoodDateAllForUser = $userEntity->getUserMoodDates()->getValues();
         $lastuserMoodDateForUser = $userMoodDateAllForUser[count($userMoodDateAllForUser) - 1];
         $lastuserMoodDateForUser->addIdea(end($ideaEntity));
+
+        $newCountActivities = $countActivites + 1;
+        $userEntity->setCountActivities($newCountActivities);
 
         $this->em->flush();
 

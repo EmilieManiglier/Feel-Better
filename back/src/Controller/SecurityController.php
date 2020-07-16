@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Service\JwtDecodeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -13,10 +15,12 @@ class SecurityController extends AbstractController
 {
 
     private $jwtDecodeService;
+    private $session;
 
-    public function __construct(JwtDecodeService $jwtDecodeService)
+    public function __construct(JwtDecodeService $jwtDecodeService, SessionInterface $session)
     {
         $this->jwtDecodeService = $jwtDecodeService;
+        $this->session = $session;
     }
 
     /**
@@ -25,7 +29,13 @@ class SecurityController extends AbstractController
     public function isLogged(Request $request)
     {
         $jsonData = json_decode($request->getContent());
-        return $this->jwtDecodeService->tokenVerifyUser($jsonData->token);
+
+
+        if (empty($this->session->get('suggestion'))) {
+            return new JsonResponse(['suggestionBool' => false], $this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getStatusCode());
+        } else {
+            return new JsonResponse(['suggestionBool' => true, 'suggestion' => $this->session->get('suggestion')], $this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getStatusCode());
+        }
     }
 
     /**
