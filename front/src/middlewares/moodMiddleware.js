@@ -4,10 +4,14 @@ import {
   HANDLE_MOOD_SUBMIT,
   saveMood,
   loadSuggestions,
+  HANDLE_SUGGESTION_SUBMIT,
+  saveIdeaBool,
+  LOAD_CALENDAR,
+  saveCalendar,
 } from 'src/actions/mood';
 
 const moodMiddleware = (store) => (next) => (action) => {
-  const apiUrl = 'http://18.232.116.23/api/v1';
+  const apiUrl = 'http://3.89.193.249/api/v1';
 
   switch (action.type) {
     case HANDLE_MOOD_SUBMIT: {
@@ -28,7 +32,10 @@ const moodMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           console.log('response for mood: ', response);
           // Store response received from API in the state
-          store.dispatch(saveMood(response.data.setMood, response.data.timestamp));
+          store.dispatch(saveMood(response.data.setMood));
+
+          // Store mood color in the local storage
+          localStorage.setItem('color', response.data.color);
         })
         // And then we store suggestion's data in the state
         .then(() => {
@@ -40,6 +47,56 @@ const moodMiddleware = (store) => (next) => (action) => {
               // Store suggestions received from API response in the state
               store.dispatch(loadSuggestions(response.data.ideas));
             });
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
+    case HANDLE_SUGGESTION_SUBMIT: {
+      const { suggestion: idea } = store.getState().mood;
+      const token = localStorage.getItem('userToken');
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      axios.post(`${apiUrl}/setidea`, {
+        idea,
+        token,
+      }, config)
+        // Send mood and estimation to API
+        .then((response) => {
+          console.log('response for setideas: ', response);
+          // Store response received from API in the state
+          store.dispatch(saveIdeaBool(response.data.setIdea));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+
+      next(action);
+      break;
+    }
+
+    case LOAD_CALENDAR: {
+      const token = localStorage.getItem('userToken');
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      axios.post(`${apiUrl}/moodcalendar`, {
+        token,
+      }, config)
+        .then((response) => {
+          console.log('response for moodcalendar: ', response);
+          // Store response received from API in the state
+          store.dispatch(saveCalendar(response.data.moodDatas));
         })
         .catch((error) => {
           console.warn(error);

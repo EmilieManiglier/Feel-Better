@@ -67,6 +67,7 @@ const register = (state = initialState, action = {}) => {
 
     case LOG_OUT:
       localStorage.removeItem('userToken');
+      localStorage.removeItem('color');
       return {
         ...state,
         isLogged: false,

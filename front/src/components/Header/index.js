@@ -6,7 +6,11 @@ import logo from 'src/assets/images/logo.png';
 
 import './header.scss';
 
-const Header = ({ isLogged, logout, toggleTheme }) => {
+const Header = ({
+  isLogged,
+  logout,
+  themeToggler,
+}) => {
   const [addClass, setAddClass] = useState(false);
 
   return (
@@ -44,7 +48,7 @@ const Header = ({ isLogged, logout, toggleTheme }) => {
               type="checkbox"
               className="dn"
               id="dn"
-              onChange={toggleTheme}
+              onChange={themeToggler}
             />
             <label htmlFor="dn" className="toggle">
               <span className="toggle__handler">
@@ -52,12 +56,12 @@ const Header = ({ isLogged, logout, toggleTheme }) => {
                 <span className="crater crater--2" />
                 <span className="crater crater--3" />
               </span>
-              <span className="star star--1" />
-              <span className="star star--2" />
-              <span className="star star--3" />
-              <span className="star star--4" />
-              <span className="star star--5" />
-              <span className="star star--6" />
+              <span className="toggleStar star--1" />
+              <span className="toggleStar star--2" />
+              <span className="toggleStar star--3" />
+              <span className="toggleStar star--4" />
+              <span className="toggleStar star--5" />
+              <span className="toggleStar star--6" />
             </label>
           </div>
           <li>
@@ -110,7 +114,7 @@ const Header = ({ isLogged, logout, toggleTheme }) => {
             >
               Activités
             </NavLink>
-          </li> 
+          </li>
           {isLogged && (
             <li>
               <NavLink
@@ -132,7 +136,7 @@ const Header = ({ isLogged, logout, toggleTheme }) => {
 Header.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
-  toggleTheme: PropTypes.func.isRequired,
+  themeToggler: PropTypes.func.isRequired,
 };
 
 export default Header;

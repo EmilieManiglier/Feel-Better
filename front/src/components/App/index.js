@@ -3,6 +3,11 @@
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components';
+import Chromotherapy from 'src/styles/Chromotherapy';
+import GlobalStyles from 'src/styles/GlobalStyles';
+import useDarkMode from 'src/styles/useDarkMode';
+import { lightTheme, darkTheme } from 'src/styles/Theme';
 
 // == Local import
 import Header from 'src/containers/Header';
@@ -12,6 +17,8 @@ import Suggestions from 'src/containers/Suggestions';
 import MoodForm from 'src/containers/MoodForm';
 import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
+import LegalNotices from 'src/components/LegalNotices';
+import MoodCalendar from 'src/containers/MoodCalendar';
 
 import Page404 from 'src/components/Page404';
 
@@ -20,55 +27,80 @@ import Register from 'src/containers/Register';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkLogged }) => {
+const App = ({ checkLogged, loadCalendar }) => {
   useEffect(() => {
+    // Send request to API in order to check if user token exist and is valid
     checkLogged();
+    // Send request to API in order to get calendar data
+    loadCalendar();
   }, []);
 
+  // Defines color according to user's mood
+  const color = localStorage.getItem('color') ? localStorage.getItem('color') : '#858585';
+
+  // ===== Dark / Light Theme =====
+  // Custom hook which contains the chosen theme and the toggle function to switch between modes
+  const [theme, themeToggler] = useDarkMode();
+  // Toggle either dark or light theme based on the truth condition
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+
   return (
-    <div className="app">
-      <Header />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
+    <ThemeProvider theme={themeMode}>
+      <GlobalStyles />
+      <Chromotherapy color={color} />
+      <div className="app">
+        <Header themeToggler={themeToggler} />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
 
-        <Route exact path="/profile">
-          <Profile />
-        </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
 
-        <Route exact path="/mood">
-          <MoodForm />
-        </Route>
+          <Route exact path="/mood">
+            <MoodForm />
+          </Route>
 
-        <Route exact path="/team">
-          <Team />
-        </Route>
+          <Route exact path="/team">
+            <Team />
+          </Route>
 
-        <Route exact path="/login">
-          <Login />
-        </Route>
+          <Route exact path="/calendar">
+            <MoodCalendar />
+          </Route>
 
-        <Route exact path="/register">
-          <Register />
-        </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
 
-        <Route exact path="/suggestions">
-          <Suggestions />
-        </Route>
+          <Route exact path="/register">
+            <Register />
+          </Route>
 
-        <Route>
-          <Page404 />
-        </Route>
-      </Switch>
+          <Route exact path="/suggestions">
+            <Suggestions />
+          </Route>
 
-      <Footer />
-    </div>
+          <Route exact path="/legal-notices">
+            <LegalNotices />
+          </Route>
+
+          <Route>
+            <Page404 />
+          </Route>
+        </Switch>
+
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 };
 
 App.propTypes = {
   checkLogged: PropTypes.func.isRequired,
+  loadCalendar: PropTypes.func.isRequired,
 };
 
 // == Export

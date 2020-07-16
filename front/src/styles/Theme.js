@@ -1,15 +1,23 @@
 export const lightTheme = {
-  body: '#e0dede',
-  header: '#f5f5f5',
+  body: 'linear-gradient(to bottom left, #F5EDD4, #FFFFFF);',
   text: '#202040',
-  input: '#202040',
-  loader: '#202040',
+  moodTitle: '#202040',
+  headerLink: '#202040',
+  headerLinkHover: '#f8f8f8',
+  quoteText: '#000',
+  suggestionBtnText: '#fff',
+  suggestionBtnBackground: '#150d33',
+  suggestionCheckbox: '#5a5a5a',
 };
 
 export const darkTheme = {
-  body: '#202040',
-  header: '#303960',
+  body: 'linear-gradient(0deg, #150d33 0%, #383a56 74%);',
   text: '#e0dede',
-  input: '#f8f3eb',
-  loader: '#e0dede',
+  moodTitle: '#202040',
+  headerLink: '#f8f8f8',
+  headerLinkHover: '#202040',
+  quoteText: '#fff',
+  suggestionBtnText: '#150d33',
+  suggestionBtnBackground: '#fff',
+  suggestionCheckbox: '#fff',
 };

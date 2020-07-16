@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import './register.scss';
 
@@ -24,6 +24,7 @@ const Register = ({
 
   return (
     <main className="register">
+      <h2 className="register-title">S'inscrire</h2>
       <form
         className="register-form"
         onSubmit={(evt) => {
@@ -32,116 +33,120 @@ const Register = ({
         }}
       >
         <div className="register-container">
-          <label className="register-label" htmlFor="firstname">
-            Prénom
-          </label>
           <input
             className="register-input"
+            value={firstname}
             name="firstname"
             id="firstname"
             type="text"
-            value={firstname}
+            required
             onChange={(evt) => {
               updateField(evt.currentTarget.name, evt.currentTarget.value);
             }}
           />
+          <label className="register-label" htmlFor="firstname">
+            Prénom
+          </label>
         </div>
         <div className="register-container">
-          <label className="register-label" htmlFor="lastname">
-            Nom
-          </label>
           <input
             className="register-input"
+            value={lastname}
             name="lastname"
             id="lastname"
             type="text"
-            value={lastname}
+            required
             onChange={(evt) => {
               updateField(evt.currentTarget.name, evt.currentTarget.value);
             }}
           />
-        </div>
-
-        <div className="register-container register-container-email">
-          <label className="register-label" htmlFor="email">
-            Email
+          <label className="register-label" htmlFor="lastname">
+            Nom
           </label>
+        </div>
+        <div className="register-container email-container">
           <input
             className="register-input"
+            value={email}
             name="email"
             id="email"
             type="text"
-            value={email}
+            required
             onChange={(evt) => {
               updateField(evt.currentTarget.name, evt.currentTarget.value);
             }}
           />
-        </div>
-
-        <div className="register-container">
-          <label className="register-label" htmlFor="password">
-            Mot de passe
+          <label className="register-label" htmlFor="email">
+            Adresse email
           </label>
+        </div>
+        <div className="register-container">
           <input
             className="register-input"
+            value={password}
             name="password"
             id="password"
             type="password"
             required
-            value={password}
             onChange={(evt) => {
               updateField(evt.currentTarget.name, evt.currentTarget.value);
             }}
           />
+          <label className="register-label" htmlFor="password">
+            Mot de passe
+          </label>
         </div>
-
         <div className="register-container">
+          <input
+            className="register-input"
+            value={confirm_password}
+            name="confirm_password"
+            id="confirm_password"
+            type="password"
+            required
+            onChange={(evt) => {
+              updateField(evt.currentTarget.name, evt.currentTarget.value);
+            }}
+          />
           <label className="register-label" htmlFor="confirm_password">
             Confirmez le mot de passe
           </label>
-          <input
-            className="register-input"
-            name="confirm_password"
-            id="confirm_password"
-            required
-            type="password"
-            value={confirm_password}
-            onChange={(evt) => {
-              updateField(evt.currentTarget.name, evt.currentTarget.value);
-            }}
-          />
         </div>
+
         <div className="register-container">
-          <label className="register-label" htmlFor="city">
-            Ville
-          </label>
           <input
             className="register-input"
+            value={city}
             name="city"
             id="city"
             type="text"
-            value={city}
+            required
             onChange={(evt) => {
               updateField(evt.currentTarget.name, evt.currentTarget.value);
             }}
           />
-        </div>
-        <div className="register-container">
-          <label className="register-label" htmlFor="birthday">
-            Date de naissance
+          <label className="register-label" htmlFor="city">
+            Ville
           </label>
+        </div>
+
+        <div className="register-container">
           <input
-            className="register-input"
+            className="register-input birthday-input"
+            value={birthday}
             name="birthday"
             id="birthday"
             type="date"
             min="1900-01-01"
             max="3000-01-01"
-            value={birthday}
+            required
             onChange={(evt) => {
               updateField(evt.currentTarget.name, evt.currentTarget.value);
             }}
           />
+          <label className="register-label" htmlFor="birthday">
+            Date de naissance
+          </label>
         </div>
         {/*
         <div className="register-container register-container-avatar">
@@ -161,25 +166,30 @@ const Register = ({
           />
         </div>
         */}
-        <div className="register-container register-container-cgu">
-          <label className="register-label" htmlFor="cgu">
-            Accepter les CGU
-          </label>
+
+        <div className="register-container cgu-container">
           <input
-            className="register-input"
+            className="register-input cgu-input"
             name="cgu"
             id="cgu"
             type="checkbox"
             required
-            onClick={(evt) => {
+            onChange={(evt) => {
               updateField(evt.currentTarget.name, evt.currentTarget.value);
             }}
           />
+          <label className="register-label" htmlFor="cgu">
+            Accepter les CGU
+          </label>
+          <div className="cgu-checkbox" />
         </div>
+
         <button className="register-button" type="submit">
           Valider
         </button>
       </form>
+
+      <Link to="/login" className="register-redirect">Déjà inscrit ? C'est par ici !</Link>
     </main>
   );
 };

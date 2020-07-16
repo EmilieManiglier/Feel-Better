@@ -6,8 +6,7 @@
 }
 
 .navbar {
-  background: $light-default-color;
-  padding-bottom: 0.6rem;
+  // background: $light-default-color;
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +17,7 @@
     position: absolute;
     cursor: pointer;
     // Adjust top/right to center hamburger
-    top: 12px;
+    top: 30px;
     right: 20px;
   }
 
@@ -44,15 +43,18 @@
   display: none;
 
   .nav-links {
-    color: $light-main-color;
+    font-weight: 600;
   }
 }
 
 .main-nav li {
   font-size: 1.2em;
   text-align: center;
-  margin: 4rem 0 0.5rem;
+  //margin: 6rem 0 1rem;
+  margin-top: 2rem;
+  padding: 1.5rem 0;
 }
+
 
 .active {
   display: block;
@@ -155,12 +157,13 @@
         RESPONSIVE
 /*--------------------------*/
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .header {
     padding-bottom: 0;
   }
 
   .navbar {
+    // background: linear-gradient(to bottom, rgba($light-default-color, 1.0), rgba(50, 42, 42, 0,));
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -181,12 +184,8 @@
     background-color: transparent;
 
     .nav-links {
-      color: $light-main-color;
       margin-left: 2.5rem;
       position: relative;
-      // background-color: #fff;
-      // padding: 0.5em 1em;
-      // border-radius: 2em;
   
       &:after {
         content: "";
@@ -195,17 +194,16 @@
         height: 2px;
         bottom: -0.3rem;
         left: 0;
-        background-color: $light-default-color;
+        // background-color: $light-default-color;
         visibility: hidden;
         transform: scaleX(0);
         transition: all 0.3s ease-in-out 0s;
       }
-  
+
       &:hover, &--active {
-        color: $light-default-hover;
-  
+        // Border bottom link
         &:after {
-          background-color: $light-default-hover;
+          background-color: $light-main-color;
           visibility: visible;
           transform: scaleX(1);
         }

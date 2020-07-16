@@ -48,7 +48,8 @@ const MoodForm = ({
                       }}
                     />
                     <span className="mood-tooltip" aria-label={mood.tooltip} />
-                    <img src={mood.picture} alt="" />
+                    <img src={mood.picture} alt="" className="mood-icon" />
+                    <span className="mood-checked" />
                   </label>
                 </div>
               ))}
