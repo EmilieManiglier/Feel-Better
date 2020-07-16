@@ -5,6 +5,8 @@ export const SAVE_MOOD = 'SAVE_MOOD';
 export const SET_DATE = 'SET_DATE';
 export const SHOW_MOOD = 'SHOW_MOOD';
 export const UPDATE_SUGGESTION = 'UPDATE_SUGGESTION';
+export const CLOSE_MODALE = 'CLOSE_MODALE';
+export const OPEN_MODALE = 'OPEN_MODALE';
 
 // Send user's mood and estimation to the server
 export const handleMoodSubmit = () => ({
@@ -44,6 +46,15 @@ export const showMood = () => ({
 export const updateSuggestion = (suggestion) => ({
   type: UPDATE_SUGGESTION,
   suggestion,
+});
+
+// Change the showModale status in the state
+export const closeModale = () => ({
+  type: CLOSE_MODALE,
+});
+
+export const openModale = () => ({
+  type: OPEN_MODALE,
 });
 
 // === Middleware actions

@@ -10,6 +10,8 @@ import {
   UPDATE_SUGGESTION,
   SAVE_IDEA_BOOL,
   SAVE_CALENDAR,
+  CLOSE_MODALE,
+  OPEN_MODALE,
 } from 'src/actions/mood';
 
 const initialState = {
@@ -32,6 +34,8 @@ const initialState = {
   setIdea: false,
   // Informations related to user's mood
   moodDatas: [],
+  // Bool that show the mood modale or not
+  showModale: true,
 };
 
 const moodReducer = (state = initialState, action = {}) => {
@@ -89,6 +93,16 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         moodDatas: action.calendar,
+      };
+    case CLOSE_MODALE:
+      return {
+        ...state,
+        showModale: false,
+      };
+    case OPEN_MODALE:
+      return {
+        ...state,
+        showModale: true,
       };
     default: return state;
   }

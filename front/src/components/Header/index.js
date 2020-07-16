@@ -10,6 +10,7 @@ const Header = ({
   isLogged,
   logout,
   themeToggler,
+  openModale,
 }) => {
   const [addClass, setAddClass] = useState(false);
 
@@ -90,6 +91,9 @@ const Header = ({
                 exact
                 to="/mood"
                 className="nav-links"
+                onClick={() => {
+                  openModale();
+                }}
               >
                 Mon humeur
               </NavLink>
@@ -137,6 +141,7 @@ Header.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
   themeToggler: PropTypes.func.isRequired,
+  openModale: PropTypes.func.isRequired,
 };
 
 export default Header;
