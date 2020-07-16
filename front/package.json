@@ -74,5 +74,6 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "styled-components": "^5.1.1"
-  }
+  },
+  "homepage": "http://3.84.11.250"
 }
