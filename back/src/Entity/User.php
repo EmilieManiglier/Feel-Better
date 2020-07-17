@@ -123,6 +123,11 @@ class User implements UserInterface
      */
     private $count_activities;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Satisfaction::class, inversedBy="users")
+     */
+    private $satisfactions;
+
     public function __construct()
     {
         $this->userMoodDates = new ArrayCollection();
@@ -331,6 +336,18 @@ class User implements UserInterface
     public function setCountActivities(int $count_activities): self
     {
         $this->count_activities = $count_activities;
+
+        return $this;
+    }
+
+    public function getSatisfactions(): ?Satisfaction
+    {
+        return $this->satisfactions;
+    }
+
+    public function setSatisfactions(?Satisfaction $satisfactions): self
+    {
+        $this->satisfactions = $satisfactions;
 
         return $this;
     }
