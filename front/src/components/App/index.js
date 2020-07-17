@@ -19,6 +19,7 @@ import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
 import LegalNotices from 'src/components/LegalNotices';
 import MoodCalendar from 'src/containers/MoodCalendar';
+import SatisfactionForm from 'src/containers/SatisfactionForm';
 
 import Page404 from 'src/components/Page404';
 
@@ -55,22 +56,6 @@ const App = ({ checkLogged, loadCalendar }) => {
             <Home />
           </Route>
 
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
-
-          <Route exact path="/mood">
-            <MoodForm />
-          </Route>
-
-          <Route exact path="/team">
-            <Team />
-          </Route>
-
-          <Route exact path="/calendar">
-            <MoodCalendar />
-          </Route>
-
           <Route exact path="/login">
             <Login />
           </Route>
@@ -79,12 +64,32 @@ const App = ({ checkLogged, loadCalendar }) => {
             <Register />
           </Route>
 
-          <Route exact path="/suggestions">
-            <Suggestions />
+          <Route exact path="/team">
+            <Team />
           </Route>
 
           <Route exact path="/legal-notices">
             <LegalNotices />
+          </Route>
+
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
+
+          <Route exact path="/mood">
+            <MoodForm />
+          </Route>
+
+          <Route exact path="/calendar">
+            <MoodCalendar />
+          </Route>
+
+          <Route exact path="/suggestions">
+            <Suggestions />
+          </Route>
+
+          <Route exact path="/satisfaction">
+            <SatisfactionForm />
           </Route>
 
           <Route>

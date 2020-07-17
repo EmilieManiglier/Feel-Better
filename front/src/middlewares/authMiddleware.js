@@ -10,6 +10,8 @@ import {
   updateLoader,
 } from 'src/actions/authentification';
 
+import { saveSatisfaction } from 'src/actions/satisfaction';
+
 const authMiddleware = (store) => (next) => (action) => {
   const apiUrl = 'http://3.89.193.249/api/v1';
 
@@ -28,6 +30,8 @@ const authMiddleware = (store) => (next) => (action) => {
           store.dispatch(connectUser(response.data.user, response.data.logged));
           // Save the JWT in localStorage
           localStorage.setItem('userToken', response.data.user.token);
+          // Save satisfaction bool in the state
+          // store.dispatch(saveSatisfaction(response.data.satisfaction));
         })
         .catch((error) => {
           console.warn(error);

@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
 import {
-  HANDLE_MOOD_SUBMIT,
   UPDATE_MOOD,
   UPDATE_ESTIMATION,
   SAVE_MOOD,
@@ -40,11 +39,6 @@ const initialState = {
 
 const moodReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case HANDLE_MOOD_SUBMIT:
-      return {
-        ...state,
-      };
-
     case UPDATE_MOOD:
       return {
         ...state,
@@ -68,7 +62,6 @@ const moodReducer = (state = initialState, action = {}) => {
         ideas: action.ideas,
         isLoading: false,
       };
-
     case SET_DATE:
       return {
         ...state,

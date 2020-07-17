@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import authReducer from './authentification';
 import moodReducer from './moodReducer';
+import satisfactionReducer from './satisfaction';
 
 // séparer le state en plusieurs morceaux ("tiroirs") pour mieux s'y retrouver
 // createStore prend en argument un seul reducer, pour lui en fournir plusieurs
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   // nom du tiroir : reducer qui gère cette partie du state
   auth: authReducer,
   mood: moodReducer,
+  satisfaction: satisfactionReducer,
 });
 
 // pour accéder au state défini dans le reducer 'recipesReducer', il faudra que
