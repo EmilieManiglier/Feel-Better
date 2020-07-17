@@ -20,7 +20,7 @@ class Satisfaction
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank(
+     * @Assert\NotNull(
      * message = "Hep hep hep, donne moi une note siouplé"
      * )
      */
