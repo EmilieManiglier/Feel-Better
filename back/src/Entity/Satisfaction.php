@@ -3,12 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SatisfactionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * @ORM\Entity(repositoryClass=SatisfactionRepository::class)
@@ -25,7 +21,7 @@ class Satisfaction
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank(
-     * message = "hep hep hep, donne nous une note !"
+     * message = "Hep hep hep, donne moi une note siouplé"
      * )
      */
     private $rating;
@@ -41,34 +37,15 @@ class Satisfaction
     private $pertinence;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $postponement_date;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $answer;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="satisfactions")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $updated_at;
-
-    /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="satisfactions")
-     */
-    private $users;
-
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
+    private $user;
 
     public function getId(): ?int
     {
@@ -111,30 +88,6 @@ class Satisfaction
         return $this;
     }
 
-    public function getPostponementDate(): ?\DateTimeInterface
-    {
-        return $this->postponement_date;
-    }
-
-    public function setPostponementDate(?\DateTimeInterface $postponement_date): self
-    {
-        $this->postponement_date = $postponement_date;
-
-        return $this;
-    }
-
-    public function getAnswer(): ?string
-    {
-        return $this->answer;
-    }
-
-    public function setAnswer(?string $answer): self
-    {
-        $this->answer = $answer;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
@@ -147,45 +100,14 @@ class Satisfaction
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUser(): ?User
     {
-        return $this->updated_at;
+        return $this->user;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUser(?User $user): self
     {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setSatisfactions($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getSatisfactions() === $this) {
-                $user->setSatisfactions(null);
-            }
-        }
+        $this->user = $user;
 
         return $this;
     }

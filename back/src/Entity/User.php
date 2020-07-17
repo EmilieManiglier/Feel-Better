@@ -124,13 +124,16 @@ class User implements UserInterface
     private $count_activities;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Satisfaction::class, inversedBy="users")
+     * @ORM\OneToMany(targetEntity=Satisfaction::class, mappedBy="user", orphanRemoval=true)
      */
     private $satisfactions;
+
+
 
     public function __construct()
     {
         $this->userMoodDates = new ArrayCollection();
+        $this->satisfactions = new ArrayCollection();
     }
 
     public function __toString()
@@ -340,15 +343,35 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getSatisfactions(): ?Satisfaction
+    /**
+     * @return Collection|Satisfaction[]
+     */
+    public function getSatisfactions(): Collection
     {
         return $this->satisfactions;
     }
 
-    public function setSatisfactions(?Satisfaction $satisfactions): self
+    public function addSatisfaction(Satisfaction $satisfaction): self
     {
-        $this->satisfactions = $satisfactions;
+        if (!$this->satisfactions->contains($satisfaction)) {
+            $this->satisfactions[] = $satisfaction;
+            $satisfaction->setUser($this);
+        }
 
         return $this;
     }
+
+    public function removeSatisfaction(Satisfaction $satisfaction): self
+    {
+        if ($this->satisfactions->contains($satisfaction)) {
+            $this->satisfactions->removeElement($satisfaction);
+            // set the owning side to null (unless already changed)
+            if ($satisfaction->getUser() === $this) {
+                $satisfaction->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

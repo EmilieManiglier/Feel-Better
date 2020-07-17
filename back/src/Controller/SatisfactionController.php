@@ -56,8 +56,7 @@ class SatisfactionController extends AbstractController
                 return $this->json($errors, Response::HTTP_BAD_REQUEST);
             }
 
-            $satisfaction->addUser($user);
-
+            $user->addSatisfaction($satisfaction);
             // I save satisfaction in database
             $this->em->persist($satisfaction);
             $this->em->flush();
