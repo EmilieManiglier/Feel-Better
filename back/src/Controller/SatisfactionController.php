@@ -62,10 +62,10 @@ class SatisfactionController extends AbstractController
             $this->em->flush();
 
             // I send the answer in json
-            return new JsonResponse(Response::HTTP_CREATED);
+            return new JsonResponse(['setSatisfaction' => true], Response::HTTP_CREATED);
         } else {
             // I send a 403 error
-            return new JsonResponse(Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['setSatisfaction' => false], Response::HTTP_FORBIDDEN);
         }
     }
 }
