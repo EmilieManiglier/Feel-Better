@@ -31,7 +31,7 @@ const authMiddleware = (store) => (next) => (action) => {
           // Save the JWT in localStorage
           localStorage.setItem('userToken', response.data.user.token);
           // Save satisfaction bool in the state
-          // store.dispatch(saveSatisfaction(response.data.satisfaction));
+          store.dispatch(saveSatisfaction(response.data.satisfaction));
         })
         .catch((error) => {
           console.warn(error);

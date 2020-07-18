@@ -77,24 +77,40 @@
   }
 
   .calendar-current-mood {
-    display: flex;
     padding: 1rem;
-    flex-direction: column;
 
     .calendar-current-mood-container {
-      display: flex;
-      flex-direction: row-reverse;
-      justify-content: flex-end;
-      margin: 0.5rem 0;
-      align-items: center;
+      margin: 2rem auto 4rem;
+
+      width: 85%; 
+      height: 70px; 
+      background:transparent;
+      transform: skew(20deg); 
+      -webkit-transform: skew(20deg);
+      position: relative;
+      text-align: center;
+      padding: 1rem 0 1rem 2rem;
+      font-size: 1.2rem;
+      font-family: $patrick-font;
 
       .calendar-current-mood-name {
-        display: block;
         margin-left: 1rem;
+        transform: skew(-20deg); 
+        -webkit-transform: skew(-20deg);
+        max-width: 180px;
       }
 
       .calendar-current-mood-img {
-        width: 10%;
+        // width: 10%;
+        width: 40%;
+        position: absolute;
+        transform: skew(-20deg);
+        -webkit-transform: skew(-20deg);
+        background: #fff;
+        border-radius: 50%;
+        top: -25%;
+        left: -12%;
+        padding: 0.2rem;
       }
     }
 
@@ -102,10 +118,9 @@
   }
 }
 
-@media screen and (min-width: 460px) {
+@media screen and (min-width: 425px) {
   .calendar {
-    min-height: 90vh;
-    padding-top: 3rem;
+    padding-top: 1rem;
 
     .react-calendar {
       .react-calendar__tile {
@@ -118,16 +133,28 @@
         }
       }
     }
+    .calendar-current-mood {
+      .calendar-current-mood-container {
+        .calendar-current-mood-name {
+          margin-top: 0.3rem; 
+          max-width: 280px;
+        }
+  
+        .calendar-current-mood-img {
+          width: 35%;
+          top: -40%;
+        }
+      }
+      
+    }
   }
 }
 
 @media screen and (min-width: 768px) {
   .calendar {
-    padding-top: 7rem;
-    display: flex;
-
     .react-calendar {
-      width: 55%;
+      width: 90%;
+      margin: auto;
 
       .react-calendar__tile {
         height: 100px;
@@ -135,20 +162,44 @@
     }
 
     .calendar-current-mood {
-      
-  
+      max-height: 600px;
+      overflow: auto;
+      margin: 0 1rem;
+
       .calendar-current-mood-container {
-        margin-left: 2rem;
-  
-        .calendar-current-mood-name {
-          font-size: 1.2em;
-        }
-  
+        width: 50%;
+
         .calendar-current-mood-img {
-          width: 20%;
+          width: 30%;
+          top: -35%;
         }
       }
-  
+      
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .calendar {
+    min-height: 90vh;
+    padding-top: 8rem;
+    display: flex;
+
+    .react-calendar {
+      width: 50%;
+      margin-left: 1rem;
+      margin-right: 0;
+    }
+
+    .calendar-current-mood {
+      max-height: 600px;
+      overflow: auto;
+      margin: 0 1rem;
+      width: 50%;
+
+      .calendar-current-mood-container {
+        width: 75%;
+      }
       
     }
   }
@@ -163,6 +214,14 @@
         }
       }
     }
+
+    .calendar-current-mood {
+
+      .calendar-current-mood-container {
+        width: 50%;
+      }
+      
+    }
   }
 }
 
@@ -172,6 +231,17 @@
       .react-calendar__tile {
         height: 120px;
       }
+    }
+
+    .calendar-current-mood {
+      width: 60%;
+      max-height: 695px;
+      margin-left: 0;
+
+      .calendar-current-mood-container {
+        width: 30%;
+      }
+      
     }
   }
 }

@@ -145,6 +145,16 @@ const Chromotherapy = createGlobalStyle`
       }
     }
   }
+
+  .calendar {
+    .calendar-current-mood-container {
+      border: 2px solid ${(props) => props.color};
+    }
+
+    .calendar-current-mood-img {
+        border: 5px solid ${(props) => props.color};
+      }
+  }
 `;
 
 export default Chromotherapy;

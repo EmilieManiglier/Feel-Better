@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   // Bool that show satisfaction form or not
-  showSatisfactionForm: true,
+  showSatisfactionForm: false,
   // rating of the suggested activities chosen by the user in satisfaction form
   satisfaction: null,
   // User's comment in satisfaction form

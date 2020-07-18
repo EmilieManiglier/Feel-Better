@@ -14,6 +14,16 @@ const GlobalStyles = createGlobalStyle`
   .footer-li {
     color: ${({ theme }) => theme.text};
   }
+
+  .login-redirect, .register-redirect {
+    color: ${({ theme }) => theme.loginLink};
+    box-shadow: inset 0 -1px 0 ${({ theme }) => theme.loginLink};
+
+    &:hover {
+      background: ${({ theme }) => theme.loginLink};
+      color: ${({ theme }) => theme.headerLinkHover};
+    }
+  }
   
   .profile-input {
     color: ${({ theme }) => theme.text};

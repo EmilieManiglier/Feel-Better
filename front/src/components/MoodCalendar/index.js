@@ -83,8 +83,8 @@ const MoodCalendar = ({
         <div className="calendar-current-mood">
           {findDate.map((date) => (
             <div className="calendar-current-mood-container" key={date.mood.id}>
-              <span className="calendar-current-mood-name">{date.mood.idea}</span>
               <img className="calendar-current-mood-img" src={`assets/images/moods/${date.mood.moodName}.png`} alt="" />
+              <p className="calendar-current-mood-name">{date.mood.idea}</p>
             </div>
           ))}
         </div>
