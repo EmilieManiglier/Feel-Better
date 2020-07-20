@@ -32,6 +32,8 @@ class JwtDecodeService
             ], Response::HTTP_I_AM_A_TEAPOT);
         }
 
+
+
         return new JsonResponse([
             'logged' => true,
             'user' => [
@@ -42,7 +44,11 @@ class JwtDecodeService
                 'role' => $user->getRoles(),
                 'birthday' => $user->getBirthday()->format('Y-m-d'),
                 'city' => $user->getCity(),
-                'avatar' => $user->getAvatar(),
+                'avatar' => [
+                    "type" => $user->getAvatar()->getType(),
+                    "mood" => $user->getAvatar()->getMood(),
+                    "color" => $user->getAvatar()->getColor()
+                ],
                 'token' => $token
             ]
         ], Response::HTTP_OK);
