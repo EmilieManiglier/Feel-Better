@@ -26,7 +26,7 @@ const SatisfactionForm = ({
       }}
     >
       <p className="question"> Qu'as-tu pensé de tes activités ?</p>
-      <label htmlFor="satisfaction1">
+      <label htmlFor="satisfaction1" className="satisfaction-label">
         <input
           type="radio"
           className="satisfaction-input"
@@ -39,9 +39,10 @@ const SatisfactionForm = ({
           }}
         />
         <img src={picto1} alt="" className="satisfaction-img" />
+        <span className="satisfaction-checked" />
       </label>
 
-      <label htmlFor="satisfaction2">
+      <label htmlFor="satisfaction2" className="satisfaction-label">
         <input
           type="radio"
           className="satisfaction-input"
@@ -54,9 +55,10 @@ const SatisfactionForm = ({
           }}
         />
         <img src={picto2} alt="" className="satisfaction-img" />
+        <span className="satisfaction-checked" />
       </label>
 
-      <label htmlFor="satisfaction3">
+      <label htmlFor="satisfaction3" className="satisfaction-label">
         <input
           type="radio"
           className="satisfaction-input"
@@ -69,9 +71,10 @@ const SatisfactionForm = ({
           }}
         />
         <img src={picto3} alt="" className="satisfaction-img" />
+        <span className="satisfaction-checked" />
       </label>
 
-      <label htmlFor="satisfaction4">
+      <label htmlFor="satisfaction4" className="satisfaction-label">
         <input
           type="radio"
           className="satisfaction-input"
@@ -84,9 +87,10 @@ const SatisfactionForm = ({
           }}
         />
         <img src={picto4} alt="" className="satisfaction-img" />
+        <span className="satisfaction-checked" />
       </label>
 
-      <label htmlFor="satisfaction5">
+      <label htmlFor="satisfaction5" className="satisfaction-label">
         <input
           type="radio"
           className="satisfaction-input"
@@ -99,6 +103,7 @@ const SatisfactionForm = ({
           }}
         />
         <img src={picto5} alt="" className="satisfaction-img" />
+        <span className="satisfaction-checked" />
       </label>
 
       <label htmlFor="comment" className="satisfaction-comment">
@@ -115,35 +120,39 @@ const SatisfactionForm = ({
         />
       </label>
 
-      <div className="">
+      <div className="pertinence-container">
         <p className="question">As-tu trouvé que les activités que l'on t'a proposé étaient pertinentes ?</p>
-        <label htmlFor="pertinence-1">
-          <input
-            type="radio"
-            name="pertinence"
-            className=""
-            id="pertinence-1"
-            value="1"
-            onChange={(evt) => {
-              updatePertinence(evt.currentTarget.value);
-            }}
-          />
-          Oui
-        </label>
+        <div className="pertinence-input-wrapper">
+          <label htmlFor="pertinence-1">
+            <input
+              type="radio"
+              name="pertinence"
+              className="pertinence-input"
+              id="pertinence-1"
+              value="1"
+              onChange={(evt) => {
+                updatePertinence(evt.currentTarget.value);
+              }}
+            />
+            <span className="pertinence-label">Oui</span>
+          </label>
+        </div>
 
-        <label htmlFor="pertinence-0">
-          <input
-            type="radio"
-            name="pertinence"
-            className=""
-            id="pertinence-0"
-            value="0"
-            onChange={(evt) => {
-              updatePertinence(evt.currentTarget.value);
-            }}
-          />
-          Non
-        </label>
+        <div className="pertinence-input-wrapper">
+          <label htmlFor="pertinence-0">
+            <input
+              type="radio"
+              name="pertinence"
+              className="pertinence-input"
+              id="pertinence-0"
+              value="0"
+              onChange={(evt) => {
+                updatePertinence(evt.currentTarget.value);
+              }}
+            />
+            <span className="pertinence-label">Non</span>
+          </label>
+        </div>
       </div>
 
       <button
