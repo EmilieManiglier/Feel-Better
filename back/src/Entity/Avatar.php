@@ -28,7 +28,7 @@ class Avatar
     private $mood;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=7, options={"default" : "#dfe5f0"})
      */
     private $color;
 
