@@ -53,7 +53,7 @@ class SatisfactionController extends AbstractController
             $errors = $this->validator->validate($satisfaction);
 
             if (count($errors) > 0) {
-                return $this->json($errors, Response::HTTP_BAD_REQUEST);
+                return $this->json($errors, Response::HTTP_ACCEPTED);
             }
 
             $user->addSatisfaction($satisfaction);
