@@ -19,7 +19,7 @@ const Suggestions = ({
 
   if (!setMood) {
     return (
-      <div className="suggestions">Vous n'avez pas encore répondu au <Link to="/mood" className="redirect-mood-link">formulaire d'humeur</Link> !</div>
+      <div className="suggestions">Il faut d'abord répondre au <Link to="/mood" className="redirect-mood-link">formulaire d'humeur</Link> avant de s'amuser !</div>
     );
   }
 

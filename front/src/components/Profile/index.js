@@ -33,7 +33,6 @@ const Profile = ({
           Changer ma photo de profil
         </button>
       </div>
-
       <form
         className="profile-form"
         onSubmit={(event) => {
@@ -95,7 +94,7 @@ const Profile = ({
                 updateField(event.currentTarget.name, event.currentTarget.value);
               }}
             />
-            <label className="profile-label" htmlFor="password">Mon mot de passe</label>
+            <label className="profile-label" htmlFor="password">Mon mot de passe  <span className="needed">*</span></label>
           </div>
 
           <div className="inputBox">
@@ -131,6 +130,7 @@ const Profile = ({
         >
           Modifier mes informations
         </button>
+        <span className="needed-content">( * : champ obligatoire )</span>
       </form>
     </div>
   );

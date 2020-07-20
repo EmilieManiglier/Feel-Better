@@ -21,9 +21,11 @@
   width: 100%;
   min-height: 75vh;
   text-align: center;
+  line-height: 2rem;
+  padding: 1rem;
 
   .redirect-mood-link {
-    padding: 0.5rem;
+    padding: 0.3rem;
     transition: background 0.5s cubic-bezier(.33,.66,.66,1);
 
     &:hover {
@@ -306,6 +308,7 @@
 
 @media screen and (min-width: 768px) {
   .suggestions {
+    font-size: 1.5rem;
     min-height: 90vh;
     padding-top: 10rem;
     

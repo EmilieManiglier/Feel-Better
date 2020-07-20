@@ -31,9 +31,10 @@ const MoodForm = ({
               handleMoodSubmit();
             }}
           >
+            <span className="needed-content">( * : champ obligatoire )</span>
             <div className="mood-wrapper">
               <div>
-                <h2 className="mood-title">Comment te sens-tu aujourd'hui ?</h2>
+                <h2 className="mood-title">Comment te sens-tu aujourd'hui ? <span className="needed">*</span></h2>
 
                 <div className="mood-icons">
                   {moods.map((mood) => (

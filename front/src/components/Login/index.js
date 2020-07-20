@@ -39,7 +39,7 @@ const Login = ({
             }}
           />
           <label className="login-label" htmlFor="email">
-            Adresse email
+            Adresse email <span className="needed">*</span>
           </label>
         </div>
         <div className="input-container">
@@ -55,12 +55,13 @@ const Login = ({
             }}
           />
           <label className="login-label" htmlFor="password">
-            Mot de passe
+            Mot de passe <span className="needed">*</span>
           </label>
         </div>
         <button className="login-button" type="submit">
           Valider
         </button>
+        <span className="needed-content">( * : champ obligatoire )</span>
       </form>
 
       <Link to="/register" className="login-redirect">Pas encore inscrit ? C'est par ici !</Link>

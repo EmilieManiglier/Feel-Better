@@ -26,14 +26,26 @@
     padding: 1rem;
     text-align: center;
 
+    .needed-content {
+      color: red;
+      display: block;
+      margin-top: 1rem;
+    }
+
     .mood-wrapper {
       text-align: center;
+
+      
 
       .mood-title {
         font-weight: 600;
         font-family: $patrick-font;
         font-size: 1.5rem;
         margin: 1rem 0;
+
+        .needed {
+          color: red;
+        }
       }
 
       .mood-icons {

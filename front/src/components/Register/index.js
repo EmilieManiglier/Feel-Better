@@ -45,7 +45,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="firstname">
-            Prénom
+            Prénom <span className="needed">*</span>
           </label>
         </div>
         <div className="register-container">
@@ -61,7 +61,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="lastname">
-            Nom
+            Nom <span className="needed">*</span>
           </label>
         </div>
         <div className="register-container email-container">
@@ -77,7 +77,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="email">
-            Adresse email
+            Adresse email <span className="needed">*</span>
           </label>
         </div>
         <div className="register-container">
@@ -93,7 +93,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="password">
-            Mot de passe
+            Mot de passe <span className="needed">*</span>
           </label>
         </div>
         <div className="register-container">
@@ -109,7 +109,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="confirm_password">
-            Confirmez le mot de passe
+            Confirmez le mot de passe <span className="needed">*</span>
           </label>
         </div>
 
@@ -126,7 +126,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="city">
-            Ville
+            Ville <span className="needed">*</span>
           </label>
         </div>
 
@@ -145,7 +145,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="birthday">
-            Date de naissance
+            Date de naissance <span className="needed">*</span>
           </label>
         </div>
         {/*
@@ -179,7 +179,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="cgu">
-            Accepter les CGU
+            Accepter les CGU <span className="needed">*</span>
           </label>
           <div className="cgu-checkbox" />
         </div>
@@ -187,6 +187,7 @@ const Register = ({
         <button className="register-button" type="submit">
           Valider
         </button>
+        <span className="needed-content">( * : champ obligatoire )</span>
       </form>
 
       <Link to="/login" className="register-redirect">Déjà inscrit ? C'est par ici !</Link>
