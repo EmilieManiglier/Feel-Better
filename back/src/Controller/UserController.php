@@ -53,15 +53,17 @@ class UserController extends AbstractController
 
         $avatar = $this->serializer->deserialize($data, Avatar::class, 'json');
 
-        $user->addAvatar($avatar);
-        $this->em->flush();
-
         if ($jsonData->mood == "") {
             $avatar->setMood('blissful');
         }
         if ($jsonData->color == "") {
             $avatar->setColor('#dfe5f0');
         }
+
+
+        $user->addAvatar($avatar);
+        $this->em->flush();
+
 
         return new JsonResponse([
             'setAvatar' => true,
