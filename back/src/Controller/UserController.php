@@ -53,7 +53,7 @@ class UserController extends AbstractController
 
         $avatar = $this->serializer->deserialize($data, Avatar::class, 'json');
 
-        $user->setAvatar($avatar);
+        $user->addAvatar($avatar);
         $this->em->flush();
 
         return new JsonResponse([
@@ -98,27 +98,19 @@ class UserController extends AbstractController
                     return $this->json($errors, Response::HTTP_ACCEPTED);
                 }
 
-                /*if ($avatar) {
 
-                $originalFileName = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFileName);
+                $avatar = new Avatar();
+                $avatar->setType($jsonData->type);
+                $avatar->setMood($jsonData->mood);
+                $avatar->setColor($jsonData->color);
+                $user->addAvatar($avatar);
 
-                $newFilename = $safeFilename.uniqid().'.'.$avatar->guessExtension();
 
-                try {
-                    $avatar->move(
-                        $this->getParameter('avatar_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    return new JsonResponse(['error' => 'Picture could not be uploaded !']);
-                }
-
-                $user->setAvatar($newFilename);
-                }*/
                 $token = $this->JWTManager->create($user);
                 // I save in user database
+
                 $this->em->persist($user);
+                //$user->addAvatar($avatar);
                 $this->em->flush();
 
                 // I send the answer in json
@@ -132,7 +124,11 @@ class UserController extends AbstractController
                         'role' => $user->getRoles(),
                         'birthday' => $user->getBirthday()->format('Y-m-d'),
                         'city' => $user->getCity(),
-                        'avatar' => $user->getAvatar(),
+                        'avatar' => [
+                            "type" => $avatar->getType(),
+                            "mood" => $avatar->getMood(),
+                            "color" => $avatar->getColor(),
+                        ],
                         'token' => $token
                     ]
                 ], Response::HTTP_CREATED);
@@ -165,6 +161,9 @@ class UserController extends AbstractController
                 // Generate the token
                 $token = $this->JWTManager->create($user);
 
+                $avatars = $user->getAvatars()->getValues();
+                $avatar = end($avatars);
+
                 if ($user->getCountActivities() >= 5) {
                     $this->em->flush();
                     // Return all the datas with the token in a JSON response
@@ -179,7 +178,11 @@ class UserController extends AbstractController
                             'role' => $user->getRoles(),
                             'birthday' => $user->getBirthday()->format('Y-m-d'),
                             'city' => $user->getCity(),
-                            'avatar' => $user->getAvatar(),
+                            'avatar' => [
+                                "type" => $avatar->getType(),
+                                "mood" => $avatar->getMood(),
+                                "color" => $avatar->getColor(),
+                            ],
                             'token' => $token
                         ]
                     ], Response::HTTP_OK);
@@ -195,7 +198,11 @@ class UserController extends AbstractController
                             'role' => $user->getRoles(),
                             'birthday' => $user->getBirthday()->format('Y-m-d'),
                             'city' => $user->getCity(),
-                            'avatar' => $user->getAvatar(),
+                            'avatar' => [
+                                "type" => $avatar->getType(),
+                                "mood" => $avatar->getMood(),
+                                "color" => $avatar->getColor(),
+                            ],
                             'token' => $token
                         ]
                     ], Response::HTTP_OK);

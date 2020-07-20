@@ -53,6 +53,7 @@ class User implements UserInterface
      * message = "Tu n'a pas de nom de famille ?"
      * )
      * @Assert\Length(
+     *      min = 2,
      *      max = 75,
      *      minMessage = "Il n'est pas un peu court ?",
      *      maxMessage = "Un poil trop long ? :o",
@@ -122,15 +123,17 @@ class User implements UserInterface
     private $satisfactions;
 
     /**
-     * @ORM\OneToOne(targetEntity=Avatar::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Avatar::class, mappedBy="user", cascade={"persist"})
      */
-    private $avatar;
+    private $avatars;
+
 
 
     public function __construct()
     {
         $this->userMoodDates = new ArrayCollection();
         $this->satisfactions = new ArrayCollection();
+        $this->avatars = new ArrayCollection();
     }
 
     public function __toString()
@@ -360,19 +363,32 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAvatar(): ?Avatar
+    /**
+     * @return Collection|Avatar[]
+     */
+    public function getAvatars(): Collection
     {
-        return $this->avatar;
+        return $this->avatars;
     }
 
-    public function setAvatar(?Avatar $avatar): self
+    public function addAvatar(Avatar $avatar): self
     {
-        $this->avatar = $avatar;
+        if (!$this->avatars->contains($avatar)) {
+            $this->avatars[] = $avatar;
+            $avatar->setUser($this);
+        }
 
-        // set (or unset) the owning side of the relation if necessary
-        $newUser = null === $avatar ? null : $this;
-        if ($avatar->getUser() !== $newUser) {
-            $avatar->setUser($newUser);
+        return $this;
+    }
+
+    public function removeAvatar(Avatar $avatar): self
+    {
+        if ($this->avatars->contains($avatar)) {
+            $this->avatars->removeElement($avatar);
+            // set the owning side to null (unless already changed)
+            if ($avatar->getUser() === $this) {
+                $avatar->setUser(null);
+            }
         }
 
         return $this;

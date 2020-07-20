@@ -33,9 +33,10 @@ class Avatar
     private $color;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="avatar", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="avatars", cascade={"persist"})
      */
     private $user;
+
 
 
 
@@ -92,6 +93,4 @@ class Avatar
 
         return $this;
     }
-
-
 }

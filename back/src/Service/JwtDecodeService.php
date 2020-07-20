@@ -31,7 +31,8 @@ class JwtDecodeService
                 'user' => []
             ], Response::HTTP_I_AM_A_TEAPOT);
         }
-
+        $avatars = $user->getAvatars()->getValues();
+        $avatar = end($avatars);
 
 
         return new JsonResponse([
@@ -45,9 +46,9 @@ class JwtDecodeService
                 'birthday' => $user->getBirthday()->format('Y-m-d'),
                 'city' => $user->getCity(),
                 'avatar' => [
-                    "type" => $user->getAvatar()->getType(),
-                    "mood" => $user->getAvatar()->getMood(),
-                    "color" => $user->getAvatar()->getColor()
+                    "type" => $avatar->getType(),
+                    "mood" => $avatar->getMood(),
+                    "color" => $avatar->getColor()
                 ],
                 'token' => $token
             ]
