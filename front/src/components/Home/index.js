@@ -16,6 +16,7 @@ const Home = ({ isLogged, isLoading, showSatisfactionForm, firstname }) => {
   const randomQuote = quotes[randomId];
   // Get the author and the content from the random quote
   const { author, content } = randomQuote;
+  console.log('showSatisfactionForm: ', showSatisfactionForm);
 
   return (
     <>
