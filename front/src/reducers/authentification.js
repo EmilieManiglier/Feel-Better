@@ -7,6 +7,9 @@ import {
   UPDATE_PROFILE_FIELD,
   UPDATE_LOADER,
   SAVE_AVATAR,
+  UPDATE_AVATAR_MOOD,
+  UPDATE_AVATAR_TYPE,
+  UPDATE_AVATAR_COLOR,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -23,6 +26,12 @@ const initialState = {
   isLogged: false,
   // Display loader while doing API request
   isLoading: true,
+  // User's avatar mood
+  avatarMood: '',
+  // User's avatar type
+  avatarType: '',
+  // User's avatar color
+  avatarColor: '',
 };
 
 const register = (state = initialState, action = {}) => {
@@ -46,6 +55,21 @@ const register = (state = initialState, action = {}) => {
       return {
         ...state,
         [action.identifier]: action.newValue,
+      };
+    case UPDATE_AVATAR_MOOD:
+      return {
+        ...state,
+        avatarMood: action.mood,
+      };
+    case UPDATE_AVATAR_TYPE:
+      return {
+        ...state,
+        avatarType: action.avatar,
+      };
+    case UPDATE_AVATAR_COLOR:
+      return {
+        ...state,
+        avatarColor: action.color,
       };
 
     case SUBMIT_LOGIN:

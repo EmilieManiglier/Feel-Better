@@ -8,6 +8,7 @@ import {
   CHECK_LOGGED,
   SUBMIT_PROFILE,
   updateLoader,
+  SUBMIT_AVATAR,
 } from 'src/actions/authentification';
 
 import { saveSatisfaction } from 'src/actions/satisfaction';
@@ -50,8 +51,12 @@ const authMiddleware = (store) => (next) => (action) => {
         confirm_password,
         city,
         birthday,
-        avatar,
+        avatar: type,
       } = store.getState().auth;
+
+      // Send default value for mood and color because server needs it
+      const mood = 'blissful';
+      const color = '#dfe5f0';
 
       axios.post(`${apiUrl}/register`, {
         firstname,
@@ -61,11 +66,14 @@ const authMiddleware = (store) => (next) => (action) => {
         confirm_password,
         city,
         birthday,
-        avatar,
+        type,
+        mood,
+        color,
       })
         .then((response) => {
           console.log('response for register: ', response);
           store.dispatch(connectUser(response.data.user, response.data.registered));
+          localStorage.setItem('userToken', response.data.user.token);
         })
         .catch((error) => {
           console.warn(error);
@@ -94,6 +102,32 @@ const authMiddleware = (store) => (next) => (action) => {
           store.dispatch(updateLoader());
         });
 
+      next(action);
+      break;
+    }
+
+    case SUBMIT_AVATAR: {
+      const { avatarType: type, avatarMood: mood, avatarColor: color } = store.getState().auth;
+      const token = localStorage.getItem('userToken');
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      axios.post(`${apiUrl}/setavatar`, {
+        type,
+        mood,
+        color,
+        token,
+      }, config)
+        .then((response) => {
+          console.log('response for avatar: ', response);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
       next(action);
       break;
     }

@@ -4,6 +4,10 @@ export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const CHECK_LOGGED = 'CHECK_LOGGED';
 export const LOG_OUT = 'LOG_OUT';
 export const UPDATE_PROFILE_FIELD = 'UPDATE_PROFILE_FIELD';
+export const UPDATE_AVATAR_MOOD = 'UPDATE_AVATAR_MOOD';
+export const UPDATE_AVATAR_TYPE = 'UPDATE_AVATAR_TYPE';
+export const UPDATE_AVATAR_COLOR = 'UPDATE_AVATAR_COLOR';
+export const SUBMIT_AVATAR = 'SUBMIT_AVATAR';
 export const SUBMIT_PROFILE = 'SUBMIT_PROFILE';
 
 // updates login fields by their identifier
@@ -29,6 +33,25 @@ export const updateProfileField = (identifier, newValue) => ({
 // handles login submission
 export const submitLogin = () => ({
   type: SUBMIT_LOGIN,
+});
+
+export const updateAvatarMood = (mood) => ({
+  type: UPDATE_AVATAR_MOOD,
+  mood,
+});
+
+export const updateAvatarType = (avatar) => ({
+  type: UPDATE_AVATAR_TYPE,
+  avatar,
+});
+
+export const updateAvatarColor = (color) => ({
+  type: UPDATE_AVATAR_COLOR,
+  color,
+});
+
+export const submitAvatar = () => ({
+  type: SUBMIT_AVATAR,
 });
 
 // handles profile submission

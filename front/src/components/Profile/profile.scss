@@ -2,13 +2,29 @@
 @import 'src/styles/btn';
 
 .profile {
-  .icone-container {
+  .avatar-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 3rem;
+
+    .avatar-mood, .avatar-type {
+      outline: none;
+      border: none;
+      background: #2c3e50;
+      padding: 1rem;
+      margin: 1rem 0;
+      color:#fff;
+      font-size: 1em;
+      text-align: center;
+      border-radius: .25em;
+    }
+
+    .avatar-color {
+      margin-top: 1rem;
+    }
     
-    .profile-icone {
+    .profile-avatar {
       display:inline-block;
       width:200px;
       height:200px;
@@ -17,11 +33,11 @@
       margin-bottom: 1rem;
       padding: 1rem;
       overflow: hidden;
+      text-align: center;
     }
 
-    .profile-icone-btn {
+    .profile-avatar-btn {
       @include btn-style;
-      width: 80%;
       font-size: 1rem;
       margin-top: 1.5rem;
     }
@@ -99,10 +115,27 @@
       padding: 2rem 4rem;
     }
 
+    .avatar-form {
+      width: 35%;
+
+      .avatar-container {
+
+        .avatar-custom {
+          display: flex;
+
+          & label {
+            margin: 0 1rem;
+          }
+
+        }
+      }
+    }
+
     .profile-form {
       padding: 0 2rem;
       margin: 0;
       position: relative;
+      width: 60%;
 
       .inputs-container {
         display: flex;

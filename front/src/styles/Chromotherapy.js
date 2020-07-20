@@ -57,7 +57,7 @@ const Chromotherapy = createGlobalStyle`
     border-bottom: 1px solid ${(props) => props.color};
   }
 
-  .profile .icone-container .profile-icone-btn {
+  .profile .avatar-container .profile-avatar-btn {
     border: 2px solid ${(props) => props.color};
     color: ${(props) => props.color};
 

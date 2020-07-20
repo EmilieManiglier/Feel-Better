@@ -1,13 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { Cat } from 'react-kawaii';
 import PropTypes from 'prop-types';
+import {
+  Backpack,
+  Cat,
+  Chocolate,
+  Ghost,
+  IceCream,
+  Mug,
+} from 'react-kawaii';
 
 import './profile.scss';
 
 const Profile = ({
   isLogged,
+  avatar,
   firstname,
   lastname,
   email,
@@ -15,24 +23,116 @@ const Profile = ({
   birthday,
   updateField,
   handleSubmit,
+  avatarType,
+  avatarMood,
+  avatarColor,
+  updateAvatarMood,
+  updateAvatarType,
+  updateAvatarColor,
+  handleAvatarSubmit,
 }) => {
   if (isLogged === false) {
     return <Redirect to="/login" />;
   }
 
+  // create an array for each avatar
+  const componentList = {
+    Backpack,
+    Cat,
+    Chocolate,
+    Ghost,
+    IceCream,
+    Mug,
+  };
+
+  // Get component name from the array componentList according to user's avatar
+  const UserAvatar = componentList[avatarType || avatar.type];
+  console.log('avatarMood: ', avatarMood);
+  console.log('avatarType: ', avatarType);
+  console.log('avatar: ', avatar);
+
   return (
     <div className="profile">
-      <div className="icone-container">
-        <div className="profile-icone">
-          <Cat size={210} mood="excited" color="#dfe5f0" />
+      <form
+        className="avatar-form"
+        onSubmit={(evt) => {
+          evt.preventDefault();
+          handleAvatarSubmit();
+        }}
+      >
+        <div className="avatar-container">
+          <div className="avatar-custom">
+            <label htmlFor="avatar-type">
+              <select
+                name="avatar-type"
+                id="avatar-type"
+                className="avatar-type"
+                value={avatarType}
+                onChange={(evt) => {
+                  updateAvatarType(evt.currentTarget.value);
+                }}
+              >
+                <option defaultValue>Choisis un avatar</option>
+                <option value="Backpack">Sac à dos</option>
+                <option value="Cat">Chat</option>
+                <option value="Chocolate">Chocolat</option>
+                <option value="Ghost">Fantôme</option>
+                <option value="IceCream">Glace</option>
+                <option value="Mug">Tasse</option>
+              </select>
+            </label>
+
+            <label htmlFor="avatar-mood">
+              <select
+                name="avatar-mood"
+                id="avatar-mood"
+                className="avatar-mood"
+                value={avatarMood}
+                onChange={(evt) => {
+                  updateAvatarMood(evt.currentTarget.value);
+                }}
+              >
+                <option defaultValue>Choisis une humeur</option>
+                <option value="sad">Triste</option>
+                <option value="shocked">Choqué</option>
+                <option value="happy">Content</option>
+                <option value="excited">Joyeux</option>
+                <option value="blissful">Heureux</option>
+                <option value="lovestruck">Amoureux</option>
+                <option value="ko">K.O</option>
+              </select>
+            </label>
+
+            <label htmlFor="avatar-color">
+              <input
+                type="color"
+                name="avatar-color"
+                id="avatar-color"
+                className="avatar-color"
+                value={avatarColor}
+                onChange={(evt) => {
+                  updateAvatarColor(evt.currentTarget.value);
+                }}
+              />
+            </label>
+
+          </div>
+          <div className="profile-avatar">
+            <UserAvatar
+              size={170}
+              mood={avatarMood || avatar.mood}
+              color={avatarColor || avatar.color}
+            />
+          </div>
+          <button
+            type="submit"
+            className="profile-avatar-btn"
+          >
+            Changer ma photo de profil
+          </button>
         </div>
-        <button
-          type="button"
-          className="profile-icone-btn"
-        >
-          Changer ma photo de profil
-        </button>
-      </div>
+      </form>
+
       <form
         className="profile-form"
         onSubmit={(event) => {
@@ -138,13 +238,29 @@ const Profile = ({
 
 Profile.propTypes = {
   isLogged: PropTypes.bool.isRequired,
-  firstname: PropTypes.string.isRequired,
-  lastname: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
-  birthday: PropTypes.string.isRequired,
+  firstname: PropTypes.string,
+  lastname: PropTypes.string,
+  email: PropTypes.string,
+  city: PropTypes.string,
+  birthday: PropTypes.string,
+  avatar: PropTypes.object,
+  avatarType: PropTypes.string.isRequired,
+  avatarMood: PropTypes.string.isRequired,
+  avatarColor: PropTypes.string.isRequired,
   updateField: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  updateAvatarMood: PropTypes.func.isRequired,
+  updateAvatarType: PropTypes.func.isRequired,
+  updateAvatarColor: PropTypes.func.isRequired,
+  handleAvatarSubmit: PropTypes.func.isRequired,
 };
 
+Profile.defaultProps = {
+  firstname: '',
+  lastname: '',
+  email: '',
+  city: '',
+  avatar: {},
+  birthday: '',
+};
 export default Profile;
