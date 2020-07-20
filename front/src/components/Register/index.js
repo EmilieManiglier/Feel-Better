@@ -8,7 +8,6 @@ import {
   Chocolate,
   Ghost,
   IceCream,
-  Mug,
 } from 'react-kawaii';
 
 import './register.scss';
@@ -228,20 +227,6 @@ const Register = ({
             />
             <label htmlFor="IceCream">
               <IceCream />
-            </label>
-
-            <input
-              className="avatar-input"
-              name="avatar"
-              id="Mug"
-              type="radio"
-              required
-              onChange={(evt) => {
-                saveAvatar(evt.currentTarget.id);
-              }}
-            />
-            <label htmlFor="Mug">
-              <Mug />
             </label>
           </div>
 

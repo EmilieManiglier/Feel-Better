@@ -24,6 +24,12 @@ const GlobalStyles = createGlobalStyle`
       color: ${({ theme }) => theme.headerLinkHover};
     }
   }
+
+  .profile .avatar-container .avatar-mood,
+  .profile .avatar-container .avatar-type {
+    background: ${({ theme }) => theme.headerLink};
+    color: ${({ theme }) => theme.headerLinkHover};
+  }
   
   .profile-input {
     color: ${({ theme }) => theme.text};

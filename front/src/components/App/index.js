@@ -25,6 +25,9 @@ import Page404 from 'src/components/Page404';
 
 import Login from 'src/containers/Login';
 import Register from 'src/containers/Register';
+
+import people from 'src/assets/images/people-emotions.png';
+import peopleNight from 'src/assets/images/people-emotions-night.png';
 import './styles.scss';
 
 // == Composant
@@ -44,6 +47,8 @@ const App = ({ checkLogged, loadCalendar }) => {
   const [theme, themeToggler] = useDarkMode();
   // Toggle either dark or light theme based on the truth condition
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  // Toggle image with either sun or moon based on the theme
+  const image = theme === 'light' ? people : peopleNight;
 
   return (
     <ThemeProvider theme={themeMode}>
@@ -53,7 +58,7 @@ const App = ({ checkLogged, loadCalendar }) => {
         <Header themeToggler={themeToggler} />
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home image={image} />
           </Route>
 
           <Route exact path="/login">

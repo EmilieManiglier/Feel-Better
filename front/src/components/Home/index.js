@@ -7,16 +7,19 @@ import Loader from 'src/components/Loader';
 import quotes from 'src/data/quotes';
 import './home.scss';
 
-import people from 'src/assets/images/people-emotions.png';
-
-const Home = ({ isLogged, isLoading, showSatisfactionForm, firstname }) => {
+const Home = ({
+  isLogged,
+  isLoading,
+  showSatisfactionForm,
+  firstname,
+  image,
+}) => {
   // Create a random id between 0 and quotes max length
   const randomId = Math.floor(Math.random() * quotes.length);
   // Select a random quote in the array
   const randomQuote = quotes[randomId];
   // Get the author and the content from the random quote
   const { author, content } = randomQuote;
-  console.log('showSatisfactionForm: ', showSatisfactionForm);
 
   return (
     <>
@@ -40,7 +43,7 @@ const Home = ({ isLogged, isLoading, showSatisfactionForm, firstname }) => {
         <main className="main">
 
           <div className="main-img">
-            <img src={people} alt="" className="people" />
+            <img src={image} alt="" className="people" />
           </div>
 
           {
@@ -99,10 +102,12 @@ Home.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   showSatisfactionForm: PropTypes.bool.isRequired,
   firstname: PropTypes.string,
+  image: PropTypes.string,
 };
 
 Home.defaultProps = {
   firstname: '',
+  image: '',
 };
 
 export default Home;

@@ -8,7 +8,6 @@ import {
   Chocolate,
   Ghost,
   IceCream,
-  Mug,
 } from 'react-kawaii';
 
 import './profile.scss';
@@ -42,14 +41,11 @@ const Profile = ({
     Chocolate,
     Ghost,
     IceCream,
-    Mug,
   };
 
   // Get component name from the array componentList according to user's avatar
+  // Or get avatar from server's datas if user has changed its avatar
   const UserAvatar = componentList[avatarType || avatar.type];
-  console.log('avatarMood: ', avatarMood);
-  console.log('avatarType: ', avatarType);
-  console.log('avatar: ', avatar);
 
   return (
     <div className="profile">
@@ -78,7 +74,6 @@ const Profile = ({
                 <option value="Chocolate">Chocolat</option>
                 <option value="Ghost">Fantôme</option>
                 <option value="IceCream">Glace</option>
-                <option value="Mug">Tasse</option>
               </select>
             </label>
 

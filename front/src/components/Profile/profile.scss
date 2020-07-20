@@ -11,17 +11,20 @@
     .avatar-mood, .avatar-type {
       outline: none;
       border: none;
-      background: #2c3e50;
       padding: 1rem;
-      margin: 1rem 0;
-      color:#fff;
+      margin: 0.5rem;
       font-size: 1em;
       text-align: center;
       border-radius: .25em;
+      width: 95%;
     }
 
     .avatar-color {
-      margin-top: 1rem;
+      margin-top: 2rem;
+      border: none;
+      outline: none;
+      width: 50%;
+      margin: 1rem 5rem;
     }
     
     .profile-avatar {
@@ -40,6 +43,10 @@
       @include btn-style;
       font-size: 1rem;
       margin-top: 1.5rem;
+
+      &:before {
+        left: -8%;
+      }
     }
   }
 
@@ -97,6 +104,7 @@
 }
 
 
+
 @media screen and (min-width: 768px) {
   .profile {
     display: flex;
@@ -117,18 +125,6 @@
 
     .avatar-form {
       width: 35%;
-
-      .avatar-container {
-
-        .avatar-custom {
-          display: flex;
-
-          & label {
-            margin: 0 1rem;
-          }
-
-        }
-      }
     }
 
     .profile-form {
@@ -149,4 +145,28 @@
     }
   }
 
+}
+
+@media screen and (min-width: 1024px) {
+  .avatar-form .avatar-container {        
+
+    .avatar-custom {
+      display: flex;
+
+      & label {
+        margin: 0 1rem;
+      }
+
+      .avatar-mood, .avatar-type {
+        margin: 1rem 0;
+        width: auto;
+      }
+  
+      .avatar-color {
+        width: 70%;
+        margin: 2rem 1rem;
+      }
+
+    }
+  }
 }

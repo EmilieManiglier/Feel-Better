@@ -196,7 +196,6 @@
 @media screen and (min-width: 814px) {
   .main {
     min-height: 90vh;
-    padding-top: 4rem;
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
@@ -248,7 +247,8 @@
 
 @media screen and (min-width: 1024px) {
   .satisfaction-container {
-    margin-top: 7rem;
+    width: fit-content;
+    margin: 5rem auto 0;
   }
 }
 
