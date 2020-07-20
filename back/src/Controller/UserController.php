@@ -108,11 +108,11 @@ class UserController extends AbstractController
                 ], Response::HTTP_CREATED);
             } else {
                 // If the two passwords do not match, I send a 403 error
-                return new JsonResponse(['registred' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
+                return new JsonResponse(['registred' => false, 'error' => ['password' => false]], Response::HTTP_ACCEPTED);
             }
         } else {
             // If an email is already exist in the database, I send a 403 error
-            return new JsonResponse(['registred' => false, 'error' => ['email' => false]], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['registred' => false, 'error' => ['email' => false]], Response::HTTP_ACCEPTED);
         }
     }
 
@@ -172,11 +172,11 @@ class UserController extends AbstractController
                 }
             } else {
                 // If the passwords do not match, we return a JSON error
-                return new JsonResponse(['logged' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
+                return new JsonResponse(['logged' => false, 'error' => ['password' => false]], Response::HTTP_ACCEPTED);
             }
         } else {
             // The email does not exist, we return a JSON error
-            return new JsonResponse(['logged' => false, 'error' => ['email' => false]], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['logged' => false, 'error' => ['email' => false]], Response::HTTP_ACCEPTED);
         }
     }
 
@@ -222,7 +222,7 @@ class UserController extends AbstractController
 
             // If errors > 0 we return the detail of the error(s)
             if (count($errors) > 0) {
-                return $this->json($errors, Response::HTTP_BAD_REQUEST);
+                return $this->json($errors, Response::HTTP_ACCEPTED);
             }
             // Save the user in database
             $this->em->flush();
@@ -242,7 +242,7 @@ class UserController extends AbstractController
             ], Response::HTTP_OK);
         } else {
             // If the form was not good, I send a 403 error
-            return new JsonResponse(['updated' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['updated' => false, 'error' => ['password' => false]], Response::HTTP_ACCEPTED);
         }
     }
 }

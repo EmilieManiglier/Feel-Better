@@ -57,7 +57,7 @@ class ActivityController extends AbstractController
 
         // If the count of the userMoodDateAll is inferior or equal to 0, return errorMoodDate true
         if (count($userMoodDateAll) <= 0) {
-            return $this->json(['errorMoodDate' => true], Response::HTTP_BAD_REQUEST);
+            return $this->json(['errorMoodDate' => true], Response::HTTP_ACCEPTED);
         }
         // Retrieve the last MoodDate
         $userMoodDate = $userMoodDateAll[count($userMoodDateAll) - 1];

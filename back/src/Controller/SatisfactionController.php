@@ -66,7 +66,7 @@ class SatisfactionController extends AbstractController
             return new JsonResponse(['setSatisfaction' => true], Response::HTTP_CREATED);
         } else {
             // I send a 403 error
-            return new JsonResponse(['setSatisfaction' => false], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(['setSatisfaction' => false], Response::HTTP_ACCEPTED);
         }
     }
 }
