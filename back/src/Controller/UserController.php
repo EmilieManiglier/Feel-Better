@@ -65,7 +65,7 @@ class UserController extends AbstractController
                 $errors = $this->validator->validate($user);
 
                 if (count($errors) > 0) {
-                    return $this->json($errors, Response::HTTP_BAD_REQUEST);
+                    return $this->json($errors, Response::HTTP_ACCEPTED);
                 }
 
                 /*if ($avatar) {
