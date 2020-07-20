@@ -56,10 +56,10 @@ class UserController extends AbstractController
         $user->addAvatar($avatar);
         $this->em->flush();
 
-        if ($avatar->getMood() == "") {
+        if ($jsonData->mood == "") {
             $avatar->setMood('blissful');
         }
-        if ($avatar->getColor() == "") {
+        if ($jsonData->color == "") {
             $avatar->setColor('#dfe5f0');
         }
 
