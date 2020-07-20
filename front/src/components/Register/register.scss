@@ -167,6 +167,25 @@
       }       
 
     }
+
+    .avatar-container {
+      & p {
+        margin-bottom: 2rem;
+        font-weight: 600;
+        color: #150d33;
+
+        .needed {
+          color: red;
+        }
+      }
+      .avatar-list {
+        display: flex;
+        min-height: 300px;
+        overflow-y: auto;
+        width: 100%;
+      }
+    }
+
   
     .register-button {
       @include btn-style;
@@ -213,6 +232,10 @@
       .register-container {
         width: 45%;
         margin: 1rem 0.5rem;
+      }
+
+      .avatar-container {
+        min-width: 100%;
       }
 
       .email-container {

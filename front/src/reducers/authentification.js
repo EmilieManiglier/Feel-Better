@@ -6,6 +6,7 @@ import {
   LOG_OUT,
   UPDATE_PROFILE_FIELD,
   UPDATE_LOADER,
+  SAVE_AVATAR,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -34,6 +35,11 @@ const register = (state = initialState, action = {}) => {
         // with the info written in the input by the user
         // If action.identifier === password, update the value of password in the state
         [action.identifier]: action.newValue,
+      };
+    case SAVE_AVATAR:
+      return {
+        ...state,
+        avatar: action.avatar,
       };
 
     case UPDATE_PROFILE_FIELD:

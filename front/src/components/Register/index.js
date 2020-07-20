@@ -2,6 +2,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
+import {
+  Backpack,
+  Cat,
+  Chocolate,
+  Ghost,
+  IceCream,
+  Mug,
+} from 'react-kawaii';
 
 import './register.scss';
 
@@ -13,8 +21,8 @@ const Register = ({
   confirm_password,
   city,
   birthday,
-  // avatar,
   updateField,
+  saveAvatar,
   submitRegister,
   isLogged,
 }) => {
@@ -148,24 +156,96 @@ const Register = ({
             Date de naissance <span className="needed">*</span>
           </label>
         </div>
-        {/*
-        <div className="register-container register-container-avatar">
-          <label className="register-label" htmlFor="avatar">
-            Choisir une photo de profil
-          </label>
-          <input
-            className="register-input"
-            name="avatar"
-            id="avatar"
-            type="file"
-            accept="image/png, image/jpeg, image/gif, image/jpg"
-            onChange={(evt) => {
-              updateField(evt.currentTarget.name, evt.target.files[0]);
-              console.log('evt.target.files[0]: ', evt.target.files[0]);
-            }}
-          />
+
+        <div className="register-container avatar-container">
+          <p>Choisissez un avatar <span className="needed">*</span></p>
+          <div className="avatar-list">
+            <input
+              className="avatar-input"
+              name="avatar"
+              id="Backpack"
+              type="radio"
+              required
+              onChange={(evt) => {
+                saveAvatar(evt.currentTarget.id);
+              }}
+            />
+            <label htmlFor="Backpack">
+              <Backpack />
+            </label>
+
+            <input
+              className="avatar-input"
+              name="avatar"
+              id="Cat"
+              type="radio"
+              required
+              onChange={(evt) => {
+                saveAvatar(evt.currentTarget.id);
+              }}
+            />
+            <label htmlFor="Cat">
+              <Cat />
+            </label>
+
+            <input
+              className="avatar-input"
+              name="avatar"
+              id="Chocolate"
+              type="radio"
+              required
+              onChange={(evt) => {
+                saveAvatar(evt.currentTarget.id);
+              }}
+            />
+            <label htmlFor="Chocolate">
+              <Chocolate />
+            </label>
+
+            <input
+              className=""
+              name="avatar"
+              id="Ghost"
+              type="radio"
+              required
+              onChange={(evt) => {
+                saveAvatar(evt.currentTarget.id);
+              }}
+            />
+            <label htmlFor="Ghost">
+              <Ghost />
+            </label>
+
+            <input
+              className="avatar-input"
+              name="avatar"
+              id="IceCream"
+              type="radio"
+              required
+              onChange={(evt) => {
+                saveAvatar(evt.currentTarget.id);
+              }}
+            />
+            <label htmlFor="IceCream">
+              <IceCream />
+            </label>
+
+            <input
+              className="avatar-input"
+              name="avatar"
+              id="Mug"
+              type="radio"
+              required
+              onChange={(evt) => {
+                saveAvatar(evt.currentTarget.id);
+              }}
+            />
+            <label htmlFor="Mug">
+              <Mug />
+            </label>
+          </div>
+
         </div>
-        */}
 
         <div className="register-container cgu-container">
           <input
@@ -204,8 +284,8 @@ Register.propTypes = {
   city: PropTypes.string.isRequired,
   birthday: PropTypes.string.isRequired,
   isLogged: PropTypes.bool.isRequired,
-  // avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   updateField: PropTypes.func.isRequired,
+  saveAvatar: PropTypes.func.isRequired,
   submitRegister: PropTypes.func.isRequired,
 };
 

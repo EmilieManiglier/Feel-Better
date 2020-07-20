@@ -50,7 +50,7 @@ const authMiddleware = (store) => (next) => (action) => {
         confirm_password,
         city,
         birthday,
-        // avatar,
+        avatar,
       } = store.getState().auth;
 
       axios.post(`${apiUrl}/register`, {
@@ -61,7 +61,7 @@ const authMiddleware = (store) => (next) => (action) => {
         confirm_password,
         city,
         birthday,
-        // avatar,
+        avatar,
       })
         .then((response) => {
           console.log('response for register: ', response);

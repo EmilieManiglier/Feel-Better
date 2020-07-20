@@ -1,4 +1,5 @@
 export const UPDATE_LOGIN_FIELD = 'UPDATE_LOGIN_FIELD';
+export const SAVE_AVATAR = 'SAVE_AVATAR';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const CHECK_LOGGED = 'CHECK_LOGGED';
 export const LOG_OUT = 'LOG_OUT';
@@ -10,6 +11,12 @@ export const updateLoginField = (identifier, newValue) => ({
   type: UPDATE_LOGIN_FIELD,
   identifier,
   newValue,
+});
+
+// Saves user avatar in register form
+export const saveAvatar = (avatar) => ({
+  type: SAVE_AVATAR,
+  avatar,
 });
 
 //  updates profile fields
