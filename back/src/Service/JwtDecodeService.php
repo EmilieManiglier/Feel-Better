@@ -42,6 +42,7 @@ class JwtDecodeService
                 'role' => $user->getRoles(),
                 'birthday' => $user->getBirthday()->format('Y-m-d'),
                 'city' => $user->getCity(),
+                'avatar' => $user->getAvatar(),
                 'token' => $token
             ]
         ], Response::HTTP_OK);

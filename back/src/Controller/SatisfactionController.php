@@ -59,6 +59,7 @@ class SatisfactionController extends AbstractController
             $user->addSatisfaction($satisfaction);
             // I save satisfaction in database
             $this->em->persist($satisfaction);
+            $user->setCountActivities(0);
             $this->em->flush();
 
             // I send the answer in json

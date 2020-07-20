@@ -98,12 +98,6 @@ class User implements UserInterface
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * 
-     */
-    private $avatar;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -127,6 +121,18 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Satisfaction::class, mappedBy="user", orphanRemoval=true)
      */
     private $satisfactions;
+
+    /**
+     * @ORM\Column(type="string", length=30)
+     * @Assert\NotBlank(
+     * message = "Oublie pas de choisir un petit avatar mignon <3"
+     * )
+     * @Assert\Length(
+     *      max = 100,
+     *      maxMessage = "C'est un peu long pour moi ...",
+     * )
+     */
+    private $avatar;
 
 
 
@@ -267,17 +273,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
-
-    public function setAvatar(?string $avatar): self
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -374,4 +369,15 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
 }

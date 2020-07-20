@@ -53,11 +53,9 @@ class UserController extends AbstractController
             if ($jsonData->confirm_password === $jsonData->password) {
                 // Initialization of the entity
 
-                $user->setAvatar(null);
                 $user->setCreatedAt(new DateTime());
                 $user->setRoles(['ROLE_USER']);
                 $user->setCountActivities(0);
-
 
                 // Hash password
                 $user->setPassword($this->passwordEncoder->encodePassword($user, $jsonData->password));
@@ -104,6 +102,7 @@ class UserController extends AbstractController
                         'role' => $user->getRoles(),
                         'birthday' => $user->getBirthday()->format('Y-m-d'),
                         'city' => $user->getCity(),
+                        'avatar' => $user->getAvatar(),
                         'token' => $token
                     ]
                 ], Response::HTTP_CREATED);
@@ -137,7 +136,6 @@ class UserController extends AbstractController
                 $token = $this->JWTManager->create($user);
 
                 if ($user->getCountActivities() >= 5) {
-                    $user->setCountActivities(0);
                     $this->em->flush();
                     // Return all the datas with the token in a JSON response
                     return new JsonResponse([
@@ -151,6 +149,7 @@ class UserController extends AbstractController
                             'role' => $user->getRoles(),
                             'birthday' => $user->getBirthday()->format('Y-m-d'),
                             'city' => $user->getCity(),
+                            'avatar' => $user->getAvatar(),
                             'token' => $token
                         ]
                     ], Response::HTTP_OK);
@@ -166,24 +165,11 @@ class UserController extends AbstractController
                             'role' => $user->getRoles(),
                             'birthday' => $user->getBirthday()->format('Y-m-d'),
                             'city' => $user->getCity(),
+                            'avatar' => $user->getAvatar(),
                             'token' => $token
                         ]
                     ], Response::HTTP_OK);
                 }
-                // Return all the datas with the token in a JSON response
-                return new JsonResponse([
-                    'logged' => true,
-                    'user' => [
-                        'id' => $user->getId(),
-                        'email' => $user->getEmail(),
-                        'firstname' => $user->getFirstname(),
-                        'lastname' => $user->getLastname(),
-                        'role' => $user->getRoles(),
-                        'birthday' => $user->getBirthday()->format('Y-m-d'),
-                        'city' => $user->getCity(),
-                        'token' => $token
-                    ]
-                ], Response::HTTP_OK);
             } else {
                 // If the passwords do not match, we return a JSON error
                 return new JsonResponse(['logged' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
