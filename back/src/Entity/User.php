@@ -53,7 +53,6 @@ class User implements UserInterface
      * message = "Tu n'a pas de nom de famille ?"
      * )
      * @Assert\Length(
-     *      min = 2,
      *      max = 75,
      *      minMessage = "Il n'est pas un peu court ?",
      *      maxMessage = "Un poil trop long ? :o",
@@ -123,17 +122,9 @@ class User implements UserInterface
     private $satisfactions;
 
     /**
-     * @ORM\Column(type="string", length=30)
-     * @Assert\NotBlank(
-     * message = "Oublie pas de choisir un petit avatar mignon <3"
-     * )
-     * @Assert\Length(
-     *      max = 100,
-     *      maxMessage = "C'est un peu long pour moi ...",
-     * )
+     * @ORM\OneToOne(targetEntity=Avatar::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $avatar;
-
 
 
     public function __construct()
@@ -369,14 +360,20 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
+    public function getAvatar(): ?Avatar
     {
         return $this->avatar;
     }
 
-    public function setAvatar(string $avatar): self
+    public function setAvatar(?Avatar $avatar): self
     {
         $this->avatar = $avatar;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = null === $avatar ? null : $this;
+        if ($avatar->getUser() !== $newUser) {
+            $avatar->setUser($newUser);
+        }
 
         return $this;
     }

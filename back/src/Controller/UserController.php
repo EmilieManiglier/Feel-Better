@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Avatar;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\JwtDecodeService;
@@ -34,6 +35,35 @@ class UserController extends AbstractController
         $this->jwtDecodeService = $jwtDecodeService;
         $this->validator = $validator;
         $this->serializer = $serializer;
+    }
+
+
+    /**
+     * @Route("/api/v1/setavatar", name="setavatar_user", METHODS={"POST"})
+     */
+    public function setAvatar(Request $request, UserRepository $userRepository)
+    {
+        $data = $request->getContent();
+
+        $jsonData = json_decode($data);
+
+        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData->token);
+
+        $user = $userRepository->findByEmail($tokenService['username']);
+
+        $avatar = $this->serializer->deserialize($data, Avatar::class, 'json');
+
+        $user->setAvatar($avatar);
+        $this->em->flush();
+
+        return new JsonResponse([
+            'setAvatar' => true,
+            'avatar' => [
+                'type' => $avatar->getType(),
+                'mood' => $avatar->getMood(),
+                'color' => $avatar->getColor()
+            ]
+        ], Response::HTTP_CREATED);
     }
 
     /**
