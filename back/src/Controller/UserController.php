@@ -320,6 +320,9 @@ class UserController extends AbstractController
                 // Save the user in database
                 $this->em->flush();
 
+                // Generate the token
+                $token = $this->JWTManager->create($user);
+
                 // Return the complete object with all data
                 return new JsonResponse([
                     'updated' => true,
@@ -330,7 +333,8 @@ class UserController extends AbstractController
                         'lastname' => $user->getLastname(),
                         'role' => $user->getRoles(),
                         'birthday' => $user->getBirthday()->format('Y-m-d'),
-                        'city' => $user->getCity()
+                        'city' => $user->getCity(),
+                        'token' => $token
                     ]
                 ], Response::HTTP_OK);
             } else {
