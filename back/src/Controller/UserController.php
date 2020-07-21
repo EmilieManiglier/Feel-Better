@@ -221,12 +221,10 @@ class UserController extends AbstractController
                 return new JsonResponse(
                     [
                         'logged' => false,
-                        'data' => [
-                            'violations' => [
-                                '0' => [
-                                    'propertyPath' => 'password',
-                                    'title' => 'Tu es sûr d\'avoir entré le bon mot de passe ?'
-                                ]
+                        'violations' => [
+                            '0' => [
+                                'propertyPath' => 'password',
+                                'title' => 'Tu es sûr d\'avoir entré le bon mot de passe ?'
                             ]
                         ]
                     ],
@@ -238,12 +236,10 @@ class UserController extends AbstractController
             return new JsonResponse(
                 [
                     'logged' => false,
-                    'data' => [
-                        'violations' => [
-                            '0' => [
-                                'propertyPath' => 'email',
-                                'title' => 'L\'email me semble incorrect ... vérifie le ou inscris-toi !'
-                            ]
+                    'violations' => [
+                        '0' => [
+                            'propertyPath' => 'email',
+                            'title' => 'L\'email me semble incorrect ... vérifie le ou inscris-toi !'
                         ]
                     ]
                 ],
