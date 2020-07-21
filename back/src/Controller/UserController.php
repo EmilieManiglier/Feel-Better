@@ -218,11 +218,37 @@ class UserController extends AbstractController
                 }
             } else {
                 // If the passwords do not match, we return a JSON error
-                return new JsonResponse(['logged' => false, 'error' => ['password' => false]], Response::HTTP_ACCEPTED);
+                return new JsonResponse(
+                    [
+                        'logged' => false,
+                        'data' => [
+                            'violations' => [
+                                '0' => [
+                                    'propertyPath' => 'password',
+                                    'title' => 'Tu es sûr d\'avoir entré le bon mot de passe ?'
+                                ]
+                            ]
+                        ]
+                    ],
+                    Response::HTTP_ACCEPTED
+                );
             }
         } else {
             // The email does not exist, we return a JSON error
-            return new JsonResponse(['logged' => false, 'error' => ['email' => false]], Response::HTTP_ACCEPTED);
+            return new JsonResponse(
+                [
+                    'logged' => false,
+                    'data' => [
+                        'violations' => [
+                            '0' => [
+                                'propertyPath' => 'email',
+                                'title' => 'L\'email me semble incorrect ... vérifie le ou inscris-toi !'
+                            ]
+                        ]
+                    ]
+                ],
+                Response::HTTP_ACCEPTED
+            );
         }
     }
 
