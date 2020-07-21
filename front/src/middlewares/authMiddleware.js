@@ -9,6 +9,7 @@ import {
   SUBMIT_PROFILE,
   updateLoader,
   SUBMIT_AVATAR,
+  catchErrors,
 } from 'src/actions/authentification';
 
 import { saveSatisfaction } from 'src/actions/satisfaction';
@@ -26,13 +27,24 @@ const authMiddleware = (store) => (next) => (action) => {
         password,
       })
         .then((response) => {
-          console.log('response for login: ', response);
-          // Store user'informations received from API response in the state
-          store.dispatch(connectUser(response.data.user, response.data.logged));
-          // Save the JWT in localStorage
-          localStorage.setItem('userToken', response.data.user.token);
-          // Save satisfaction bool in the state
-          store.dispatch(saveSatisfaction(response.data.satisfaction));
+          console.log(response.status);
+          if (response.status === 200) {
+            console.log('response for login: ', response);
+            // Store user'informations received from API response in the state
+            store.dispatch(connectUser(response.data.user, response.data.logged));
+
+            // Save satisfaction bool in the state (for the satisfaction form)
+            store.dispatch(saveSatisfaction(response.data.satisfaction));
+
+            // Save the JWT in localStorage
+            localStorage.setItem('userToken', response.data.user.token);
+          }
+
+          if (response.status === 202) {
+            console.log('response for errors', response);
+            console.log('response for login errors :', response.data.violations);
+            store.dispatch(catchErrors(response.data.violations));
+          }
         })
         .catch((error) => {
           console.warn(error);
@@ -72,8 +84,20 @@ const authMiddleware = (store) => (next) => (action) => {
       })
         .then((response) => {
           console.log('response for register: ', response);
-          store.dispatch(connectUser(response.data.user, response.data.registered));
-          localStorage.setItem('userToken', response.data.user.token);
+
+          if (response.status === 200) {
+            // If form is successfully submitted, store user's datas in the state
+            store.dispatch(connectUser(response.data.user, response.data.registered));
+
+            // And, save the token inside localStorage
+            localStorage.setItem('userToken', response.data.user.token);
+          }
+
+          if (response.status === 202) {
+            console.log('catch error: ', response.data.violations);
+            // If there are errors in the form, we store them in the state
+            store.dispatch(catchErrors(response.data.violations));
+          }
         })
         .catch((error) => {
           console.warn(error);
@@ -139,7 +163,6 @@ const authMiddleware = (store) => (next) => (action) => {
         email,
         password,
         city,
-        // avatar,
       } = store.getState().auth;
 
       const token = localStorage.getItem('userToken');
@@ -157,12 +180,23 @@ const authMiddleware = (store) => (next) => (action) => {
         password,
         city,
         token,
-        // avatar,
       },
       config)
         .then((response) => {
-          console.log('response for profile: ', response);
-          store.dispatch(connectUser(response.data.user, response.data.updated));
+          // If success
+          if (response.status === 200) {
+            console.log('response for profile: ', response);
+            store.dispatch(connectUser(response.data.user, response.data.updated));
+            // If user's email has changged, server sends a new token
+            // localStorage.removeItem('userToken');
+            // localStorage.setItem('userToken', response.data.user.token);
+          }
+
+          // If error
+          if (response.status === 202) {
+            console.log('response for catch errors (profile) :', response);
+            store.dispatch(catchErrors(response.data.violations));
+          }
         })
         .catch((error) => {
           console.warn(error);

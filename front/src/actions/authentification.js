@@ -64,6 +64,7 @@ export const LOG_IN = 'LOG_IN';
 export const CONNECT_USER = 'CONNECT_USER';
 export const REGISTER = 'REGISTER';
 export const UPDATE_LOADER = 'UPDATE_LOADER';
+export const CATCH_ERRORS = 'CATCH_ERRORS';
 
 // logs the user
 export const logIn = () => ({
@@ -94,4 +95,9 @@ export const logOut = () => ({
 
 export const updateLoader = () => ({
   type: UPDATE_LOADER,
+});
+
+export const catchErrors = (data) => ({
+  type: CATCH_ERRORS,
+  data,
 });

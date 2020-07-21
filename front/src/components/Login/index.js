@@ -11,6 +11,7 @@ const Login = ({
   updateField,
   submitLogin,
   isLogged,
+  errors,
 }) => {
   if (isLogged === true) {
     return <Redirect to="/" />;
@@ -18,6 +19,13 @@ const Login = ({
 
   return (
     <main className="login">
+      {errors.length > 0 && (
+        <ul className="register-errors">
+            {errors.map((error) => (
+              <li key={error.propertyPath} className="register-error">{error.propertyPath} : {error.title}</li>
+            ))}
+        </ul>
+      )}
       <h2 className="login-title">Se connecter</h2>
       <form
         className="login-form"
@@ -75,6 +83,7 @@ Login.propTypes = {
   updateField: PropTypes.func.isRequired,
   submitLogin: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
+  errors: PropTypes.array.isRequired,
 };
 
 export default Login;

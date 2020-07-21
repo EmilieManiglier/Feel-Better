@@ -24,6 +24,7 @@ const Register = ({
   saveAvatar,
   submitRegister,
   isLogged,
+  errors,
 }) => {
   if (isLogged === true) {
     return <Redirect to="/" />;
@@ -31,6 +32,13 @@ const Register = ({
 
   return (
     <main className="register">
+      {errors.length > 0 && (
+        <ul className="register-errors">
+          {errors.map((error) => (
+            <li className="register-error">{error.propertyPath} : {error.title}</li>
+          ))}
+        </ul>
+      )}
       <h2 className="register-title">S'inscrire</h2>
       <form
         className="register-form"
@@ -272,6 +280,7 @@ Register.propTypes = {
   updateField: PropTypes.func.isRequired,
   saveAvatar: PropTypes.func.isRequired,
   submitRegister: PropTypes.func.isRequired,
+  errors: PropTypes.array.isRequired,
 };
 
 export default Register;

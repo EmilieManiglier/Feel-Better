@@ -10,6 +10,8 @@ import {
   UPDATE_AVATAR_MOOD,
   UPDATE_AVATAR_TYPE,
   UPDATE_AVATAR_COLOR,
+  CATCH_ERRORS,
+  SUBMIT_PROFILE,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -22,6 +24,7 @@ const initialState = {
   birthday: '',
   avatar: '',
   data: {},
+  errorData: [],
   // Determine if user is connected
   isLogged: false,
   // Display loader while doing API request
@@ -84,6 +87,7 @@ const register = (state = initialState, action = {}) => {
         city: '',
         birthday: '',
         avatar: '',
+        errorData: [],
       };
 
     case CONNECT_USER:
@@ -93,6 +97,9 @@ const register = (state = initialState, action = {}) => {
         data: action.data,
         isLogged: action.isLogged,
         isLoading: false,
+        email: '',
+        password: '',
+        errorData: [],
       };
 
     case LOG_OUT:
@@ -101,12 +108,24 @@ const register = (state = initialState, action = {}) => {
       return {
         ...state,
         isLogged: false,
+        errorData: [],
       };
 
     case UPDATE_LOADER:
       return {
         ...state,
         isLoading: false,
+      };
+    case SUBMIT_PROFILE:
+      return {
+        ...state,
+        errorData: [],
+        password: '',
+      };
+    case CATCH_ERRORS:
+      return {
+        ...state,
+        errorData: action.data,
       };
 
     default: return state;
