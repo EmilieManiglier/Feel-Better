@@ -143,11 +143,33 @@ class UserController extends AbstractController
                 ], Response::HTTP_CREATED);
             } else {
                 // If the two passwords do not match, I send a 403 error
-                return new JsonResponse(['registred' => false, 'error' => ['password' => false]], Response::HTTP_ACCEPTED);
+                return new JsonResponse(
+                    [
+                        'registred' => false,
+                        'violations' => [
+                            '0' => [
+                                'propertyPath' => 'password',
+                                'title' => 'Les deux mots de passe ne correspondent pas, vérifie s\'il te plait :('
+                            ]
+                        ]
+                    ],
+                    Response::HTTP_ACCEPTED
+                );
             }
         } else {
             // If an email is already exist in the database, I send a 403 error
-            return new JsonResponse(['registred' => false, 'error' => ['email' => false]], Response::HTTP_ACCEPTED);
+            return new JsonResponse(
+                [
+                    'registred' => false,
+                    'violations' => [
+                        '0' => [
+                            'propertyPath' => 'email',
+                            'title' => 'L\'email existe déjà !'
+                        ]
+                    ]
+                ],
+                Response::HTTP_ACCEPTED
+            );
         }
     }
 
@@ -224,7 +246,7 @@ class UserController extends AbstractController
                         'violations' => [
                             '0' => [
                                 'propertyPath' => 'password',
-                                'title' => 'Tu es sûr d\'avoir entré le bon mot de passe ?'
+                                'title' => 'Il me semble que ton email ET/OU ton mot de passe sont incorrect ... Tu peux les vérifier ?'
                             ]
                         ]
                     ],
@@ -239,7 +261,7 @@ class UserController extends AbstractController
                     'violations' => [
                         '0' => [
                             'propertyPath' => 'email',
-                            'title' => 'L\'email me semble incorrect ... vérifie le ou inscris-toi !'
+                            'title' => 'Il me semble que ton email ET/OU ton mot de passe sont incorrect ... Tu peux les vérifier ?'
                         ]
                     ]
                 ],
@@ -310,7 +332,18 @@ class UserController extends AbstractController
             ], Response::HTTP_OK);
         } else {
             // If the form was not good, I send a 403 error
-            return new JsonResponse(['updated' => false, 'error' => ['password' => false]], Response::HTTP_ACCEPTED);
+            return new JsonResponse(
+                [
+                    'updated' => false,
+                    'violations' => [
+                        '0' => [
+                            'propertyPath' => 'password',
+                            'title' => 'Tu t\'es trompé dans ton mot de passe, retape-le :D'
+                        ]
+                    ]
+                ],
+                Response::HTTP_ACCEPTED
+            );
         }
     }
 }
