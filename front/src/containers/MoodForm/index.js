@@ -12,6 +12,7 @@ import {
 const mapStateToProps = (state) => ({
   setMood: state.mood.setMood,
   showModale: state.mood.showModale,
+  moodError: state.mood.moodError,
 });
 
 // === mapDispatchToProps

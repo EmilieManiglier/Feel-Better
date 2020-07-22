@@ -15,6 +15,7 @@ const MoodForm = ({
   setMood,
   closeModale,
   showModale,
+  moodError,
 }) => {
   if (setMood) {
     return <Redirect to="/suggestions" />;
@@ -24,6 +25,9 @@ const MoodForm = ({
     <>
       {showModale && (
         <div className="mood">
+          {moodError && (
+            <div className="mood-error">Il faut indiquer une humeur ! </div>
+          )}
           <form
             className="mood-form"
             onSubmit={(evt) => {
@@ -131,6 +135,7 @@ MoodForm.propTypes = {
   setMood: PropTypes.bool.isRequired,
   closeModale: PropTypes.func.isRequired,
   showModale: PropTypes.bool.isRequired,
+  moodError: PropTypes.bool.isRequired,
 };
 
 export default MoodForm;

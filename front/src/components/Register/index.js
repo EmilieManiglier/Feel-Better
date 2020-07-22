@@ -85,7 +85,7 @@ const Register = ({
             value={email}
             name="email"
             id="email"
-            type="text"
+            type="email"
             required
             onChange={(evt) => {
               updateField(evt.currentTarget.name, evt.currentTarget.value);

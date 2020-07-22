@@ -175,7 +175,7 @@ const Profile = ({
   
             <div className="inputBox">
               <input
-                type="text"
+                type="email"
                 name="email"
                 id="email"
                 className="profile-input"

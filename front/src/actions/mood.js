@@ -63,6 +63,7 @@ export const HANDLE_SUGGESTION_SUBMIT = 'HANDLE_SUGGESTION_SUBMIT';
 export const SAVE_IDEA_BOOL = 'SAVE_IDEA_BOOL';
 export const LOAD_CALENDAR = 'LOAD_CALENDAR';
 export const SAVE_CALENDAR = 'SAVE_CALENDAR';
+export const CHECK_MOOD_ERROR = 'CHECK_MOOD_ERROR';
 
 // Request to API in order to get the suggestions according to user's mood
 export const loadSuggestions = (ideas) => ({
@@ -90,4 +91,8 @@ export const saveCalendar = (calendar) => ({
 // Send request to API in order to get the datas for the calendar
 export const loadCalendar = () => ({
   type: LOAD_CALENDAR,
+});
+
+export const checkMoodError = () => ({
+  type: CHECK_MOOD_ERROR,
 });

@@ -12,6 +12,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
+  .mood-error {
+    position: absolute;
+    background-color: rgb(255, 0, 0, 0.5);
+    padding: 1rem;
+    color: #fff;
+    top: 5%;
+    left: 15%;
+    z-index: 2;
+  }
+
   .mood-form {
     background-color: $light-main-color;
     border-radius: $border-radius;
@@ -221,6 +231,9 @@
 
 @media screen and (min-width:768px) {
   .mood {
+    .mood-error {
+      left: 37%;
+    }
     .mood-form {
       .mood-wrapper {
         .stars {
@@ -285,6 +298,9 @@
 
 @media screen and (min-width:1440px) {
   .mood {
+    .mood-error {
+      left: 43%;
+    }
     .mood-form {
       .mood-wrapper {
         .mood-icons {
@@ -346,6 +362,9 @@
 
 @media screen and (min-width:1900px) {
   .mood {
+    .mood-error {
+      left: 46%;
+    }
     .mood-form {
       .mood-wrapper {
         .mood-icons {

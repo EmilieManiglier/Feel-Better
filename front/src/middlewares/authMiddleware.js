@@ -85,7 +85,7 @@ const authMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           console.log('response for register: ', response);
 
-          if (response.status === 200) {
+          if (response.status === 201) {
             // If form is successfully submitted, store user's datas in the state
             store.dispatch(connectUser(response.data.user, response.data.registered));
 

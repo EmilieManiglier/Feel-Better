@@ -11,6 +11,7 @@ import {
   SAVE_CALENDAR,
   CLOSE_MODALE,
   OPEN_MODALE,
+  CHECK_MOOD_ERROR,
 } from 'src/actions/mood';
 
 const initialState = {
@@ -35,6 +36,8 @@ const initialState = {
   moodDatas: [],
   // Bool that show the mood modale or not
   showModale: true,
+  // Bool that show the mood error notification or not
+  moodError: false,
 };
 
 const moodReducer = (state = initialState, action = {}) => {
@@ -96,6 +99,11 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         showModale: true,
+      };
+    case CHECK_MOOD_ERROR:
+      return {
+        ...state,
+        moodError: true,
       };
     default: return state;
   }
