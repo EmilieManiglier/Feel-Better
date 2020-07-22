@@ -25,14 +25,15 @@ class JwtDecodeService
         try {
             $jwt = $this->JWTManager->decode($token);
             $user = $this->userRepository->findByEmail($jwt['username']);
+            $avatars = $user->getAvatars()->getValues();
+            $avatar = end($avatars);
         } catch (Throwable $e) {
             return new JsonResponse([
                 'logged' => false,
                 'user' => []
             ], Response::HTTP_I_AM_A_TEAPOT);
         }
-        $avatars = $user->getAvatars()->getValues();
-        $avatar = end($avatars);
+
 
 
         return new JsonResponse([
