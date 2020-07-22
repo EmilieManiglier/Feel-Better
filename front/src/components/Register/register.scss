@@ -19,8 +19,8 @@
 }
 
 .register {
-  min-height: 80vh;
   text-align: center;
+  padding-bottom: 3rem;
 
   .register-errors {
     background-color: rgb(255, 0, 0, 0.5);
@@ -228,8 +228,7 @@
 
 @media screen and (min-width: 768px) {
   .register {
-    padding-top: 7rem;
-    min-height: 100vh;
+    padding-top: 2rem;
 
     .needed-content {
       position: absolute;

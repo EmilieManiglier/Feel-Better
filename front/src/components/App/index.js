@@ -40,7 +40,7 @@ const App = ({ checkLogged, loadCalendar }) => {
   }, []);
 
   // Defines color according to user's mood
-  const color = localStorage.getItem('color') ? localStorage.getItem('color') : '#858585';
+  const color = localStorage.getItem('color') ? localStorage.getItem('color') : '#8590BD';
 
   // ===== Dark / Light Theme =====
   // Custom hook which contains the chosen theme and the toggle function to switch between modes

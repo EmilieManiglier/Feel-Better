@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
   ideas: state.mood.ideas,
   isLoading: state.mood.isLoading,
   suggestionSuccess: state.mood.suggestionSuccess,
+  mood: state.mood.mood,
 });
 
 // === mapDispatchToProps

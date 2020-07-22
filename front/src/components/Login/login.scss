@@ -2,9 +2,8 @@
 @import 'src/styles/btn';
 
 .login {
-  min-height: 60vh;
   text-align: center;
-  padding-top: 5rem;
+  padding: 2rem 0 3rem;
 
   .register-errors {
     background-color: rgb(255, 0, 0, 0.5);
@@ -119,9 +118,7 @@
 
 @media screen and (min-width: 768px) {
   .login {
-    min-height: 90vh;
-    padding-top: 10rem;
-
+    min-height: 80vh;
     .login-title {
       width: 30%;
     }

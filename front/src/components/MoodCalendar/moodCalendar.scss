@@ -1,13 +1,14 @@
 @import 'src/styles/vars';
 
 .calendar {
+  
   // Whole calendar style
   .react-calendar {
-    border: 1px solid #383a56;
     // color of day name (Lun, Mar etc...)
+    border: none;
     color: #fff;
     width: 100%;
-    background: #383a56;
+    background: transparent;
 
     // Disabled tile & navigation arrow style
     .react-calendar__tile:disabled, .react-calendar__navigation__arrow:disabled {
@@ -18,14 +19,14 @@
 
     // Navigation and all tiles color
     .react-calendar__navigation > *, .react-calendar__tile {
-      color: #fff;
       background: inherit;
-
     }
     // Previous or next month days color
     .react-calendar__month-view__days__day--neighboringMonth {
       color: gray;
     }
+
+  
 
     // Current day tile color
     .react-calendar__tile--now {
@@ -35,9 +36,6 @@
     // All tiles height
     .react-calendar__tile {
       height: 79px;
-      border: 1px solid #383a56;
-      background: inherit;
-
     }
 
     // Week-end days color
@@ -48,12 +46,17 @@
 
     // Tiles with a particular mood style
     .calendar-mood--active {
+      background: rgba(#971f2d, 0.8);
       & > img {
         display: block;
         width: 100%;
         margin: auto;
         margin-top: 0.5rem;
       }
+    }
+
+    .react-calendar__tile--now {
+      box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.5);
     }
 
     // Adjust image size on month view tiles
@@ -182,7 +185,6 @@
 @media screen and (min-width: 1024px) {
   .calendar {
     min-height: 90vh;
-    padding-top: 8rem;
     display: flex;
 
     .react-calendar {

@@ -13,6 +13,7 @@ const Suggestions = ({
   ideas,
   isLoading,
   suggestionSuccess,
+  mood,
 }) => {
   if (isLogged === false) {
     return <Redirect to="/login" />;
@@ -29,13 +30,62 @@ const Suggestions = ({
       <Loader />
     );
   }
+
+  let newMood = '';
+  switch (mood) {
+    case 'glad':
+      newMood = 'Content';
+      break;
+    case 'joyful':
+      newMood = 'Heureux';
+      break;
+    case 'confident':
+      newMood = 'Confiant';
+      break;
+    case 'relaxed':
+      newMood = 'Détendu';
+      break;
+    case 'angry':
+      newMood = 'En colère';
+      break;
+    case 'aggressive':
+      newMood = 'Aggressif';
+      break;
+    case 'in-love':
+      newMood = 'Amoureux';
+      break;
+    case 'lack-of-self-confidence':
+      newMood = 'Timide';
+      break;
+    case 'lonely':
+      newMood = 'Seul';
+      break;
+    case 'pessimistic':
+      newMood = 'Pessimiste';
+      break;
+    case 'sad':
+      newMood = 'Triste';
+      break;
+    case 'stressed':
+      newMood = 'Stressé';
+      break;
+    case 'worried':
+      newMood = 'Angoissé';
+      break;
+    case 'indecisive':
+      newMood = 'Indécis';
+      break;
+    default:
+      newMood = '';
+  }
+
   if (!isLoading) {
     return (
       <div className="suggestions">
         {suggestionSuccess && (
           <div className="suggestion-success">Ton activité a bien été enregistrée, tu peux aller la voir sur ton calendrier !</div>
         )}
-        <h2 className="suggestions-title">Nous vous proposons les activités suivantes : </h2>
+        <h2 className="suggestions-title">On te propose les activités suivantes pour ton humeur {newMood}: </h2>
         <div className="suggestions-wrapper">
           {ideas.map((idea) => (
             <Suggestion
@@ -59,6 +109,7 @@ Suggestions.propTypes = {
   ideas: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
   suggestionSuccess: PropTypes.bool.isRequired,
+  mood: PropTypes.string.isRequired,
 };
 
 export default Suggestions;

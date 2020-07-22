@@ -45,7 +45,8 @@
   }
 
   .suggestions-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    line-height: 2.3rem;
     font-family: $patrick-font;
   }
 
@@ -55,7 +56,7 @@
     margin: 10rem auto;
     border-radius: $border-radius;
     width: 85%;
-    height: 310px;
+    height: 380px;
     position: relative;
     box-shadow: 0px 0px 19px -3px rgba(0,0,0,0.52);
 
@@ -321,7 +322,6 @@
   .suggestions {
     font-size: 1.5rem;
     min-height: 90vh;
-    padding-top: 10rem;
 
     .suggestion-success {
       position: inherit;

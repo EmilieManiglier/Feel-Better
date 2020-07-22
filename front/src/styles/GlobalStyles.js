@@ -82,6 +82,21 @@ const GlobalStyles = createGlobalStyle`
       color: ${({ theme }) => theme.suggestionBtnBackground};
     }
   }
+
+  .react-calendar {
+
+    .react-calendar__navigation > *, .react-calendar__tile {
+      color: ${({ theme }) => theme.headerLink};
+    }
+
+    .react-calendar__tile {
+      border: 1px solid ${({ theme }) => theme.calendarBorder};
+    }
+
+    .react-calendar__month-view__weekdays__weekday {
+      color: ${({ theme }) => theme.quoteText};
+    }
+  }
 `;
 
 export default GlobalStyles;

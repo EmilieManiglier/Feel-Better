@@ -9,6 +9,7 @@ export const lightTheme = {
   suggestionBtnBackground: '#150d33',
   suggestionCheckbox: '#5a5a5a',
   loginLink: '#32407b',
+  calendarBorder: '#F5EDD4',
 };
 
 export const darkTheme = {
@@ -22,4 +23,5 @@ export const darkTheme = {
   suggestionBtnBackground: '#fff',
   suggestionCheckbox: '#fff',
   loginLink: '#9aceff',
+  calendarBorder: '#383a56',
 };
