@@ -290,6 +290,8 @@ class UserController extends AbstractController
         $emailInDb = $userRepository->findByEmail($jsonData->email);
 
 
+
+
         // Use the passwordEncoder to check the validity of the password entered in the Request and the password in DB
         if ($this->passwordEncoder->isPasswordValid($user, $jsonData->password)) {
 
@@ -307,6 +309,9 @@ class UserController extends AbstractController
                 if (!empty($jsonData->email)) {
                     $user->setEmail($userFront->getEmail());
                 }
+
+                $avatars = $user->getAvatars()->getValues();
+                $avatar = end($avatars);
 
                 $user->setUpdatedAt(new DateTime());
 
@@ -334,6 +339,11 @@ class UserController extends AbstractController
                         'role' => $user->getRoles(),
                         'birthday' => $user->getBirthday()->format('Y-m-d'),
                         'city' => $user->getCity(),
+                        'avatar' => [
+                            "type" => $avatar->getType(),
+                            "mood" => $avatar->getMood(),
+                            "color" => $avatar->getColor(),
+                        ],
                         'token' => $token
                     ]
                 ], Response::HTTP_OK);
