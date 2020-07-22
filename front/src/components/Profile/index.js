@@ -30,6 +30,7 @@ const Profile = ({
   updateAvatarColor,
   handleAvatarSubmit,
   errors,
+  successProfile,
 }) => {
   if (isLogged === false) {
     return <Redirect to="/login" />;
@@ -56,6 +57,10 @@ const Profile = ({
             <li key={error.propertyPath} className="register-error">{error.propertyPath} : {error.title}</li>
           ))}
         </ul>
+      )}
+
+      {successProfile && (
+        <div className="success-profile">Les informations ont bien été mises à jour.</div>
       )}
       <div className="profile">
         <form
@@ -259,6 +264,7 @@ Profile.propTypes = {
   updateAvatarColor: PropTypes.func.isRequired,
   handleAvatarSubmit: PropTypes.func.isRequired,
   errors: PropTypes.array.isRequired,
+  successProfile: PropTypes.bool.isRequired,
 };
 
 Profile.defaultProps = {

@@ -20,6 +20,17 @@
   }
 }
 
+.success-profile {
+  background-color: #28A745;
+  width: fit-content;
+  color: #fff;
+  padding: 1rem;
+  position: fixed;
+  top: 9rem;
+  left: 5%;
+  z-index: 2;
+}
+
 .profile {
   .avatar-container {
     display: flex;
@@ -125,6 +136,10 @@
 
 
 @media screen and (min-width: 768px) {
+  .success-profile {
+    position: inherit;
+    margin: 1rem auto;
+  }
   .register-errors {
     background-color: rgb(255, 0, 0, 0.5);
     border-radius: 0.5rem;

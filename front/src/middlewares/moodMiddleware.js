@@ -18,7 +18,6 @@ const moodMiddleware = (store) => (next) => (action) => {
     case HANDLE_MOOD_SUBMIT: {
       const { mood, estimation } = store.getState().mood;
       const token = localStorage.getItem('userToken');
-      const { moodError } = store.getState().mood;
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,

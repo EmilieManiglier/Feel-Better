@@ -24,6 +24,17 @@
   line-height: 2rem;
   padding: 1rem;
 
+  .suggestion-success {
+    background-color: #28A745;
+    width: fit-content;
+    color: #fff;
+    padding: 1rem;
+    position: fixed;
+    top: 9rem;
+    left: 0;
+    z-index: 2;
+  }
+
   .redirect-mood-link {
     padding: 0.3rem;
     transition: background 0.5s cubic-bezier(.33,.66,.66,1);
@@ -311,6 +322,11 @@
     font-size: 1.5rem;
     min-height: 90vh;
     padding-top: 10rem;
+
+    .suggestion-success {
+      position: inherit;
+      margin: 1rem auto 2rem;
+    }
     
     .suggestions-title {
       margin-bottom: 10rem;

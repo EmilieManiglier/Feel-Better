@@ -23,6 +23,7 @@ const mapStateToProps = (state) => ({
   avatarMood: state.auth.avatarMood,
   avatarColor: state.auth.avatarColor,
   errors: state.auth.errorData,
+  successProfile: state.auth.successProfile,
 });
 
 // === mapDispatchToProps

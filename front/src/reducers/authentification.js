@@ -25,6 +25,8 @@ const initialState = {
   avatar: '',
   data: {},
   errorData: [],
+  // Bool that show success notification on profile form
+  successProfile: false,
   // Determine if user is connected
   isLogged: false,
   // Display loader while doing API request
@@ -121,6 +123,7 @@ const register = (state = initialState, action = {}) => {
         ...state,
         errorData: [],
         password: '',
+        successProfile: true,
       };
     case CATCH_ERRORS:
       return {

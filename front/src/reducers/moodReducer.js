@@ -12,6 +12,7 @@ import {
   CLOSE_MODALE,
   OPEN_MODALE,
   CHECK_MOOD_ERROR,
+  HANDLE_SUGGESTION_SUBMIT,
 } from 'src/actions/mood';
 
 const initialState = {
@@ -38,6 +39,8 @@ const initialState = {
   showModale: true,
   // Bool that show the mood error notification or not
   moodError: false,
+  // Bool that show a success message when choosing a suggestion
+  suggestionSuccess: false,
 };
 
 const moodReducer = (state = initialState, action = {}) => {
@@ -104,6 +107,11 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         moodError: true,
+      };
+    case HANDLE_SUGGESTION_SUBMIT:
+      return {
+        ...state,
+        suggestionSuccess: true,
       };
     default: return state;
   }

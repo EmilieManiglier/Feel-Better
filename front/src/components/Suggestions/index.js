@@ -12,6 +12,7 @@ const Suggestions = ({
   setMood,
   ideas,
   isLoading,
+  suggestionSuccess,
 }) => {
   if (isLogged === false) {
     return <Redirect to="/login" />;
@@ -31,6 +32,9 @@ const Suggestions = ({
   if (!isLoading) {
     return (
       <div className="suggestions">
+        {suggestionSuccess && (
+          <div className="suggestion-success">Ton activité a bien été enregistrée, tu peux aller la voir sur ton calendrier !</div>
+        )}
         <h2 className="suggestions-title">Nous vous proposons les activités suivantes : </h2>
         <div className="suggestions-wrapper">
           {ideas.map((idea) => (
@@ -54,6 +58,7 @@ Suggestions.propTypes = {
   setMood: PropTypes.bool.isRequired,
   ideas: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  suggestionSuccess: PropTypes.bool.isRequired,
 };
 
 export default Suggestions;
