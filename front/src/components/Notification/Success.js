@@ -6,7 +6,10 @@ import './notification.scss';
 const Success = ({ message, closeMessage }) => (
   <div id="container">
     <div id="success-box">
-      <div className="dot" />
+      <div
+        className="dot"
+        onClick={closeMessage}
+      />
       <div
         className="dot two"
         onClick={closeMessage}

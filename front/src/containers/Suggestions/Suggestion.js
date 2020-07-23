@@ -6,6 +6,7 @@ import { updateSuggestion, handleSuggestionSubmit } from 'src/actions/mood';
 // === mapStateToProps
 const mapStateToProps = (state) => ({
   city: state.auth.data.city,
+  setIdea: state.mood.setIdea,
 });
 
 // === mapDispatchToProps

@@ -3,12 +3,6 @@ export const SAVE_AVATAR = 'SAVE_AVATAR';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const CHECK_LOGGED = 'CHECK_LOGGED';
 export const LOG_OUT = 'LOG_OUT';
-export const UPDATE_PROFILE_FIELD = 'UPDATE_PROFILE_FIELD';
-export const UPDATE_AVATAR_MOOD = 'UPDATE_AVATAR_MOOD';
-export const UPDATE_AVATAR_TYPE = 'UPDATE_AVATAR_TYPE';
-export const UPDATE_AVATAR_COLOR = 'UPDATE_AVATAR_COLOR';
-export const SUBMIT_AVATAR = 'SUBMIT_AVATAR';
-export const SUBMIT_PROFILE = 'SUBMIT_PROFILE';
 export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';
 
 // updates login fields by their identifier
@@ -24,40 +18,9 @@ export const saveAvatar = (avatar) => ({
   avatar,
 });
 
-//  updates profile fields
-export const updateProfileField = (identifier, newValue) => ({
-  type: UPDATE_PROFILE_FIELD,
-  identifier,
-  newValue,
-});
-
 // handles login submission
 export const submitLogin = () => ({
   type: SUBMIT_LOGIN,
-});
-
-export const updateAvatarMood = (mood) => ({
-  type: UPDATE_AVATAR_MOOD,
-  mood,
-});
-
-export const updateAvatarType = (avatar) => ({
-  type: UPDATE_AVATAR_TYPE,
-  avatar,
-});
-
-export const updateAvatarColor = (color) => ({
-  type: UPDATE_AVATAR_COLOR,
-  color,
-});
-
-export const submitAvatar = () => ({
-  type: SUBMIT_AVATAR,
-});
-
-// handles profile submission
-export const submitProfile = () => ({
-  type: SUBMIT_PROFILE,
 });
 
 export const closeMessage = () => ({
@@ -70,8 +33,6 @@ export const CONNECT_USER = 'CONNECT_USER';
 export const REGISTER = 'REGISTER';
 export const UPDATE_LOADER = 'UPDATE_LOADER';
 export const CATCH_ERRORS = 'CATCH_ERRORS';
-export const SHOW_SUCCESS_PROFILE = 'SHOW_SUCCESS_PROFILE';
-export const SHOW_SUCCESS_AVATAR = 'SHOW_SUCCESS_AVATAR';
 
 // logs the user
 export const logIn = () => ({
@@ -107,12 +68,4 @@ export const updateLoader = () => ({
 export const catchErrors = (data) => ({
   type: CATCH_ERRORS,
   data,
-});
-
-export const showSuccessProfile = () => ({
-  type: SHOW_SUCCESS_PROFILE,
-});
-
-export const showSuccessAvatar = () => ({
-  type: SHOW_SUCCESS_AVATAR,
 });

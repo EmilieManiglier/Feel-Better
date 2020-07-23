@@ -15,6 +15,8 @@ import {
   HANDLE_SUGGESTION_SUBMIT,
 } from 'src/actions/mood';
 
+import { CLOSE_MESSAGE } from 'src/actions/authentification';
+
 const initialState = {
   mood: '',
   // Estimation in the mood form
@@ -112,6 +114,11 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         suggestionSuccess: true,
+      };
+    case CLOSE_MESSAGE:
+      return {
+        ...state,
+        suggestionSuccess: false,
       };
     default: return state;
   }

@@ -5,11 +5,14 @@ import { Star } from 'react-feather';
 import './suggestion.scss';
 
 const Suggestion = ({
+  // props coming from parent container (...ideas)
   name,
   picture,
   category,
   estimation,
+  // props coming from container
   city,
+  setIdea,
   updateSuggestion,
   handleSuggestionSubmit,
 }) => {
@@ -65,9 +68,13 @@ const Suggestion = ({
               updateSuggestion(evt.currentTarget.value);
             }}
           />
-          <span>Je choisis cette activité !</span>
-          <div className="suggestion-checkbox" />
-          <button type="submit" className="choose-suggestion-btn">Confirmer</button>
+          {!setIdea && (
+            <>
+              <span>Je choisis cette activité !</span>
+              <div className="suggestion-checkbox" />
+              <button type="submit" className="choose-suggestion-btn">Confirmer</button>
+            </>
+          )}
         </label>
       </form>
 
@@ -117,6 +124,7 @@ Suggestion.propTypes = {
   category: PropTypes.array.isRequired,
   estimation: PropTypes.number.isRequired,
   city: PropTypes.string.isRequired,
+  setIdea: PropTypes.bool.isRequired,
   updateSuggestion: PropTypes.func.isRequired,
   handleSuggestionSubmit: PropTypes.func.isRequired,
 };

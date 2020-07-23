@@ -7,7 +7,7 @@ import Loader from 'src/components/Loader';
 import people from 'src/assets/images/people-happy.png';
 
 import Suggestion from 'src/containers/Suggestions/Suggestion';
-import Success from 'src/components/Notification/Success';
+import Success from 'src/containers/Notification/Success';
 import './suggestion.scss';
 
 const Suggestions = ({
