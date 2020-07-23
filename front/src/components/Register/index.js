@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
+import Carousel from 'react-elastic-carousel';
 import {
   Backpack,
   Cat,
@@ -31,6 +32,35 @@ const Register = ({
   if (isLogged === true) {
     return <Redirect to="/" />;
   }
+
+  // Create an array to loop over for carousel
+  const componentList = [
+    {
+      name: Backpack,
+      id: 'Backpack',
+      key: 1,
+    },
+    {
+      name: Cat,
+      id: 'Cat',
+      key: 2,
+    },
+    {
+      name: Chocolate,
+      id: 'Chocolate',
+      key: 3,
+    },
+    {
+      name: Ghost,
+      id: 'Ghost',
+      key: 4,
+    },
+    {
+      name: IceCream,
+      id: 'IceCream',
+      key: 5,
+    },
+  ];
 
   return (
     <main className="register">
@@ -165,75 +195,24 @@ const Register = ({
         <div className="register-container avatar-container">
           <p>Choisissez un avatar <span className="needed">*</span></p>
           <div className="avatar-list">
-            <input
-              className="avatar-input"
-              name="avatar"
-              id="Backpack"
-              type="radio"
-              required
-              onChange={(evt) => {
-                saveAvatar(evt.currentTarget.id);
-              }}
-            />
-            <label htmlFor="Backpack">
-              <Backpack />
-            </label>
-
-            <input
-              className="avatar-input"
-              name="avatar"
-              id="Cat"
-              type="radio"
-              required
-              onChange={(evt) => {
-                saveAvatar(evt.currentTarget.id);
-              }}
-            />
-            <label htmlFor="Cat">
-              <Cat />
-            </label>
-
-            <input
-              className="avatar-input"
-              name="avatar"
-              id="Chocolate"
-              type="radio"
-              required
-              onChange={(evt) => {
-                saveAvatar(evt.currentTarget.id);
-              }}
-            />
-            <label htmlFor="Chocolate">
-              <Chocolate />
-            </label>
-
-            <input
-              className=""
-              name="avatar"
-              id="Ghost"
-              type="radio"
-              required
-              onChange={(evt) => {
-                saveAvatar(evt.currentTarget.id);
-              }}
-            />
-            <label htmlFor="Ghost">
-              <Ghost />
-            </label>
-
-            <input
-              className="avatar-input"
-              name="avatar"
-              id="IceCream"
-              type="radio"
-              required
-              onChange={(evt) => {
-                saveAvatar(evt.currentTarget.id);
-              }}
-            />
-            <label htmlFor="IceCream">
-              <IceCream />
-            </label>
+            <Carousel>
+              {componentList.map((component) => (
+                <label htmlFor={component.id} className="avatar-label" key={component.key}>
+                  <input
+                    className="avatar-input"
+                    name="avatar"
+                    id={component.id}
+                    type="radio"
+                    required
+                    onChange={(evt) => {
+                      saveAvatar(evt.currentTarget.id);
+                    }}
+                  />
+                  <component.name />
+                  <span className="avatar-checked" />
+                </label>
+              ))}
+            </Carousel>
           </div>
 
         </div>
@@ -250,7 +229,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="cgu">
-            Accepter les CGU <span className="needed">*</span>
+            Accepter les <Link to="/legal-notices" className="cgu-link">CGU</Link> <span className="needed">*</span>
           </label>
           <div className="cgu-checkbox" />
         </div>

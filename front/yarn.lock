@@ -7552,6 +7552,13 @@ react-dom@*:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-elastic-carousel@^0.6.7:
+  version "0.6.7"
+  resolved "https://registry.yarnpkg.com/react-elastic-carousel/-/react-elastic-carousel-0.6.7.tgz#72a8e32e21ac6d249a9f9270805236db752e2b31"
+  integrity sha512-CNa7ww9qtjiDBjtvyk5WMl8t0Q95SX8kXN13oeDxcvr7Dx4/juTjUk+d3r1iLSTcMuY2yyaTDBFQjbDm6mrsxw==
+  dependencies:
+    react-swipeable "^5.5.1"
+
 react-feather@^2.0.8:
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/react-feather/-/react-feather-2.0.8.tgz#455baf1470f756a57e2ad6c72545444ce5925781"
@@ -7610,6 +7617,13 @@ react-router@5.2.0, react-router@^5.2.0:
     react-is "^16.6.0"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-swipeable@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-5.5.1.tgz#48ae6182deaf62f21d4b87469b60281dbd7c4a76"
+  integrity sha512-EQObuU3Qg3JdX3WxOn5reZvOSCpU4fwpUAs+NlXSN3y+qtsO2r8VGkVnOQzmByt3BSYj9EWYdUOUfi7vaMdZZw==
+  dependencies:
+    prop-types "^15.6.2"
 
 react-test-renderer@^16.0.0-0:
   version "16.13.1"
