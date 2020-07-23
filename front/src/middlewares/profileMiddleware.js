@@ -13,7 +13,28 @@ const profileMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case SUBMIT_AVATAR: {
-      const { avatarType: type, avatarMood: mood, avatarColor: color } = store.getState().profile;
+      const { avatarType, avatarMood, avatarColor } = store.getState().profile;
+      // If user has chosen a type for the avatar, send user's choice to server
+      let type = avatarType;
+
+      // Else, if user hasn't chosen a type for the avatar, get last type chosen
+      // from datas in the state (coming from server datas)
+      if (avatarType === '') {
+        type = store.getState().auth.data.avatar.type;
+      }
+
+      // Same for mood and color
+      let mood = avatarMood;
+      let color = avatarColor;
+
+      if (avatarMood === '') {
+        mood = store.getState().auth.data.avatar.mood;
+      }
+
+      if (avatarColor === '') {
+        color = store.getState().auth.data.avatar.color;
+      }
+
       const token = localStorage.getItem('userToken');
 
       const config = {

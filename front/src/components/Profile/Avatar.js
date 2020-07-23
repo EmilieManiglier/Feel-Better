@@ -32,9 +32,6 @@ const Avatar = ({
   // Get component name from the array componentList according to user's avatar
   // Or get avatar from server's datas if user has changed its avatar
   const UserAvatar = componentList[avatarType || avatar.type];
-  console.log('avatar: ', avatar);
-  console.log('avatarType: ', avatarType);
-  console.log('UserAvatar: ', UserAvatar);
 
   return (
     <form
