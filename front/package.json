@@ -49,6 +49,8 @@
     "optimize-css-assets-webpack-plugin": "*",
     "postcss-loader": "*",
     "postcss-preset-env": "*",
+    "redux-mock-store": "^1.5.4",
+    "redux-thunk": "^2.3.0",
     "resolve-url-loader": "*",
     "sass": "*",
     "sass-loader": "*",
