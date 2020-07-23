@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 
+import Error from 'src/containers/Notification/Error';
+
 import './login.scss';
 
 const Login = ({
@@ -20,11 +22,7 @@ const Login = ({
   return (
     <main className="login">
       {errors.length > 0 && (
-        <ul className="register-errors">
-            {errors.map((error) => (
-              <li key={error.propertyPath} className="register-error">{error.propertyPath} : {error.title}</li>
-            ))}
-        </ul>
+        <Error />
       )}
       <h2 className="login-title">Se connecter</h2>
       <form

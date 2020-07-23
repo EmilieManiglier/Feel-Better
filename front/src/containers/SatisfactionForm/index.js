@@ -7,10 +7,13 @@ import {
   handleSatisfactionSubmit,
 } from 'src/actions/satisfaction';
 
+import { closeMessage } from 'src/actions/authentification';
+
 // === mapStateToProps
 const mapStateToProps = (state) => ({
   comment: state.satisfaction.comment,
-  answerStatus: state.satisfaction.answerStatus,
+  satisfactionSuccess: state.satisfaction.satisfactionSuccess,
+  satisfactionError: state.satisfaction.satisfactionError,
 });
 
 // === mapDispatchToProps
@@ -29,6 +32,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   handleSatisfactionSubmit: () => {
     dispatch(handleSatisfactionSubmit());
+  },
+
+  closeMessage: () => {
+    dispatch(closeMessage());
   },
 });
 

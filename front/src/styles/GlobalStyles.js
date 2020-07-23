@@ -83,6 +83,23 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
+  .error-container {
+    .link-back {
+      color: ${({ theme }) => theme.suggestionBtnBackground};
+      border: 2px solid ${({ theme }) => theme.suggestionBtnBackground};
+      
+      &:before {
+        background-color: ${({ theme }) => theme.suggestionBtnBackground};
+      }
+
+      &:hover {
+        color: ${({ theme }) => theme.headerLinkHover};
+      }
+    }
+
+    
+  }
+
   .react-calendar {
 
     .react-calendar__navigation > *, .react-calendar__tile {

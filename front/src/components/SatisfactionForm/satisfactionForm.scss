@@ -30,6 +30,17 @@
   .satisfaction-form {
     padding-left: 1rem;
     text-align: center;
+    position: relative;
+
+    .needed-content {
+      color: red;
+      text-align: center;
+    }
+
+    .needed {
+      color: red;
+      display: inline-block;
+    }
   }
 
   .satisfaction-input {
@@ -214,7 +225,6 @@
 
 @media screen and (min-width: 1024px) {
   .satisfaction {
-    padding-top: 6rem;
     min-height: 80vh;
 
     .satisfaction-img {
@@ -241,6 +251,7 @@
 
 @media screen and (min-width: 1400px) {
   .satisfaction {
+
     .pertinence-container .pertinence-input-wrapper {
       .pertinence-input:not(:checked) + .pertinence-label:before,
       .pertinence-input:checked + .pertinence-label:before {
@@ -253,6 +264,7 @@
 
 @media screen and (min-width: 2000px) {
   .satisfaction {
+  
     .pertinence-container .pertinence-input-wrapper {
       .pertinence-input:not(:checked) + .pertinence-label:before,
       .pertinence-input:checked + .pertinence-label:before {

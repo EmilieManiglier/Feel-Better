@@ -13,87 +13,46 @@ $third-color-animation: #f19087;
 
 .error-container {
   min-height: 75vh;
-  padding-top: 5rem;
   text-align: center;
 
-
-  .error-404 {
-    & > span {
-      display: inline-block;
-      line-height: 0.7;
-      position: relative;
-      color: $red-color;
-      vertical-align: middle;
-      font-size: 8rem;
-      font-weight: bold;
-  
-      &:nth-of-type(1) {
-        color: $green-color;
-        animation: colordancing 4s infinite;
-      }
-  
-      &:nth-of-type(2) {
-        width: 120px;
-        height: 120px;
-        border-radius: 999px;
-  
-        &:before, &:after {
-          border-radius: 0%;
-          content:"";
-          position: absolute;
-          top: 0; left: 0;
-          width: inherit; height: inherit;
-          border-radius: 999px;
-          box-shadow: inset 30px 0 0 rgba(209, 242, 165, 0.4),
-          inset 0 30px 0 rgba(239, 250, 180, 0.4),
-          inset -30px 0 0 rgba(255, 196, 140, 0.4),	
-          inset 0 -30px 0 rgba(245, 105, 145, 0.4);
-          animation: shadowsdancing 4s infinite;
-        }
-  
-        &:before {
-          -webkit-transform: rotate(45deg);
-          -moz-transform: rotate(45deg);
-           transform: rotate(45deg);
-        }
-      }
-  
-      &:nth-of-type(3) {
-        color: $red-color;
-        animation: colordancing2 4s infinite;
-      }
-    }
-  }
-
-  .screen-reader-text {
-    position: absolute;
-    top: -9999em;
-    left: -9999em;
+  .excaPicture {
+    width: 60%;
   }
 
   .error-text {
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: 600;
     animation: colordancing 4s infinite;
-    display: inline-block;
     margin-top: 3rem;
   }
 
   .link-back {
     @include btn-style;
-    margin-top: 3rem;
+    margin: 2rem 0;
     padding: 1rem;
     width: fit-content;
+    
+    &:before {
+      left: -7%;
+    }
   }
 }
 
 @media screen and (min-width: 768px) {
   .error-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-direction: column;
+    justify-content: space-around;
+    flex-direction: row-reverse;
     min-height: 90vh;
+
+    .excaPicture {
+      width: 30%;
+    }
+
+    .error-text {
+      font-size: 5rem;
+    }
   }
 }
 

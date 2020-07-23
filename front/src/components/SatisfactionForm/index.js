@@ -7,16 +7,49 @@ import picto3 from 'src/assets/images/satisfaction/picto03.png';
 import picto4 from 'src/assets/images/satisfaction/picto04.png';
 import picto5 from 'src/assets/images/satisfaction/picto05.png';
 
+import Success from 'src/containers/Notification/Success';
+
 import './satisfactionForm.scss';
 
 const SatisfactionForm = ({
   comment,
+  satisfactionSuccess,
+  satisfactionError,
   updateSatisfaction,
   updateComment,
   updatePertinence,
   handleSatisfactionSubmit,
+  closeMessage,
 }) => (
   <div className="satisfaction">
+
+    {satisfactionError && (
+      <div id="container">
+        <div id="error-box">
+          <div className="dot" />
+          <div
+            className="dot two"
+            onClick={closeMessage}
+          />
+          <div className="face">
+            <div className="eye" />
+            <div className="eye right" />
+            <div className="mouth sad" />
+          </div>
+          <div className="shadow move" />
+          <div className="message">
+            <p className="alert">Oops!</p>
+            <ul className="error-list">
+              <li className="">Note : Il faudrait au moins nous dire ce que tu as pensé de tes activités</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {satisfactionSuccess && (
+      <Success message="Le formulaire a bien été envoyé, merci d'avoir partagé ton avis!" />
+    )}
     <h2 className="satisfaction-title">Voilà cinq activités que l'on s'est rencontré, peux-tu nous donner ton avis ? </h2>
     <form
       className="satisfaction-form"
@@ -25,7 +58,8 @@ const SatisfactionForm = ({
         handleSatisfactionSubmit();
       }}
     >
-      <p className="question"> Qu'as-tu pensé de tes activités ?</p>
+      <span className="needed-content">( * : champ obligatoire )</span>
+      <p className="question"> Qu'as-tu pensé de tes activités ? <span className="needed">*</span></p>
       <label htmlFor="satisfaction1" className="satisfaction-label">
         <input
           type="radio"
@@ -33,7 +67,6 @@ const SatisfactionForm = ({
           id="satisfaction1"
           value="1"
           name="satisfaction"
-          required
           onChange={(evt) => {
             updateSatisfaction(evt.currentTarget.value);
           }}
@@ -49,7 +82,6 @@ const SatisfactionForm = ({
           id="satisfaction2"
           value="2"
           name="satisfaction"
-          required
           onChange={(evt) => {
             updateSatisfaction(evt.currentTarget.value);
           }}
@@ -65,7 +97,6 @@ const SatisfactionForm = ({
           id="satisfaction3"
           value="3"
           name="satisfaction"
-          required
           onChange={(evt) => {
             updateSatisfaction(evt.currentTarget.value);
           }}
@@ -81,7 +112,6 @@ const SatisfactionForm = ({
           id="satisfaction4"
           value="4"
           name="satisfaction"
-          required
           onChange={(evt) => {
             updateSatisfaction(evt.currentTarget.value);
           }}
@@ -97,7 +127,6 @@ const SatisfactionForm = ({
           id="satisfaction5"
           value="5"
           name="satisfaction"
-          required
           onChange={(evt) => {
             updateSatisfaction(evt.currentTarget.value);
           }}
@@ -167,10 +196,13 @@ const SatisfactionForm = ({
 
 SatisfactionForm.propTypes = {
   comment: PropTypes.string.isRequired,
+  satisfactionSuccess: PropTypes.bool.isRequired,
+  satisfactionError: PropTypes.bool.isRequired,
   updateComment: PropTypes.func.isRequired,
   updatePertinence: PropTypes.func.isRequired,
   updateSatisfaction: PropTypes.func.isRequired,
   handleSatisfactionSubmit: PropTypes.func.isRequired,
+  closeMessage: PropTypes.func.isRequired,
 };
 
 export default SatisfactionForm;

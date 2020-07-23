@@ -10,6 +10,8 @@ import {
   IceCream,
 } from 'react-kawaii';
 
+import Error from 'src/containers/Notification/Error';
+
 import './register.scss';
 
 const Register = ({
@@ -33,11 +35,7 @@ const Register = ({
   return (
     <main className="register">
       {errors.length > 0 && (
-        <ul className="register-errors">
-          {errors.map((error) => (
-            <li className="register-error">{error.propertyPath} : {error.title}</li>
-          ))}
-        </ul>
+        <Error />
       )}
       <h2 className="register-title">S'inscrire</h2>
       <form

@@ -3,8 +3,11 @@ import {
   UPDATE_SATISFACTION,
   UPDATE_COMMENT,
   UPDATE_PERTINENCE,
-  SAVE_STATUS,
+  SHOW_SATISFACTION_SUCCESS,
+  SHOW_SATISFACTION_ERROR,
 } from 'src/actions/satisfaction';
+
+import { CLOSE_MESSAGE } from 'src/actions/authentification';
 
 const initialState = {
   // Bool that show satisfaction form or not
@@ -15,8 +18,10 @@ const initialState = {
   comment: '',
   // pertinence of the suggested activities chosen by the user in satisfaction form
   pertinenceString: null,
-  // status received from API response (201 if success)
-  answerStatus: false,
+  // Bool that show satisfaction success or not
+  satisfactionSuccess: false,
+  // Bool that show satisfaction error or not
+  satisfactionError: false,
 };
 
 const satisfactionReducer = (state = initialState, action = {}) => {
@@ -41,13 +46,21 @@ const satisfactionReducer = (state = initialState, action = {}) => {
         ...state,
         pertinenceString: action.pertinence,
       };
-    case SAVE_STATUS:
+    case SHOW_SATISFACTION_SUCCESS:
       return {
         ...state,
-        anwserStatus: action.status,
-        comment: '',
-        satisfaction: null,
-        pertinenceString: null,
+        satisfactionSuccess: true,
+      };
+    case SHOW_SATISFACTION_ERROR:
+      return {
+        ...state,
+        satisfactionError: true,
+      };
+    case CLOSE_MESSAGE:
+      return {
+        ...state,
+        satisfactionSuccess: false,
+        satisfactionError: false,
       };
     default: return state;
   }

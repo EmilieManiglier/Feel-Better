@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { HANDLE_SATISFACTION_SUBMIT, saveStatus } from 'src/actions/satisfaction';
+import {
+  HANDLE_SATISFACTION_SUBMIT,
+  saveStatus,
+  showSatisfactionSuccess,
+  showSatisfactionError,
+} from 'src/actions/satisfaction';
 
 const satisfactionMiddleware = (store) => (next) => (action) => {
   const apiUrl = 'http://3.89.193.249/api/v1';
@@ -26,11 +31,12 @@ const satisfactionMiddleware = (store) => (next) => (action) => {
         token,
       }, config)
         .then((response) => {
+          store.dispatch(showSatisfactionSuccess());
           console.log('response for satisfaction: ', response);
-          store.dispatch(saveStatus(response.data.setSatisfaction));
         })
         .catch((error) => {
           console.warn(error);
+          store.dispatch(showSatisfactionError());
         });
       next(action);
       break;
