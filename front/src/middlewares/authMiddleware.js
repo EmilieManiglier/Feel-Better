@@ -10,6 +10,8 @@ import {
   updateLoader,
   SUBMIT_AVATAR,
   catchErrors,
+  showSuccessProfile,
+  showSuccessAvatar,
 } from 'src/actions/authentification';
 
 import { saveSatisfaction } from 'src/actions/satisfaction';
@@ -148,6 +150,7 @@ const authMiddleware = (store) => (next) => (action) => {
       }, config)
         .then((response) => {
           console.log('response for avatar: ', response);
+          store.dispatch(showSuccessAvatar());
         })
         .catch((error) => {
           console.warn(error);
@@ -185,6 +188,7 @@ const authMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           // If success
           if (response.status === 200) {
+            store.dispatch(showSuccessProfile());
             console.log('response for profile: ', response);
             store.dispatch(connectUser(response.data.user, response.data.updated));
             // If user's email has changged, server sends a new token

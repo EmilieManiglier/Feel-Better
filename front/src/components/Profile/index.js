@@ -10,6 +10,9 @@ import {
   IceCream,
 } from 'react-kawaii';
 
+import Success from 'src/containers/Notification/Success';
+import Error from 'src/containers/Notification/Error';
+
 import './profile.scss';
 
 const Profile = ({
@@ -29,12 +32,14 @@ const Profile = ({
   updateAvatarType,
   updateAvatarColor,
   handleAvatarSubmit,
-  errors,
   successProfile,
+  successAvatar,
+  errors,
 }) => {
   if (isLogged === false) {
     return <Redirect to="/login" />;
   }
+  console.log('successProfile: ', successProfile);
 
   // create an array for each avatar
   const componentList = {
@@ -52,15 +57,14 @@ const Profile = ({
   return (
     <>
       {errors.length > 0 && (
-        <ul className="register-errors">
-          {errors.map((error) => (
-            <li key={error.propertyPath} className="register-error">{error.propertyPath} : {error.title}</li>
-          ))}
-        </ul>
+        <Error />
       )}
 
       {successProfile && (
-        <div className="success-profile">Les informations ont bien été mises à jour.</div>
+        <Success message={'Tes informations ont bien été mises à jour !'} />
+      )}
+      {successAvatar && (
+        <Success message={'Ton avatar a bien été mis à jour !'} />
       )}
       <div className="profile">
         <form
@@ -263,8 +267,9 @@ Profile.propTypes = {
   updateAvatarType: PropTypes.func.isRequired,
   updateAvatarColor: PropTypes.func.isRequired,
   handleAvatarSubmit: PropTypes.func.isRequired,
-  errors: PropTypes.array.isRequired,
   successProfile: PropTypes.bool.isRequired,
+  successAvatar: PropTypes.bool.isRequired,
+  errors: PropTypes.array.isRequired,
 };
 
 Profile.defaultProps = {

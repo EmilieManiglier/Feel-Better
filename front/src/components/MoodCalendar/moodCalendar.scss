@@ -85,9 +85,11 @@
 
       width: 85%; 
       height: 70px; 
-      background:transparent;
+      border-radius: 0.5rem;
+      box-shadow: 15px -15px 10px rgb(0, 0, 0, 0.2);
+      background: transparent;
       transform: skew(20deg); 
-      -webkit-transform: skew(20deg);
+      -webkit-transform: skew(0deg);
       position: relative;
       text-align: center;
       padding: 1rem 0 1rem 2rem;
@@ -97,16 +99,16 @@
       .calendar-current-mood-name {
         margin-left: 1rem;
         transform: skew(-20deg); 
-        -webkit-transform: skew(-20deg);
+        -webkit-transform: skew(0deg);
         max-width: 180px;
       }
 
       .calendar-current-mood-img {
         // width: 10%;
-        width: 40%;
+        width: 30%;
         position: absolute;
         transform: skew(-20deg);
-        -webkit-transform: skew(-20deg);
+        -webkit-transform: skew(-0deg);
         background: #fff;
         border-radius: 50%;
         top: -25%;
@@ -142,7 +144,7 @@
         }
   
         .calendar-current-mood-img {
-          width: 35%;
+          width: 25%;
           top: -40%;
         }
       }
@@ -163,8 +165,6 @@
     }
 
     .calendar-current-mood {
-      max-height: 600px;
-      overflow: auto;
       margin: 0 1rem;
 
       .calendar-current-mood-container {
@@ -192,10 +192,11 @@
     }
 
     .calendar-current-mood {
-      max-height: 600px;
-      overflow: auto;
       margin: 0 1rem;
+      margin-top: 8rem;
       width: 50%;
+      max-height: 700px;
+      overflow: auto;
 
       .calendar-current-mood-container {
         width: 75%;
@@ -235,11 +236,18 @@
 
     .calendar-current-mood {
       width: 60%;
-      max-height: 695px;
-      margin-left: 0;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+
+      
 
       .calendar-current-mood-container {
         width: 30%;
+      }
+
+      .calendar-current-mood-img {
+        
       }
       
     }

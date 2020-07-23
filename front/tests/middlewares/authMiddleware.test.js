@@ -26,94 +26,69 @@ import { logIn, CONNECT_USER } from 'src/actions/authentification';
 //   };
 // };
 
-const middlewares = [thunk];
+// const middlewares = [thunk];
 
-const mockStore = configureMockStore(middlewares);
+// const mockStore = configureMockStore(middlewares);
 
-let store;
-let url;
+// let store;
+// let url;
 
-describe('middleware for authentification', () => {
-  beforeEach(() => {
-    moxios.install();
-    store = mockStore({});
-    url = 'http://3.89.193.249/api/v1';
-  });
+// describe('middleware for authentification', () => {
+//   beforeEach(() => {
+//     moxios.install();
+//     store = mockStore({});
+//     url = 'http://3.89.193.249/api/v1';
+//   });
 
-  afterEach(() => {
-    moxios.uninstall();
-  });
+//   afterEach(() => {
+//     moxios.uninstall();
+//   });
 
-  describe('Log in', () => {
-    it('gets user datas', () => {
-      moxios.stubRequest(`${url}/login`, {
-        status: 200,
-        data: {
-          logged: true,
-          satisfaction: true,
-          user: {
-            id: 1,
-            email: 'nicole@test.fr',
-            firstname: 'Nicole',
-            lastname: 'Truc',
-            role: ['ROLE_USER'],
-            birthday: '1990-01-01',
-            city: 'Test',
-            avatar: {
-              type: 'cat',
-              mood: 'sad',
-              color: '#F0FF0F',
-            },
-            token: 'ddqdqzdqzudqhzdkuqhdkqhd',
-          },
-        },
-      });
+//   describe('Log in', () => {
+//     it('gets user datas', () => {
+//       moxios.stubRequest(`${url}/login`, {
+//         status: 200,
+//         data: {
+//           logged: true,
+//           satisfaction: true,
+//           user: {
+//             id: 1,
+//             email: 'nicole@test.fr',
+//             firstname: 'Nicole',
+//             lastname: 'Truc',
+//             role: ['ROLE_USER'],
+//             birthday: '1990-01-01',
+//             city: 'Test',
+//             avatar: {
+//               type: 'cat',
+//               mood: 'sad',
+//               color: '#F0FF0F',
+//             },
+//             token: 'ddqdqzdqzudqhzdkuqhdkqhd',
+//           },
+//         },
+//       });
 
-      const expectedAction = CONNECT_USER;
-      const testData = { email: 'Nicole@test.fr', password: 'test' };
-      return store.dispatch(logIn(testData)).then(() => {
-        const actualAction = store.getActions();
-        expect(actualAction[0]).to.eql(expectedAction);
-      });
-    });
-  });
+//       const expectedAction = CONNECT_USER;
+//       const testData = { email: 'Nicole@test.fr', password: 'test' };
+//       return store.dispatch(logIn(testData)).then(() => {
+//         const actualAction = store.getActions();
+//         expect(actualAction[0]).to.eql(expectedAction);
+//       });
+//     });
+//   });
 
+//   it('should dispatch custom action', () => {
+//     // const clock = sinon.useFakeTimers();
+//     // const fakeStore = { dispatch: sinon.spy() };
+//     // const fakeNext = sinon.spy();
+//     // const fakeAction = {
+//     //   type: LOG_IN,
+//     // };
 
+//     // authMiddleware(fakeStore)(fakeNext)(fakeAction);
+//     // clock.tick(99000);
 
-
-
-  it('should dispatch custom action', () => {
-    // const clock = sinon.useFakeTimers();
-    // const fakeStore = { dispatch: sinon.spy() };
-    // const fakeNext = sinon.spy();
-    // const fakeAction = {
-    //   type: LOG_IN,
-    // };
-
-    // authMiddleware(fakeStore)(fakeNext)(fakeAction);
-    // clock.tick(99000);
-
-    // expect(fakeStore.dispatch.calledOnce).to.equal(true);
-  });
-});
-
-/* status: 200,
-data: {
-  logged: true,
-  satisfaction: true,
-  user: {
-    id: 1,
-    email: 'nicole@test.fr',
-    firstname: 'Nicole',
-    lastname: 'Truc',
-    role: ['ROLE_USER'],
-    birthday: '1990-01-01',
-    city: 'Test',
-    avatar: {
-      type: 'cat',
-      mood: 'sad',
-      color: '#F0FF0F',
-    },
-    token: 'ddqdqzdqzudqhzdkuqhdkqhd',
-  },
-}, */
+//     // expect(fakeStore.dispatch.calledOnce).to.equal(true);
+//   });
+// });

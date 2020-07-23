@@ -5,6 +5,7 @@ import { Redirect, Link } from 'react-router-dom';
 import Loader from 'src/components/Loader';
 
 import Suggestion from 'src/containers/Suggestions/Suggestion';
+import Success from 'src/components/Notification/Success';
 import './suggestion.scss';
 
 const Suggestions = ({
@@ -83,7 +84,7 @@ const Suggestions = ({
     return (
       <div className="suggestions">
         {suggestionSuccess && (
-          <div className="suggestion-success">Ton activité a bien été enregistrée, tu peux aller la voir sur ton calendrier !</div>
+          <Success message={"Ton activité a bien été enregistrée, tu peux la retrouver sur ton calendrier !"} />
         )}
         <h2 className="suggestions-title">On te propose les activités suivantes pour ton humeur {newMood}: </h2>
         <div className="suggestions-wrapper">

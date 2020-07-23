@@ -9,6 +9,7 @@ export const UPDATE_AVATAR_TYPE = 'UPDATE_AVATAR_TYPE';
 export const UPDATE_AVATAR_COLOR = 'UPDATE_AVATAR_COLOR';
 export const SUBMIT_AVATAR = 'SUBMIT_AVATAR';
 export const SUBMIT_PROFILE = 'SUBMIT_PROFILE';
+export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';
 
 // updates login fields by their identifier
 export const updateLoginField = (identifier, newValue) => ({
@@ -59,12 +60,18 @@ export const submitProfile = () => ({
   type: SUBMIT_PROFILE,
 });
 
+export const closeMessage = () => ({
+  type: CLOSE_MESSAGE,
+});
+
 // ==== Middleware actions ====
 export const LOG_IN = 'LOG_IN';
 export const CONNECT_USER = 'CONNECT_USER';
 export const REGISTER = 'REGISTER';
 export const UPDATE_LOADER = 'UPDATE_LOADER';
 export const CATCH_ERRORS = 'CATCH_ERRORS';
+export const SHOW_SUCCESS_PROFILE = 'SHOW_SUCCESS_PROFILE';
+export const SHOW_SUCCESS_AVATAR = 'SHOW_SUCCESS_AVATAR';
 
 // logs the user
 export const logIn = () => ({
@@ -100,4 +107,12 @@ export const updateLoader = () => ({
 export const catchErrors = (data) => ({
   type: CATCH_ERRORS,
   data,
+});
+
+export const showSuccessProfile = () => ({
+  type: SHOW_SUCCESS_PROFILE,
+});
+
+export const showSuccessAvatar = () => ({
+  type: SHOW_SUCCESS_AVATAR,
 });

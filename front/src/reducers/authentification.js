@@ -10,8 +10,12 @@ import {
   UPDATE_AVATAR_MOOD,
   UPDATE_AVATAR_TYPE,
   UPDATE_AVATAR_COLOR,
+  SUBMIT_AVATAR,
   CATCH_ERRORS,
   SUBMIT_PROFILE,
+  SHOW_SUCCESS_PROFILE,
+  SHOW_SUCCESS_AVATAR,
+  CLOSE_MESSAGE,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -37,6 +41,8 @@ const initialState = {
   avatarType: '',
   // User's avatar color
   avatarColor: '',
+  // Bool that show success notification on avatar form
+  successAvatar: false,
 };
 
 const register = (state = initialState, action = {}) => {
@@ -75,6 +81,11 @@ const register = (state = initialState, action = {}) => {
       return {
         ...state,
         avatarColor: action.color,
+      };
+    case SUBMIT_AVATAR:
+      return {
+        ...state,
+        successAvatar: true,
       };
 
     case SUBMIT_LOGIN:
@@ -123,12 +134,28 @@ const register = (state = initialState, action = {}) => {
         ...state,
         errorData: [],
         password: '',
-        successProfile: true,
       };
     case CATCH_ERRORS:
       return {
         ...state,
         errorData: action.data,
+      };
+    case SHOW_SUCCESS_PROFILE:
+      return {
+        ...state,
+        successProfile: true,
+      };
+    case SHOW_SUCCESS_AVATAR:
+      return {
+        ...state,
+        successAvatar: true,
+      };
+    case CLOSE_MESSAGE:
+      return {
+        ...state,
+        successProfile: false,
+        successAvatar: false,
+        errorData: [],
       };
 
     default: return state;
