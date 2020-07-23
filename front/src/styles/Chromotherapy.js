@@ -80,7 +80,7 @@ const Chromotherapy = createGlobalStyle`
     color: ${(props) => props.color};
   }
 
-  .suggestions .redirect-mood-link {
+  .suggestions-empty .redirect-mood-link {
     color: ${(props) => props.color};
     border-bottom: 1px solid ${(props) => props.color};
     box-shadow: inset 0 -1px 0 ${(props) => props.color};

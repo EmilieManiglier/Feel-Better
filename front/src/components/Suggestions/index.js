@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import Loader from 'src/components/Loader';
 
+import people from 'src/assets/images/people-happy.png';
+
 import Suggestion from 'src/containers/Suggestions/Suggestion';
 import Success from 'src/components/Notification/Success';
 import './suggestion.scss';
@@ -22,7 +24,11 @@ const Suggestions = ({
 
   if (!setMood) {
     return (
-      <div className="suggestions">Il faut d'abord répondre au <Link to="/mood" className="redirect-mood-link">formulaire d'humeur</Link> avant de s'amuser !</div>
+      <div className="suggestions-empty">Il faut d'abord répondre au <Link to="/mood" className="redirect-mood-link">formulaire d'humeur</Link> avant de s'amuser !
+
+        <img className="people-img" src={people} alt="" />
+
+      </div>
     );
   }
 
@@ -84,7 +90,7 @@ const Suggestions = ({
     return (
       <div className="suggestions">
         {suggestionSuccess && (
-          <Success message={"Ton activité a bien été enregistrée, tu peux la retrouver sur ton calendrier !"} />
+          <Success message="Ton activité a bien été enregistrée, tu peux la retrouver sur ton calendrier !" />
         )}
         <h2 className="suggestions-title">On te propose les activités suivantes pour ton humeur {newMood}: </h2>
         <div className="suggestions-wrapper">

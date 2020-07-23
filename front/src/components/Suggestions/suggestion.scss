@@ -16,13 +16,13 @@
   transition-timing-function: $timing;
   transition-delay: $delay;
 }
-
-.suggestions {
-  width: 100%;
-  min-height: 75vh;
+.suggestions-empty {
+  font-size: 1.5rem;
   text-align: center;
-  line-height: 2rem;
   padding: 1rem;
+  min-height: 75vh;
+  line-height: 2.2rem;
+
 
   .redirect-mood-link {
     padding: 0.3rem;
@@ -32,6 +32,20 @@
       color: $light-main-color;
     }
   }
+
+  .people-img {
+    display: block;
+    margin-top: 2rem;
+    width: 100%;
+  }
+}
+
+.suggestions {
+  width: 100%;
+  min-height: 75vh;
+  text-align: center;
+  line-height: 2rem;
+  padding: 1rem;
 
   .suggestions-title {
     font-size: 2rem;
@@ -308,6 +322,14 @@
 }
 
 @media screen and (min-width: 768px) {
+  .suggestions-empty { 
+
+    .people-img {
+      width: 60%;
+      margin: 3rem auto 0;
+    }
+  }
+
   .suggestions {
     font-size: 1.5rem;
     min-height: 90vh;
