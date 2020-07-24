@@ -9,6 +9,7 @@ import {
   LOAD_CALENDAR,
   saveCalendar,
   checkMoodError,
+  saveColor,
 } from 'src/actions/mood';
 
 const moodMiddleware = (store) => (next) => (action) => {
@@ -35,8 +36,8 @@ const moodMiddleware = (store) => (next) => (action) => {
           // Store response received from API in the state
           store.dispatch(saveMood(response.data.setMood));
 
-          // Store mood color in the local storage
-          localStorage.setItem('color', response.data.color);
+          // Store mood color in the state
+          store.dispatch(saveColor(response.data.color));
         })
         // And then we store suggestion's data in the state
         .then(() => {

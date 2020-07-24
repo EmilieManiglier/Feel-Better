@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
   isLogged: state.auth.isLogged,
   timestamp: state.mood.timestamp,
   setMood: state.mood.setMood,
+  color: state.mood.color,
 });
 
 // === mapDispatchToProps

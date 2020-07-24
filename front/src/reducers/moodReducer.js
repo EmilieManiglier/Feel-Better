@@ -13,9 +13,10 @@ import {
   OPEN_MODALE,
   CHECK_MOOD_ERROR,
   HANDLE_SUGGESTION_SUBMIT,
+  SAVE_COLOR,
 } from 'src/actions/mood';
 
-import { CLOSE_MESSAGE } from 'src/actions/authentification';
+import { LOG_OUT, CLOSE_MESSAGE } from 'src/actions/authentification';
 
 const initialState = {
   mood: '',
@@ -25,6 +26,8 @@ const initialState = {
   setMood: false,
   // Suggestions
   ideas: [],
+  // Mood color
+  color: '',
   // Display loader while waiting API response
   isLoading: true,
   // Date selected on the calendar
@@ -119,6 +122,16 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         suggestionSuccess: false,
+      };
+    case SAVE_COLOR:
+      return {
+        ...state,
+        color: action.color,
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        color: '',
       };
     default: return state;
   }

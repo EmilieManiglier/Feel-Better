@@ -10,6 +10,8 @@ import {
   catchErrors,
 } from 'src/actions/authentification';
 
+import { saveColor } from 'src/actions/mood';
+
 import { saveSatisfaction } from 'src/actions/satisfaction';
 
 const authMiddleware = (store) => (next) => (action) => {
@@ -33,6 +35,9 @@ const authMiddleware = (store) => (next) => (action) => {
 
             // Save satisfaction bool in the state (for the satisfaction form)
             store.dispatch(saveSatisfaction(response.data.satisfaction));
+
+            // Save user color
+            store.dispatch(saveColor(response.data.color));
 
             // Save the JWT in localStorage
             localStorage.setItem('userToken', response.data.user.token);
@@ -117,6 +122,7 @@ const authMiddleware = (store) => (next) => (action) => {
           // Connects user and store data in the state
           console.log('response for check logged: ', response);
           store.dispatch(connectUser(response.data.verifyUser.user, response.data.verifyUser.logged));
+          store.dispatch(saveColor(response.data.color));
         })
         .catch((error) => {
           console.warn(error);
