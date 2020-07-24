@@ -11,7 +11,7 @@ nelmio_cors:
     forced_allow_origin_value: ~
   paths:
     "^/api/v1/":
-      allow_origin: ["http://3.84.11.250", "http://localhost:8080"]
+      allow_origin: ["http://18.204.212.123", "http://localhost:8080"]
       allow_headers:
         [
           "X-API-KEY",

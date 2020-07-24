@@ -23,7 +23,7 @@ class ProfileControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::$container->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('arno1@test.fr');
+        $testUser = $userRepository->findOneByEmail('quentin.barraud2@gmail.com');
 
         $client->loginUser($testUser);
 
