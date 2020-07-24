@@ -33,6 +33,7 @@ const satisfactionMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           store.dispatch(showSatisfactionSuccess());
           console.log('response for satisfaction: ', response);
+          store.dispatch(saveStatus(response.data.setSatisfaction));
         })
         .catch((error) => {
           console.warn(error);

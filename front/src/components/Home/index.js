@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import Success from 'src/containers/Notification/Success';
 import Loader from 'src/components/Loader';
 import quotes from 'src/data/quotes';
 import './home.scss';
@@ -13,6 +14,7 @@ const Home = ({
   showSatisfactionForm,
   firstname,
   image,
+  satisfactionSuccess,
 }) => {
   // Create a random id between 0 and quotes max length
   const randomId = Math.floor(Math.random() * quotes.length);
@@ -35,6 +37,10 @@ const Home = ({
           </div>
         )
       }
+
+      {satisfactionSuccess && isLogged && (
+        <Success message="Le formulaire a bien été envoyé, merci d'avoir partagé ton avis!" />
+      )}
 
       { // Each time the page is refreshed, an API request is made
         // in order to know if user's token exist and if it's valid
@@ -103,6 +109,7 @@ Home.propTypes = {
   showSatisfactionForm: PropTypes.bool.isRequired,
   firstname: PropTypes.string,
   image: PropTypes.string,
+  satisfactionSuccess: PropTypes.bool.isRequired,
 };
 
 Home.defaultProps = {

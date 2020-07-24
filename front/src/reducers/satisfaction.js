@@ -5,6 +5,7 @@ import {
   UPDATE_PERTINENCE,
   SHOW_SATISFACTION_SUCCESS,
   SHOW_SATISFACTION_ERROR,
+  SAVE_STATUS,
 } from 'src/actions/satisfaction';
 
 import { CLOSE_MESSAGE } from 'src/actions/authentification';
@@ -22,6 +23,8 @@ const initialState = {
   satisfactionSuccess: false,
   // Bool that show satisfaction error or not
   satisfactionError: false,
+  // Bool received on satisfaction form submission
+  setSatisfaction: false,
 };
 
 const satisfactionReducer = (state = initialState, action = {}) => {
@@ -61,6 +64,11 @@ const satisfactionReducer = (state = initialState, action = {}) => {
         ...state,
         satisfactionSuccess: false,
         satisfactionError: false,
+      };
+    case SAVE_STATUS:
+      return {
+        ...state,
+        setSatisfaction: action.status,
       };
     default: return state;
   }

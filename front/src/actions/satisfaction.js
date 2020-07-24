@@ -31,6 +31,7 @@ export const updateSatisfaction = (satisfaction) => ({
 export const HANDLE_SATISFACTION_SUBMIT = 'HANDLE_SATISFACTION_SUBMIT';
 export const SHOW_SATISFACTION_SUCCESS = 'SHOW_SATISFACTION_SUCCESS';
 export const SHOW_SATISFACTION_ERROR = 'SHOW_SATISFACTION_ERROR';
+export const SAVE_STATUS = 'SAVE_STATUS';
 
 export const handleSatisfactionSubmit = () => ({
   type: HANDLE_SATISFACTION_SUBMIT,
@@ -42,4 +43,9 @@ export const showSatisfactionSuccess = () => ({
 
 export const showSatisfactionError = () => ({
   type: SHOW_SATISFACTION_ERROR,
+});
+
+export const saveStatus = (status) => ({
+  type: SAVE_STATUS,
+  status,
 });

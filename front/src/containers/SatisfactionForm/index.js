@@ -14,6 +14,8 @@ const mapStateToProps = (state) => ({
   comment: state.satisfaction.comment,
   satisfactionSuccess: state.satisfaction.satisfactionSuccess,
   satisfactionError: state.satisfaction.satisfactionError,
+  setSatisfaction: state.satisfaction.setSatisfaction,
+  showSatisfactionForm: state.satisfaction.showSatisfactionForm,
 });
 
 // === mapDispatchToProps

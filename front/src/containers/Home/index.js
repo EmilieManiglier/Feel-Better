@@ -10,6 +10,7 @@ const mapStateToProps = (state) => ({
   firstname: state.auth.data.firstname,
   isLoading: state.auth.isLoading,
   showSatisfactionForm: state.satisfaction.showSatisfactionForm,
+  satisfactionSuccess: state.satisfaction.satisfactionSuccess,
 });
 
 // === mapDispatchToProps
