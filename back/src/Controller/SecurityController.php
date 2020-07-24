@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ColorRepository;
 use App\Repository\UserRepository;
+use App\Service\ColorService;
 use App\Service\JwtDecodeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,15 +19,16 @@ class SecurityController extends AbstractController
 
     private $jwtDecodeService;
     private $session;
+    private $colorService;
     private $userRepository;
-    private $colorRepository;
 
-    public function __construct(JwtDecodeService $jwtDecodeService, SessionInterface $session, UserRepository $userRepository, ColorRepository $colorRepository)
+
+    public function __construct(JwtDecodeService $jwtDecodeService, SessionInterface $session, ColorService $colorService, UserRepository $userRepository)
     {
         $this->jwtDecodeService = $jwtDecodeService;
         $this->session = $session;
+        $this->colorService = $colorService;
         $this->userRepository = $userRepository;
-        $this->colorRepository = $colorRepository;
     }
 
     /**
@@ -40,21 +42,11 @@ class SecurityController extends AbstractController
 
         if ($verifyUser->getStatusCode() != '418') {
             $tokenService = $this->jwtDecodeService->tokenDecode($jsonData->token);
-            // Use the userRespository to find the email of the user with the username stored in the tokenService
             $user = $this->userRepository->findByEmail($tokenService['username']);
-            $AllMoodDateForUser = $user->getUserMoodDates()->getValues();
-            $lastMoodDate = end($AllMoodDateForUser);
-
-            $allMoodForUser = $lastMoodDate->getMoods()->getValues();
-            $lastMood = end($allMoodForUser);
-            $colorEntity = $this->colorRepository->findByMood($lastMood);
-            $colorData = end($colorEntity);
-
-            $hexa = $colorData->getHexadecimal();
+            $hexa = $this->colorService->retreiveColor($user);
         } else {
             $hexa = '#8590bd';
         }
-
 
         if (empty($this->session->get('suggestion'))) {
             return new JsonResponse(['suggestionBool' => false, 'color' => $hexa, 'verifyUser' => json_decode($verifyUser->getContent())], $verifyUser->getStatusCode());

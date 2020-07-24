@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Avatar;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Service\ColorService;
 use App\Service\JwtDecodeService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,8 +27,9 @@ class UserController extends AbstractController
     private $jwtDecodeService;
     private $validator;
     private $serializer;
+    private $colorService;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, JWTTokenManagerInterface $JWTManager, JwtDecodeService $jwtDecodeService, ValidatorInterface $validator, SerializerInterface $serializer)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, JWTTokenManagerInterface $JWTManager, JwtDecodeService $jwtDecodeService, ValidatorInterface $validator, SerializerInterface $serializer, ColorService $colorService)
     {
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
@@ -35,6 +37,7 @@ class UserController extends AbstractController
         $this->jwtDecodeService = $jwtDecodeService;
         $this->validator = $validator;
         $this->serializer = $serializer;
+        $this->colorService = $colorService;
     }
 
 
@@ -194,6 +197,7 @@ class UserController extends AbstractController
 
                 $avatars = $user->getAvatars()->getValues();
                 $avatar = end($avatars);
+                $hexa = $this->colorService->retreiveColor($user);
 
                 if ($user->getCountActivities() >= 5) {
                     $this->em->flush();
@@ -201,6 +205,7 @@ class UserController extends AbstractController
                     return new JsonResponse([
                         'logged' => true,
                         'satisfaction' => true,
+                        'color' => $hexa,
                         'user' => [
                             'id' => $user->getId(),
                             'email' => $user->getEmail(),
@@ -221,6 +226,7 @@ class UserController extends AbstractController
                     return new JsonResponse([
                         'logged' => true,
                         'satisfaction' => false,
+                        'color' => $hexa,
                         'user' => [
                             'id' => $user->getId(),
                             'email' => $user->getEmail(),
