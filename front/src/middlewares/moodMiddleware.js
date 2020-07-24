@@ -75,6 +75,7 @@ const moodMiddleware = (store) => (next) => (action) => {
           console.log('response for setideas: ', response);
           // Store response received from API in the state
           store.dispatch(saveIdeaBool(response.data.setIdea));
+          store.dispatch(saveCalendar(response.data.moodDatas));
         })
         .catch((error) => {
           console.warn(error);
