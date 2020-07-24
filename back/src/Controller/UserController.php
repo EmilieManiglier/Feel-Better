@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Avatar;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\JwtDecodeService;
@@ -36,6 +37,44 @@ class UserController extends AbstractController
         $this->serializer = $serializer;
     }
 
+
+    /**
+     * @Route("/api/v1/setavatar", name="setavatar_user", METHODS={"POST"})
+     */
+    public function setAvatar(Request $request, UserRepository $userRepository)
+    {
+        $data = $request->getContent();
+
+        $jsonData = json_decode($data);
+
+        $tokenService = $this->jwtDecodeService->tokenDecode($jsonData->token);
+
+        $user = $userRepository->findByEmail($tokenService['username']);
+
+        $avatar = $this->serializer->deserialize($data, Avatar::class, 'json');
+
+        if ($jsonData->mood == "") {
+            $avatar->setMood('blissful');
+        }
+        if ($jsonData->color == "") {
+            $avatar->setColor('#dfe5f0');
+        }
+
+
+        $user->addAvatar($avatar);
+        $this->em->flush();
+
+
+        return new JsonResponse([
+            'setAvatar' => true,
+            'avatar' => [
+                'type' => $avatar->getType(),
+                'mood' => $avatar->getMood(),
+                'color' => $avatar->getColor()
+            ]
+        ], Response::HTTP_CREATED);
+    }
+
     /**
      * @Route("/api/v1/register", name="register_user", METHODS={"POST"})
      */
@@ -53,10 +92,9 @@ class UserController extends AbstractController
             if ($jsonData->confirm_password === $jsonData->password) {
                 // Initialization of the entity
 
-                $user->setAvatar(null);
                 $user->setCreatedAt(new DateTime());
                 $user->setRoles(['ROLE_USER']);
-
+                $user->setCountActivities(0);
 
                 // Hash password
                 $user->setPassword($this->passwordEncoder->encodePassword($user, $jsonData->password));
@@ -66,30 +104,22 @@ class UserController extends AbstractController
                 $errors = $this->validator->validate($user);
 
                 if (count($errors) > 0) {
-                    return $this->json($errors, Response::HTTP_OK);
+                    return $this->json($errors, Response::HTTP_ACCEPTED);
                 }
 
-                /*if ($avatar) {
 
-                $originalFileName = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFileName);
+                $avatar = new Avatar();
+                $avatar->setType($jsonData->type);
+                $avatar->setMood($jsonData->mood);
+                $avatar->setColor($jsonData->color);
+                $user->addAvatar($avatar);
 
-                $newFilename = $safeFilename.uniqid().'.'.$avatar->guessExtension();
 
-                try {
-                    $avatar->move(
-                        $this->getParameter('avatar_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    return new JsonResponse(['error' => 'Picture could not be uploaded !']);
-                }
-
-                $user->setAvatar($newFilename);
-                }*/
                 $token = $this->JWTManager->create($user);
                 // I save in user database
+
                 $this->em->persist($user);
+                //$user->addAvatar($avatar);
                 $this->em->flush();
 
                 // I send the answer in json
@@ -103,16 +133,43 @@ class UserController extends AbstractController
                         'role' => $user->getRoles(),
                         'birthday' => $user->getBirthday()->format('Y-m-d'),
                         'city' => $user->getCity(),
+                        'avatar' => [
+                            "type" => $avatar->getType(),
+                            "mood" => $avatar->getMood(),
+                            "color" => $avatar->getColor(),
+                        ],
                         'token' => $token
                     ]
                 ], Response::HTTP_CREATED);
             } else {
                 // If the two passwords do not match, I send a 403 error
-                return new JsonResponse(['registred' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
+                return new JsonResponse(
+                    [
+                        'registred' => false,
+                        'violations' => [
+                            '0' => [
+                                'propertyPath' => 'password',
+                                'title' => 'Les deux mots de passe ne correspondent pas, vérifie s\'il te plait :('
+                            ]
+                        ]
+                    ],
+                    Response::HTTP_ACCEPTED
+                );
             }
         } else {
             // If an email is already exist in the database, I send a 403 error
-            return new JsonResponse(['registred' => false, 'error' => ['email' => false]], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(
+                [
+                    'registred' => false,
+                    'violations' => [
+                        '0' => [
+                            'propertyPath' => 'email',
+                            'title' => 'L\'email existe déjà !'
+                        ]
+                    ]
+                ],
+                Response::HTTP_ACCEPTED
+            );
         }
     }
 
@@ -135,27 +192,81 @@ class UserController extends AbstractController
                 // Generate the token
                 $token = $this->JWTManager->create($user);
 
-                // Return all the datas with the token in a JSON response
-                return new JsonResponse([
-                    'logged' => true,
-                    'user' => [
-                        'id' => $user->getId(),
-                        'email' => $user->getEmail(),
-                        'firstname' => $user->getFirstname(),
-                        'lastname' => $user->getLastname(),
-                        'role' => $user->getRoles(),
-                        'birthday' => $user->getBirthday()->format('Y-m-d'),
-                        'city' => $user->getCity(),
-                        'token' => $token
-                    ]
-                ], Response::HTTP_OK);
+                $avatars = $user->getAvatars()->getValues();
+                $avatar = end($avatars);
+
+                if ($user->getCountActivities() >= 5) {
+                    $this->em->flush();
+                    // Return all the datas with the token in a JSON response
+                    return new JsonResponse([
+                        'logged' => true,
+                        'satisfaction' => true,
+                        'user' => [
+                            'id' => $user->getId(),
+                            'email' => $user->getEmail(),
+                            'firstname' => $user->getFirstname(),
+                            'lastname' => $user->getLastname(),
+                            'role' => $user->getRoles(),
+                            'birthday' => $user->getBirthday()->format('Y-m-d'),
+                            'city' => $user->getCity(),
+                            'avatar' => [
+                                "type" => $avatar->getType(),
+                                "mood" => $avatar->getMood(),
+                                "color" => $avatar->getColor(),
+                            ],
+                            'token' => $token
+                        ]
+                    ], Response::HTTP_OK);
+                } else {
+                    return new JsonResponse([
+                        'logged' => true,
+                        'satisfaction' => false,
+                        'user' => [
+                            'id' => $user->getId(),
+                            'email' => $user->getEmail(),
+                            'firstname' => $user->getFirstname(),
+                            'lastname' => $user->getLastname(),
+                            'role' => $user->getRoles(),
+                            'birthday' => $user->getBirthday()->format('Y-m-d'),
+                            'city' => $user->getCity(),
+                            'avatar' => [
+                                "type" => $avatar->getType(),
+                                "mood" => $avatar->getMood(),
+                                "color" => $avatar->getColor(),
+                            ],
+                            'token' => $token
+                        ]
+                    ], Response::HTTP_OK);
+                }
             } else {
                 // If the passwords do not match, we return a JSON error
-                return new JsonResponse(['logged' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
+                return new JsonResponse(
+                    [
+                        'logged' => false,
+                        'violations' => [
+                            '0' => [
+                                'propertyPath' => 'password',
+                                'title' => 'Il me semble que ton email ET/OU ton mot de passe sont incorrect ... Tu peux les vérifier ?'
+                            ]
+                        ]
+                    ],
+                    Response::HTTP_ACCEPTED
+                );
             }
         } else {
             // The email does not exist, we return a JSON error
-            return new JsonResponse(['logged' => false, 'error' => ['email' => false]], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(
+                [
+                    'logged' => false,
+                    'violations' => [
+                        '0' => [
+                            'propertyPath' => 'email',
+                            'title' => 'Il me semble que ton email ET/OU ton mot de passe sont incorrect ... Tu peux les vérifier ?'
+                        ]
+                    ]
+                ],
+                Response::HTTP_ACCEPTED
+            );
         }
     }
 
@@ -176,52 +287,94 @@ class UserController extends AbstractController
 
         // Use the userRespository to find the email of the user with the username stored in the tokenService
         $user = $userRepository->findByEmail($tokenService['username']);
+        $emailInDb = $userRepository->findByEmail($jsonData->email);
+
+
+
 
         // Use the passwordEncoder to check the validity of the password entered in the Request and the password in DB
         if ($this->passwordEncoder->isPasswordValid($user, $jsonData->password)) {
 
-            // If the firstname is not empty in the request we set the value with the data of the serializer
-            if (!empty($jsonData->firstname)) {
-                $user->setFirstname($userFront->getFirstname());
-            }
-            if (!empty($jsonData->lastname)) {
-                $user->setLastname($userFront->getLastname());
-            }
-            if (!empty($jsonData->city)) {
-                $user->setCity($userFront->getCity());
-            }
-            if (!empty($jsonData->email)) {
-                $user->setEmail($userFront->getEmail());
-            }
+            if ($emailInDb === null || $user->getEmail() === $jsonData->email) {
+                // If the firstname is not empty in the request we set the value with the data of the serializer
+                if (!empty($jsonData->firstname)) {
+                    $user->setFirstname($userFront->getFirstname());
+                }
+                if (!empty($jsonData->lastname)) {
+                    $user->setLastname($userFront->getLastname());
+                }
+                if (!empty($jsonData->city)) {
+                    $user->setCity($userFront->getCity());
+                }
+                if (!empty($jsonData->email)) {
+                    $user->setEmail($userFront->getEmail());
+                }
 
-            $user->setUpdatedAt(new DateTime());
+                $avatars = $user->getAvatars()->getValues();
+                $avatar = end($avatars);
 
-            // Use the validator to check the errors of the $user 
-            $errors = $this->validator->validate($user);
+                $user->setUpdatedAt(new DateTime());
 
-            // If errors > 0 we return the detail of the error(s)
-            if (count($errors) > 0) {
-                return $this->json($errors, Response::HTTP_OK);
+                // Use the validator to check the errors of the $user 
+                $errors = $this->validator->validate($user);
+
+                // If errors > 0 we return the detail of the error(s)
+                if (count($errors) > 0) {
+                    return $this->json($errors, Response::HTTP_ACCEPTED);
+                }
+                // Save the user in database
+                $this->em->flush();
+
+                // Generate the token
+                $token = $this->JWTManager->create($user);
+
+                // Return the complete object with all data
+                return new JsonResponse([
+                    'updated' => true,
+                    'user' => [
+                        'id' => $user->getId(),
+                        'email' => $user->getEmail(),
+                        'firstname' => $user->getFirstname(),
+                        'lastname' => $user->getLastname(),
+                        'role' => $user->getRoles(),
+                        'birthday' => $user->getBirthday()->format('Y-m-d'),
+                        'city' => $user->getCity(),
+                        'avatar' => [
+                            "type" => $avatar->getType(),
+                            "mood" => $avatar->getMood(),
+                            "color" => $avatar->getColor(),
+                        ],
+                        'token' => $token
+                    ]
+                ], Response::HTTP_OK);
+            } else {
+                return new JsonResponse(
+                    [
+                        'updated' => false,
+                        'violations' => [
+                            '0' => [
+                                'propertyPath' => 'email',
+                                'title' => 'L\'email existe déjà :('
+                            ]
+                        ]
+                    ],
+                    Response::HTTP_ACCEPTED
+                );
             }
-            // Save the user in database
-            $this->em->flush();
-
-            // Return the complete object with all data
-            return new JsonResponse([
-                'updated' => true,
-                'user' => [
-                    'id' => $user->getId(),
-                    'email' => $user->getEmail(),
-                    'firstname' => $user->getFirstname(),
-                    'lastname' => $user->getLastname(),
-                    'role' => $user->getRoles(),
-                    'birthday' => $user->getBirthday()->format('Y-m-d'),
-                    'city' => $user->getCity()
-                ]
-            ], Response::HTTP_OK);
         } else {
             // If the form was not good, I send a 403 error
-            return new JsonResponse(['updated' => false, 'error' => ['password' => false]], Response::HTTP_FORBIDDEN);
+            return new JsonResponse(
+                [
+                    'updated' => false,
+                    'violations' => [
+                        '0' => [
+                            'propertyPath' => 'password',
+                            'title' => 'Tu t\'es trompé dans ton mot de passe, retape-le :D'
+                        ]
+                    ]
+                ],
+                Response::HTTP_ACCEPTED
+            );
         }
     }
 }

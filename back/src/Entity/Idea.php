@@ -54,10 +54,16 @@ class Idea
      */
     private $categories;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=UserMoodDate::class, mappedBy="ideas")
+     */
+    private $userMoodDates;
+
     public function __construct()
     {
         $this->moods = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->userMoodDates = new ArrayCollection();
     }
 
     public function __toString()
@@ -179,6 +185,34 @@ class Idea
     {
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserMoodDate[]
+     */
+    public function getUserMoodDates(): Collection
+    {
+        return $this->userMoodDates;
+    }
+
+    public function addUserMoodDate(UserMoodDate $userMoodDate): self
+    {
+        if (!$this->userMoodDates->contains($userMoodDate)) {
+            $this->userMoodDates[] = $userMoodDate;
+            $userMoodDate->addIdea($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserMoodDate(UserMoodDate $userMoodDate): self
+    {
+        if ($this->userMoodDates->contains($userMoodDate)) {
+            $this->userMoodDates->removeElement($userMoodDate);
+            $userMoodDate->removeIdea($this);
         }
 
         return $this;

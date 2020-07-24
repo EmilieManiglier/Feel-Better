@@ -98,12 +98,6 @@ class User implements UserInterface
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * 
-     */
-    private $avatar;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -118,9 +112,28 @@ class User implements UserInterface
      */
     private $userMoodDates;
 
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $count_activities;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Satisfaction::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $satisfactions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Avatar::class, mappedBy="user", cascade={"persist"})
+     */
+    private $avatars;
+
+
+
     public function __construct()
     {
         $this->userMoodDates = new ArrayCollection();
+        $this->satisfactions = new ArrayCollection();
+        $this->avatars = new ArrayCollection();
     }
 
     public function __toString()
@@ -254,17 +267,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
-
-    public function setAvatar(?string $avatar): self
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -313,6 +315,80 @@ class User implements UserInterface
         if ($this->userMoodDates->contains($userMoodDate)) {
             $this->userMoodDates->removeElement($userMoodDate);
             $userMoodDate->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getCountActivities(): ?int
+    {
+        return $this->count_activities;
+    }
+
+    public function setCountActivities(int $count_activities): self
+    {
+        $this->count_activities = $count_activities;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Satisfaction[]
+     */
+    public function getSatisfactions(): Collection
+    {
+        return $this->satisfactions;
+    }
+
+    public function addSatisfaction(Satisfaction $satisfaction): self
+    {
+        if (!$this->satisfactions->contains($satisfaction)) {
+            $this->satisfactions[] = $satisfaction;
+            $satisfaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSatisfaction(Satisfaction $satisfaction): self
+    {
+        if ($this->satisfactions->contains($satisfaction)) {
+            $this->satisfactions->removeElement($satisfaction);
+            // set the owning side to null (unless already changed)
+            if ($satisfaction->getUser() === $this) {
+                $satisfaction->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Avatar[]
+     */
+    public function getAvatars(): Collection
+    {
+        return $this->avatars;
+    }
+
+    public function addAvatar(Avatar $avatar): self
+    {
+        if (!$this->avatars->contains($avatar)) {
+            $this->avatars[] = $avatar;
+            $avatar->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvatar(Avatar $avatar): self
+    {
+        if ($this->avatars->contains($avatar)) {
+            $this->avatars->removeElement($avatar);
+            // set the owning side to null (unless already changed)
+            if ($avatar->getUser() === $this) {
+                $avatar->setUser(null);
+            }
         }
 
         return $this;

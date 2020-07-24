@@ -25,12 +25,16 @@ class JwtDecodeService
         try {
             $jwt = $this->JWTManager->decode($token);
             $user = $this->userRepository->findByEmail($jwt['username']);
+            $avatars = $user->getAvatars()->getValues();
+            $avatar = end($avatars);
         } catch (Throwable $e) {
             return new JsonResponse([
                 'logged' => false,
                 'user' => []
             ], Response::HTTP_I_AM_A_TEAPOT);
         }
+
+
 
         return new JsonResponse([
             'logged' => true,
@@ -42,6 +46,11 @@ class JwtDecodeService
                 'role' => $user->getRoles(),
                 'birthday' => $user->getBirthday()->format('Y-m-d'),
                 'city' => $user->getCity(),
+                'avatar' => [
+                    "type" => $avatar->getType(),
+                    "mood" => $avatar->getMood(),
+                    "color" => $avatar->getColor()
+                ],
                 'token' => $token
             ]
         ], Response::HTTP_OK);

@@ -39,10 +39,16 @@ class UserMoodDate
      */
     private $budget;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Idea::class, inversedBy="userMoodDates")
+     */
+    private $ideas;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->moods = new ArrayCollection();
+        $this->ideas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,6 +128,32 @@ class UserMoodDate
     public function setBudget(int $budget): self
     {
         $this->budget = $budget;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Idea[]
+     */
+    public function getIdeas(): Collection
+    {
+        return $this->ideas;
+    }
+
+    public function addIdea(Idea $idea): self
+    {
+        if (!$this->ideas->contains($idea)) {
+            $this->ideas[] = $idea;
+        }
+
+        return $this;
+    }
+
+    public function removeIdea(Idea $idea): self
+    {
+        if ($this->ideas->contains($idea)) {
+            $this->ideas->removeElement($idea);
+        }
 
         return $this;
     }
