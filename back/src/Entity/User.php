@@ -44,6 +44,10 @@ class User implements UserInterface
      * @Assert\NotBlank(
      * message = "hep hep hep, un p'tit mot de passe s'il te plait !"
      * )
+     * @Assert\Length(
+     *      min = 8,
+     *      minMessage = "Ton passe est un peu court ? il me faut au moins 8 caractères",
+     * )
      */
     private $password;
 

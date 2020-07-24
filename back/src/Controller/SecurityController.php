@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\ColorRepository;
+use App\Repository\UserRepository;
+use App\Service\ColorService;
 use App\Service\JwtDecodeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,11 +19,16 @@ class SecurityController extends AbstractController
 
     private $jwtDecodeService;
     private $session;
+    private $colorService;
+    private $userRepository;
 
-    public function __construct(JwtDecodeService $jwtDecodeService, SessionInterface $session)
+
+    public function __construct(JwtDecodeService $jwtDecodeService, SessionInterface $session, ColorService $colorService, UserRepository $userRepository)
     {
         $this->jwtDecodeService = $jwtDecodeService;
         $this->session = $session;
+        $this->colorService = $colorService;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -30,10 +38,20 @@ class SecurityController extends AbstractController
     {
         $jsonData = json_decode($request->getContent());
 
-        if (empty($this->session->get('suggestion'))) {
-            return new JsonResponse(['suggestionBool' => false, 'verifyUser' => json_decode($this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getContent())], $this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getStatusCode());
+        $verifyUser = $this->jwtDecodeService->tokenVerifyUser($jsonData->token);
+
+        if ($verifyUser->getStatusCode() != '418') {
+            $tokenService = $this->jwtDecodeService->tokenDecode($jsonData->token);
+            $user = $this->userRepository->findByEmail($tokenService['username']);
+            $hexa = $this->colorService->retreiveColor($user);
         } else {
-            return new JsonResponse(['suggestionBool' => true, 'suggestion' => $this->session->get('suggestion'), 'verifyUser' =>  json_decode($this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getContent())], $this->jwtDecodeService->tokenVerifyUser($jsonData->token)->getStatusCode());
+            $hexa = '#8590bd';
+        }
+
+        if (empty($this->session->get('suggestion'))) {
+            return new JsonResponse(['suggestionBool' => false, 'color' => $hexa, 'verifyUser' => json_decode($verifyUser->getContent())], $verifyUser->getStatusCode());
+        } else {
+            return new JsonResponse(['suggestionBool' => true, 'color' => $hexa, 'suggestion' => $this->session->get('suggestion'), 'verifyUser' =>  json_decode($verifyUser->getContent())], $verifyUser->getStatusCode());
         }
     }
 

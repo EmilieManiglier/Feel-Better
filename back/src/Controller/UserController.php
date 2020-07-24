@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Avatar;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Service\ColorService;
 use App\Service\JwtDecodeService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,8 +27,9 @@ class UserController extends AbstractController
     private $jwtDecodeService;
     private $validator;
     private $serializer;
+    private $colorService;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, JWTTokenManagerInterface $JWTManager, JwtDecodeService $jwtDecodeService, ValidatorInterface $validator, SerializerInterface $serializer)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, JWTTokenManagerInterface $JWTManager, JwtDecodeService $jwtDecodeService, ValidatorInterface $validator, SerializerInterface $serializer, ColorService $colorService)
     {
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
@@ -35,6 +37,7 @@ class UserController extends AbstractController
         $this->jwtDecodeService = $jwtDecodeService;
         $this->validator = $validator;
         $this->serializer = $serializer;
+        $this->colorService = $colorService;
     }
 
 
@@ -194,6 +197,7 @@ class UserController extends AbstractController
 
                 $avatars = $user->getAvatars()->getValues();
                 $avatar = end($avatars);
+                $hexa = $this->colorService->retreiveColor($user);
 
                 if ($user->getCountActivities() >= 5) {
                     $this->em->flush();
@@ -201,6 +205,7 @@ class UserController extends AbstractController
                     return new JsonResponse([
                         'logged' => true,
                         'satisfaction' => true,
+                        'color' => $hexa,
                         'user' => [
                             'id' => $user->getId(),
                             'email' => $user->getEmail(),
@@ -221,6 +226,7 @@ class UserController extends AbstractController
                     return new JsonResponse([
                         'logged' => true,
                         'satisfaction' => false,
+                        'color' => $hexa,
                         'user' => [
                             'id' => $user->getId(),
                             'email' => $user->getEmail(),
@@ -287,7 +293,7 @@ class UserController extends AbstractController
 
         // Use the userRespository to find the email of the user with the username stored in the tokenService
         $user = $userRepository->findByEmail($tokenService['username']);
-        $emailInDb = $userRepository->findByEmail($jsonData->email);
+
 
 
 
@@ -295,72 +301,57 @@ class UserController extends AbstractController
         // Use the passwordEncoder to check the validity of the password entered in the Request and the password in DB
         if ($this->passwordEncoder->isPasswordValid($user, $jsonData->password)) {
 
-            if ($emailInDb === null || $user->getEmail() === $jsonData->email) {
-                // If the firstname is not empty in the request we set the value with the data of the serializer
-                if (!empty($jsonData->firstname)) {
-                    $user->setFirstname($userFront->getFirstname());
-                }
-                if (!empty($jsonData->lastname)) {
-                    $user->setLastname($userFront->getLastname());
-                }
-                if (!empty($jsonData->city)) {
-                    $user->setCity($userFront->getCity());
-                }
-                if (!empty($jsonData->email)) {
-                    $user->setEmail($userFront->getEmail());
-                }
-
-                $avatars = $user->getAvatars()->getValues();
-                $avatar = end($avatars);
-
-                $user->setUpdatedAt(new DateTime());
-
-                // Use the validator to check the errors of the $user 
-                $errors = $this->validator->validate($user);
-
-                // If errors > 0 we return the detail of the error(s)
-                if (count($errors) > 0) {
-                    return $this->json($errors, Response::HTTP_ACCEPTED);
-                }
-                // Save the user in database
-                $this->em->flush();
-
-                // Generate the token
-                $token = $this->JWTManager->create($user);
-
-                // Return the complete object with all data
-                return new JsonResponse([
-                    'updated' => true,
-                    'user' => [
-                        'id' => $user->getId(),
-                        'email' => $user->getEmail(),
-                        'firstname' => $user->getFirstname(),
-                        'lastname' => $user->getLastname(),
-                        'role' => $user->getRoles(),
-                        'birthday' => $user->getBirthday()->format('Y-m-d'),
-                        'city' => $user->getCity(),
-                        'avatar' => [
-                            "type" => $avatar->getType(),
-                            "mood" => $avatar->getMood(),
-                            "color" => $avatar->getColor(),
-                        ],
-                        'token' => $token
-                    ]
-                ], Response::HTTP_OK);
-            } else {
-                return new JsonResponse(
-                    [
-                        'updated' => false,
-                        'violations' => [
-                            '0' => [
-                                'propertyPath' => 'email',
-                                'title' => 'L\'email existe déjà :('
-                            ]
-                        ]
-                    ],
-                    Response::HTTP_ACCEPTED
-                );
+            // If the firstname is not empty in the request we set the value with the data of the serializer
+            if (!empty($jsonData->firstname)) {
+                $user->setFirstname($userFront->getFirstname());
             }
+            if (!empty($jsonData->lastname)) {
+                $user->setLastname($userFront->getLastname());
+            }
+            if (!empty($jsonData->city)) {
+                $user->setCity($userFront->getCity());
+            }
+            if (!empty($jsonData->email)) {
+                $user->setEmail($userFront->getEmail());
+            }
+
+            $avatars = $user->getAvatars()->getValues();
+            $avatar = end($avatars);
+
+            $user->setUpdatedAt(new DateTime());
+
+            // Use the validator to check the errors of the $user 
+            $errors = $this->validator->validate($user);
+
+            // If errors > 0 we return the detail of the error(s)
+            if (count($errors) > 0) {
+                return $this->json($errors, Response::HTTP_ACCEPTED);
+            }
+            // Save the user in database
+            $this->em->flush();
+
+            // Generate the token
+            $token = $this->JWTManager->create($user);
+
+            // Return the complete object with all data
+            return new JsonResponse([
+                'updated' => true,
+                'user' => [
+                    'id' => $user->getId(),
+                    'email' => $user->getEmail(),
+                    'firstname' => $user->getFirstname(),
+                    'lastname' => $user->getLastname(),
+                    'role' => $user->getRoles(),
+                    'birthday' => $user->getBirthday()->format('Y-m-d'),
+                    'city' => $user->getCity(),
+                    'avatar' => [
+                        "type" => $avatar->getType(),
+                        "mood" => $avatar->getMood(),
+                        "color" => $avatar->getColor(),
+                    ],
+                    'token' => $token
+                ]
+            ], Response::HTTP_OK);
         } else {
             // If the form was not good, I send a 403 error
             return new JsonResponse(
