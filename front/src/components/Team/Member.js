@@ -2,13 +2,12 @@ import React from 'react';
 import * as Icon from 'react-feather';
 import PropTypes from 'prop-types';
 
-import profile from 'src/assets/images/profile.jpg';
 import './team.scss';
 
-const Member = ({ name, teamRole }) => (
+const Member = ({ name, teamRole, image }) => (
   <div className="team-profile">
     <div className="picture">
-      <img className="profile-img" src={profile} alt="" />
+      <img className="profile-img" src={image} alt="" />
     </div>
     <div className="team-content">
       <h3 className="name">{name}</h3>
@@ -37,6 +36,7 @@ const Member = ({ name, teamRole }) => (
 Member.propTypes = {
   name: PropTypes.string.isRequired,
   teamRole: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 export default Member;

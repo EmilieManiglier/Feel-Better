@@ -25,25 +25,13 @@ $light-gradient-4: #fffff9;
 
 $footer-light: color.scale($light-main-color, $lightness: -10%);
 
-$light-default-color: #858585; // E5006E
+$light-default-color: #8590BD;
 $light-default-hover: color.scale($light-default-color, $lightness: 55%);
 $label: color.scale($light-default-color, $lightness: 40%);
 
 
 /*  Dark theme */
 $dark-text: #f8f8f8;
-
-// Colors
-
-// -blue/default #2b3595 // Gray : #5c5470
-// bab9bf // Gray default 858585
-// -red : #D94452
-// -green : #35bb98 // #2E8B57
-// -purple : #9370DB // #8A2BE2
-// -pink: #DB7093
-// -orange: #ff9933
-// blue : #3399ff
-// yellow: #ffc900
 
 // Loader
 $first-dot: color.scale($light-default-color, $lightness: 60%);

@@ -2,6 +2,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
+import Carousel from 'react-elastic-carousel';
+import {
+  Backpack,
+  Cat,
+  Chocolate,
+  Ghost,
+  IceCream,
+} from 'react-kawaii';
+
+import Error from 'src/containers/Notification/Error';
 
 import './register.scss';
 
@@ -13,17 +23,50 @@ const Register = ({
   confirm_password,
   city,
   birthday,
-  // avatar,
   updateField,
+  saveAvatar,
   submitRegister,
   isLogged,
+  errors,
 }) => {
   if (isLogged === true) {
     return <Redirect to="/" />;
   }
 
+  // Create an array to loop over for carousel
+  const componentList = [
+    {
+      name: Backpack,
+      id: 'Backpack',
+      key: 1,
+    },
+    {
+      name: Cat,
+      id: 'Cat',
+      key: 2,
+    },
+    {
+      name: Chocolate,
+      id: 'Chocolate',
+      key: 3,
+    },
+    {
+      name: Ghost,
+      id: 'Ghost',
+      key: 4,
+    },
+    {
+      name: IceCream,
+      id: 'IceCream',
+      key: 5,
+    },
+  ];
+
   return (
     <main className="register">
+      {errors.length > 0 && (
+        <Error />
+      )}
       <h2 className="register-title">S'inscrire</h2>
       <form
         className="register-form"
@@ -45,7 +88,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="firstname">
-            Prénom
+            Prénom <span className="needed">*</span>
           </label>
         </div>
         <div className="register-container">
@@ -61,7 +104,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="lastname">
-            Nom
+            Nom <span className="needed">*</span>
           </label>
         </div>
         <div className="register-container email-container">
@@ -70,14 +113,14 @@ const Register = ({
             value={email}
             name="email"
             id="email"
-            type="text"
+            type="email"
             required
             onChange={(evt) => {
               updateField(evt.currentTarget.name, evt.currentTarget.value);
             }}
           />
           <label className="register-label" htmlFor="email">
-            Adresse email
+            Adresse email <span className="needed">*</span>
           </label>
         </div>
         <div className="register-container">
@@ -93,7 +136,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="password">
-            Mot de passe
+            Mot de passe <span className="needed">*</span>
           </label>
         </div>
         <div className="register-container">
@@ -109,7 +152,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="confirm_password">
-            Confirmez le mot de passe
+            Confirmez le mot de passe <span className="needed">*</span>
           </label>
         </div>
 
@@ -126,7 +169,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="city">
-            Ville
+            Ville <span className="needed">*</span>
           </label>
         </div>
 
@@ -145,27 +188,34 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="birthday">
-            Date de naissance
+            Date de naissance <span className="needed">*</span>
           </label>
         </div>
-        {/*
-        <div className="register-container register-container-avatar">
-          <label className="register-label" htmlFor="avatar">
-            Choisir une photo de profil
-          </label>
-          <input
-            className="register-input"
-            name="avatar"
-            id="avatar"
-            type="file"
-            accept="image/png, image/jpeg, image/gif, image/jpg"
-            onChange={(evt) => {
-              updateField(evt.currentTarget.name, evt.target.files[0]);
-              console.log('evt.target.files[0]: ', evt.target.files[0]);
-            }}
-          />
+
+        <div className="register-container avatar-container">
+          <p>Choisissez un avatar <span className="needed">*</span></p>
+          <div className="avatar-list">
+            <Carousel>
+              {componentList.map((component) => (
+                <label htmlFor={component.id} className="avatar-label" key={component.key}>
+                  <input
+                    className="avatar-input"
+                    name="avatar"
+                    id={component.id}
+                    type="radio"
+                    required
+                    onChange={(evt) => {
+                      saveAvatar(evt.currentTarget.id);
+                    }}
+                  />
+                  <component.name />
+                  <span className="avatar-checked" />
+                </label>
+              ))}
+            </Carousel>
+          </div>
+
         </div>
-        */}
 
         <div className="register-container cgu-container">
           <input
@@ -179,7 +229,7 @@ const Register = ({
             }}
           />
           <label className="register-label" htmlFor="cgu">
-            Accepter les CGU
+            Accepter les <Link to="/legal-notices" className="cgu-link">CGU</Link> <span className="needed">*</span>
           </label>
           <div className="cgu-checkbox" />
         </div>
@@ -187,6 +237,7 @@ const Register = ({
         <button className="register-button" type="submit">
           Valider
         </button>
+        <span className="needed-content">( * : champ obligatoire )</span>
       </form>
 
       <Link to="/login" className="register-redirect">Déjà inscrit ? C'est par ici !</Link>
@@ -203,9 +254,10 @@ Register.propTypes = {
   city: PropTypes.string.isRequired,
   birthday: PropTypes.string.isRequired,
   isLogged: PropTypes.bool.isRequired,
-  // avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   updateField: PropTypes.func.isRequired,
+  saveAvatar: PropTypes.func.isRequired,
   submitRegister: PropTypes.func.isRequired,
+  errors: PropTypes.array.isRequired,
 };
 
 export default Register;

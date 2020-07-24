@@ -1,9 +1,9 @@
 export const UPDATE_LOGIN_FIELD = 'UPDATE_LOGIN_FIELD';
+export const SAVE_AVATAR = 'SAVE_AVATAR';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const CHECK_LOGGED = 'CHECK_LOGGED';
 export const LOG_OUT = 'LOG_OUT';
-export const UPDATE_PROFILE_FIELD = 'UPDATE_PROFILE_FIELD';
-export const SUBMIT_PROFILE = 'SUBMIT_PROFILE';
+export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';
 
 // updates login fields by their identifier
 export const updateLoginField = (identifier, newValue) => ({
@@ -12,11 +12,10 @@ export const updateLoginField = (identifier, newValue) => ({
   newValue,
 });
 
-//  updates profile fields
-export const updateProfileField = (identifier, newValue) => ({
-  type: UPDATE_PROFILE_FIELD,
-  identifier,
-  newValue,
+// Saves user avatar in register form
+export const saveAvatar = (avatar) => ({
+  type: SAVE_AVATAR,
+  avatar,
 });
 
 // handles login submission
@@ -24,9 +23,8 @@ export const submitLogin = () => ({
   type: SUBMIT_LOGIN,
 });
 
-// handles profile submission
-export const submitProfile = () => ({
-  type: SUBMIT_PROFILE,
+export const closeMessage = () => ({
+  type: CLOSE_MESSAGE,
 });
 
 // ==== Middleware actions ====
@@ -34,6 +32,7 @@ export const LOG_IN = 'LOG_IN';
 export const CONNECT_USER = 'CONNECT_USER';
 export const REGISTER = 'REGISTER';
 export const UPDATE_LOADER = 'UPDATE_LOADER';
+export const CATCH_ERRORS = 'CATCH_ERRORS';
 
 // logs the user
 export const logIn = () => ({
@@ -64,4 +63,9 @@ export const logOut = () => ({
 
 export const updateLoader = () => ({
   type: UPDATE_LOADER,
+});
+
+export const catchErrors = (data) => ({
+  type: CATCH_ERRORS,
+  data,
 });

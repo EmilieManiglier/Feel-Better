@@ -7,9 +7,13 @@ import Loader from 'src/components/Loader';
 import quotes from 'src/data/quotes';
 import './home.scss';
 
-import people from 'src/assets/images/people-emotions.png';
-
-const Home = ({ isLogged, isLoading }) => {
+const Home = ({
+  isLogged,
+  isLoading,
+  showSatisfactionForm,
+  firstname,
+  image,
+}) => {
   // Create a random id between 0 and quotes max length
   const randomId = Math.floor(Math.random() * quotes.length);
   // Select a random quote in the array
@@ -21,6 +25,17 @@ const Home = ({ isLogged, isLoading }) => {
     <>
       {isLoading && <Loader />}
 
+      { // Show notification for satisfaction form if user is connected
+        // AND if he has submitted 5 activities
+        showSatisfactionForm && isLogged && (
+          <div className="satisfaction-container">
+            <p>
+              Hey {firstname} ! Voilà cinq activités que l'on s'est rencontré, peux-tu nous <Link to="/satisfaction" className="satisfaction-link">donner ton avis sur Feel Better</Link> ?
+            </p>
+          </div>
+        )
+      }
+
       { // Each time the page is refreshed, an API request is made
         // in order to know if user's token exist and if it's valid
         // Once response is received, isLoading becomes false and main content is displayed
@@ -28,7 +43,7 @@ const Home = ({ isLogged, isLoading }) => {
         <main className="main">
 
           <div className="main-img">
-            <img src={people} alt="" className="people" />
+            <img src={image} alt="" className="people" />
           </div>
 
           {
@@ -85,6 +100,14 @@ const Home = ({ isLogged, isLoading }) => {
 Home.propTypes = {
   isLogged: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
   isLoading: PropTypes.bool.isRequired,
+  showSatisfactionForm: PropTypes.bool.isRequired,
+  firstname: PropTypes.string,
+  image: PropTypes.string,
+};
+
+Home.defaultProps = {
+  firstname: '',
+  image: '',
 };
 
 export default Home;

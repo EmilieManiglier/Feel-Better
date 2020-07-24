@@ -23,6 +23,14 @@ $background: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);
       z-index: 1;
       position: relative;
 
+      .profile-img {
+        filter: grayscale(100%);
+      }
+
+      .profile-img:hover {
+        filter: none;
+      }
+
       /* Picture Top panel radius */
       &:before {
         content: "";
@@ -115,7 +123,6 @@ $background: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);
   box-shadow: 0 0 0 14px #f7f5ec;
   transform: scale(0.7);
 }
-
 
 .team-profile:hover .social {
   bottom: 0;

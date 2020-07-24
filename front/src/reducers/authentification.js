@@ -4,8 +4,9 @@ import {
   SUBMIT_LOGIN,
   CONNECT_USER,
   LOG_OUT,
-  UPDATE_PROFILE_FIELD,
   UPDATE_LOADER,
+  SAVE_AVATAR,
+  CATCH_ERRORS,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   birthday: '',
   avatar: '',
   data: {},
+  errorData: [],
   // Determine if user is connected
   isLogged: false,
   // Display loader while doing API request
@@ -35,13 +37,11 @@ const register = (state = initialState, action = {}) => {
         // If action.identifier === password, update the value of password in the state
         [action.identifier]: action.newValue,
       };
-
-    case UPDATE_PROFILE_FIELD:
+    case SAVE_AVATAR:
       return {
         ...state,
-        [action.identifier]: action.newValue,
+        avatar: action.avatar,
       };
-
     case SUBMIT_LOGIN:
       return {
         ...state,
@@ -54,6 +54,7 @@ const register = (state = initialState, action = {}) => {
         city: '',
         birthday: '',
         avatar: '',
+        errorData: [],
       };
 
     case CONNECT_USER:
@@ -63,6 +64,9 @@ const register = (state = initialState, action = {}) => {
         data: action.data,
         isLogged: action.isLogged,
         isLoading: false,
+        email: '',
+        password: '',
+        errorData: [],
       };
 
     case LOG_OUT:
@@ -71,6 +75,7 @@ const register = (state = initialState, action = {}) => {
       return {
         ...state,
         isLogged: false,
+        errorData: [],
       };
 
     case UPDATE_LOADER:
@@ -78,7 +83,11 @@ const register = (state = initialState, action = {}) => {
         ...state,
         isLoading: false,
       };
-
+    case CATCH_ERRORS:
+      return {
+        ...state,
+        errorData: action.data,
+      };
     default: return state;
   }
 };

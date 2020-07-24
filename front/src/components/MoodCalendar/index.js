@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import PropTypes from 'prop-types';
 import 'react-calendar/dist/Calendar.css';
@@ -11,7 +12,12 @@ const MoodCalendar = ({
   calendarDate,
   toggleShowMood,
   showMood,
+  isLogged,
 }) => {
+  if (!isLogged) {
+    return <Redirect to="/login" />;
+  }
+
   const formatDate = (date) => {
     // Convert the selected date object to a number of milliseconds passed since 01/01/1970
     // Add 24h to the selected date in order to use toISOString()
@@ -83,8 +89,8 @@ const MoodCalendar = ({
         <div className="calendar-current-mood">
           {findDate.map((date) => (
             <div className="calendar-current-mood-container" key={date.mood.id}>
-              <span className="calendar-current-mood-name">{date.mood.idea}</span>
               <img className="calendar-current-mood-img" src={`assets/images/moods/${date.mood.moodName}.png`} alt="" />
+              <p className="calendar-current-mood-name">{date.mood.idea}</p>
             </div>
           ))}
         </div>
@@ -102,6 +108,7 @@ MoodCalendar.propTypes = {
     date: PropTypes.string,
     mood: PropTypes.object,
   })).isRequired,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 export default MoodCalendar;

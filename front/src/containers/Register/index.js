@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Register from 'src/components/Register';
 
-import { updateLoginField, register } from 'src/actions/authentification';
+import { updateLoginField, register, saveAvatar } from 'src/actions/authentification';
 
 // === mapStateToProps
 const mapStateToProps = (state) => ({
@@ -14,6 +14,7 @@ const mapStateToProps = (state) => ({
   city: state.auth.city,
   birthday: state.auth.birthday,
   isLogged: state.auth.isLogged,
+  errors: state.auth.errorData,
   // avatar: state.auth.avatar,
 });
 
@@ -22,6 +23,11 @@ const mapDispatchToProps = (dispatch) => ({
   updateField: (identifier, newValue) => {
     dispatch(updateLoginField(identifier, newValue));
   },
+
+  saveAvatar: (avatar) => {
+    dispatch(saveAvatar(avatar));
+  },
+
   submitRegister: () => {
     dispatch(register());
   },

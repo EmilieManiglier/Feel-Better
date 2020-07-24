@@ -4,7 +4,7 @@ import joyful from 'src/assets/images/moods/joyful.png';
 import agressive from 'src/assets/images/moods/agressive.png';
 import angry from 'src/assets/images/moods/angry.png';
 import confident from 'src/assets/images/moods/confident.png';
-import inLove from 'src/assets/images/moods/inLove.png';
+import inLove from 'src/assets/images/moods/in-love.png';
 import lackOfSelfConfidence from 'src/assets/images/moods/lack-of-self-confidence.png';
 import lonely from 'src/assets/images/moods/lonely.png';
 import pessimistic from 'src/assets/images/moods/pessimistic.png';

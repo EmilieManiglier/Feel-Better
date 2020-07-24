@@ -5,6 +5,8 @@ export const SAVE_MOOD = 'SAVE_MOOD';
 export const SET_DATE = 'SET_DATE';
 export const SHOW_MOOD = 'SHOW_MOOD';
 export const UPDATE_SUGGESTION = 'UPDATE_SUGGESTION';
+export const CLOSE_MODALE = 'CLOSE_MODALE';
+export const OPEN_MODALE = 'OPEN_MODALE';
 
 // Send user's mood and estimation to the server
 export const handleMoodSubmit = () => ({
@@ -46,12 +48,22 @@ export const updateSuggestion = (suggestion) => ({
   suggestion,
 });
 
+// Change the showModale status in the state
+export const closeModale = () => ({
+  type: CLOSE_MODALE,
+});
+
+export const openModale = () => ({
+  type: OPEN_MODALE,
+});
+
 // === Middleware actions
 export const LOAD_SUGGESTIONS = 'LOAD_SUGGESTIONS';
 export const HANDLE_SUGGESTION_SUBMIT = 'HANDLE_SUGGESTION_SUBMIT';
 export const SAVE_IDEA_BOOL = 'SAVE_IDEA_BOOL';
 export const LOAD_CALENDAR = 'LOAD_CALENDAR';
 export const SAVE_CALENDAR = 'SAVE_CALENDAR';
+export const CHECK_MOOD_ERROR = 'CHECK_MOOD_ERROR';
 
 // Request to API in order to get the suggestions according to user's mood
 export const loadSuggestions = (ideas) => ({
@@ -79,4 +91,8 @@ export const saveCalendar = (calendar) => ({
 // Send request to API in order to get the datas for the calendar
 export const loadCalendar = () => ({
   type: LOAD_CALENDAR,
+});
+
+export const checkMoodError = () => ({
+  type: CHECK_MOOD_ERROR,
 });

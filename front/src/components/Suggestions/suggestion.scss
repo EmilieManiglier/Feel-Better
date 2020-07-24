@@ -16,14 +16,16 @@
   transition-timing-function: $timing;
   transition-delay: $delay;
 }
-
-.suggestions {
-  width: 100%;
-  min-height: 75vh;
+.suggestions-empty {
+  font-size: 1.5rem;
   text-align: center;
+  padding: 1rem;
+  min-height: 75vh;
+  line-height: 2.2rem;
+
 
   .redirect-mood-link {
-    padding: 0.5rem;
+    padding: 0.3rem;
     transition: background 0.5s cubic-bezier(.33,.66,.66,1);
 
     &:hover {
@@ -31,8 +33,23 @@
     }
   }
 
+  .people-img {
+    display: block;
+    margin-top: 2rem;
+    width: 100%;
+  }
+}
+
+.suggestions {
+  width: 100%;
+  min-height: 75vh;
+  text-align: center;
+  line-height: 2rem;
+  padding: 1rem;
+
   .suggestions-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    line-height: 2.3rem;
     font-family: $patrick-font;
   }
 
@@ -42,7 +59,7 @@
     margin: 10rem auto;
     border-radius: $border-radius;
     width: 85%;
-    height: 310px;
+    height: 380px;
     position: relative;
     box-shadow: 0px 0px 19px -3px rgba(0,0,0,0.52);
 
@@ -305,9 +322,22 @@
 }
 
 @media screen and (min-width: 768px) {
+  .suggestions-empty { 
+
+    .people-img {
+      width: 60%;
+      margin: 3rem auto 0;
+    }
+  }
+
   .suggestions {
+    font-size: 1.5rem;
     min-height: 90vh;
-    padding-top: 10rem;
+
+    .suggestion-success {
+      position: inherit;
+      margin: 1rem auto 2rem;
+    }
     
     .suggestions-title {
       margin-bottom: 10rem;

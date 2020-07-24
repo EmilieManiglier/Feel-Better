@@ -1,17 +1,9 @@
 @import 'src/styles/vars';
 @import 'src/styles/toggle';
 
-.header {
-  padding-bottom: 7rem;
-}
 
 .navbar {
   // background: $light-default-color;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
 
   .navbar-toggle {
     position: absolute;

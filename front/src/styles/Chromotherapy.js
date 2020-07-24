@@ -1,5 +1,6 @@
 /* eslint-disable no-confusing-arrow */
 import { createGlobalStyle } from 'styled-components';
+import { darken } from 'polished';
 
 const Chromotherapy = createGlobalStyle`
   .navbar {
@@ -57,7 +58,7 @@ const Chromotherapy = createGlobalStyle`
     border-bottom: 1px solid ${(props) => props.color};
   }
 
-  .profile .icone-container .profile-icone-btn {
+  .profile .avatar-container .profile-avatar-btn {
     border: 2px solid ${(props) => props.color};
     color: ${(props) => props.color};
 
@@ -79,7 +80,7 @@ const Chromotherapy = createGlobalStyle`
     color: ${(props) => props.color};
   }
 
-  .suggestions .redirect-mood-link {
+  .suggestions-empty .redirect-mood-link {
     color: ${(props) => props.color};
     border-bottom: 1px solid ${(props) => props.color};
     box-shadow: inset 0 -1px 0 ${(props) => props.color};
@@ -145,6 +146,33 @@ const Chromotherapy = createGlobalStyle`
       }
     }
   }
+
+  .calendar {
+
+    .react-calendar {
+      .react-calendar__tile {
+      background: ${(props) => props.color};
+      }
+
+      .calendar-mood--active {
+        background: ${(props) => darken(0.08, props.color)};
+      }
+
+      .react-calendar__month-view__days__day--weekend {
+        background: ${(props) => darken(0.11, props.color)};
+      }
+    }
+
+    }
+    .calendar-current-mood-container {
+      border: 2px solid ${(props) => props.color};
+    }
+
+    .calendar-current-mood-img {
+        border: 5px solid ${(props) => props.color};
+      }
+  }
+
 `;
 
 export default Chromotherapy;

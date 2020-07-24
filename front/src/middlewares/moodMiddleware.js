@@ -8,6 +8,7 @@ import {
   saveIdeaBool,
   LOAD_CALENDAR,
   saveCalendar,
+  checkMoodError,
 } from 'src/actions/mood';
 
 const moodMiddleware = (store) => (next) => (action) => {
@@ -50,6 +51,7 @@ const moodMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.warn(error);
+          store.dispatch(checkMoodError());
         });
 
       next(action);

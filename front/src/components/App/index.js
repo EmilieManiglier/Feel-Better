@@ -19,11 +19,15 @@ import Footer from 'src/components/Footer';
 import Team from 'src/components/Team';
 import LegalNotices from 'src/components/LegalNotices';
 import MoodCalendar from 'src/containers/MoodCalendar';
+import SatisfactionForm from 'src/containers/SatisfactionForm';
 
 import Page404 from 'src/components/Page404';
 
 import Login from 'src/containers/Login';
 import Register from 'src/containers/Register';
+
+import people from 'src/assets/images/people-emotions.png';
+import peopleNight from 'src/assets/images/people-emotions-night.png';
 import './styles.scss';
 
 // == Composant
@@ -36,13 +40,15 @@ const App = ({ checkLogged, loadCalendar }) => {
   }, []);
 
   // Defines color according to user's mood
-  const color = localStorage.getItem('color') ? localStorage.getItem('color') : '#858585';
+  const color = localStorage.getItem('color') ? localStorage.getItem('color') : '#8590BD';
 
   // ===== Dark / Light Theme =====
   // Custom hook which contains the chosen theme and the toggle function to switch between modes
   const [theme, themeToggler] = useDarkMode();
   // Toggle either dark or light theme based on the truth condition
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  // Toggle image with either sun or moon based on the theme
+  const image = theme === 'light' ? people : peopleNight;
 
   return (
     <ThemeProvider theme={themeMode}>
@@ -52,23 +58,7 @@ const App = ({ checkLogged, loadCalendar }) => {
         <Header themeToggler={themeToggler} />
         <Switch>
           <Route exact path="/">
-            <Home />
-          </Route>
-
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
-
-          <Route exact path="/mood">
-            <MoodForm />
-          </Route>
-
-          <Route exact path="/team">
-            <Team />
-          </Route>
-
-          <Route exact path="/calendar">
-            <MoodCalendar />
+            <Home image={image} />
           </Route>
 
           <Route exact path="/login">
@@ -79,12 +69,32 @@ const App = ({ checkLogged, loadCalendar }) => {
             <Register />
           </Route>
 
-          <Route exact path="/suggestions">
-            <Suggestions />
+          <Route exact path="/team">
+            <Team />
           </Route>
 
           <Route exact path="/legal-notices">
             <LegalNotices />
+          </Route>
+
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
+
+          <Route exact path="/mood">
+            <MoodForm />
+          </Route>
+
+          <Route exact path="/calendar">
+            <MoodCalendar />
+          </Route>
+
+          <Route exact path="/suggestions">
+            <Suggestions />
+          </Route>
+
+          <Route exact path="/satisfaction">
+            <SatisfactionForm />
           </Route>
 
           <Route>

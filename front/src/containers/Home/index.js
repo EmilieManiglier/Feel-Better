@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
   isLogged: state.auth.isLogged,
   firstname: state.auth.data.firstname,
   isLoading: state.auth.isLoading,
+  showSatisfactionForm: state.satisfaction.showSatisfactionForm,
 });
 
 // === mapDispatchToProps

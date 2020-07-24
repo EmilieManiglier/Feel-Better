@@ -19,8 +19,34 @@
 }
 
 .register {
-  min-height: 80vh;
   text-align: center;
+  padding-bottom: 3rem;
+
+  .register-errors {
+    background-color: rgb(255, 0, 0, 0.5);
+    border-radius: 0.5rem;
+    padding: 0.5em;
+    margin: 0 auto;
+    margin-bottom: 1em;
+    width: 20em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    list-style: none;
+
+
+    .register-error {
+      padding: 0.5em;
+    }
+  }
+
+  .needed-content {
+    color: red;
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+  }
 
 
   .register-title {
@@ -43,6 +69,7 @@
     background-color: rgba(#e6e6e6, 0.7);
     border-bottom-right-radius: $border-radius;
     border-bottom-left-radius: $border-radius;
+    position: relative;
   
     .register-container {
       position: relative;
@@ -55,9 +82,13 @@
         color: $light-text;
         margin-bottom: 2rem;
         border: none;
-        // border-bottom: 1px solid $light-default-color;
+        border-bottom: 1px solid #150d33;
         outline: none;
         background: transparent;
+
+        &:focus, &:valid {
+          border-bottom: 1px solid #4a69bb;
+        }
       }
   
       .register-label {
@@ -69,12 +100,20 @@
         font-weight: 600;
         color: #150d33;
         transition: .5s ease;
+
+        .cgu-link {
+          text-decoration: underline;
+        }
+
+        .needed {
+          color: red;
+        }
       }
 
       .register-input:focus ~ .register-label,
       .register-input:valid ~ .register-label {
         top: -30%;
-        // color: $light-default-color;
+        color: #4a69bb;
       }
 
       .birthday-input ~ .register-label  {
@@ -98,7 +137,7 @@
       }
 
       .cgu-input:checked ~ .register-label {
-        // color: $light-default-color;
+        color: #4a69bb;
       }
 
       // Custom checkbox
@@ -127,7 +166,7 @@
         height: 100%;
         align-items:center;
         @include position-absolute($right: 2px, $top: 0);
-        // color: $light-default-color;
+        color: #4a69bb;
         @include transition-mix;
         transform-origin: center center;
         opacity: 0;
@@ -149,10 +188,66 @@
       }       
 
     }
+
+    .avatar-container {
+      & p {
+        margin-bottom: 2rem;
+        font-weight: 600;
+        color: #150d33;
+
+        .needed {
+          color: red;
+        }
+      }
+      .avatar-list {
+        display: flex;
+        min-height: 300px;
+
+        .avatar-label {
+          margin: 0 2rem;
+          position: relative;
+        }
+
+        .avatar-input {
+          position: absolute;
+          left: -9999px;
+          opacity: 0;
+        }
+
+        .avatar-checked {
+          position: absolute;
+          top: 2%;
+          right: 8%;
+          background-color: #21bf73;
+          border-radius: 50%;
+          padding: 0.5rem;
+          display: none;
+
+          &:after {
+            content: '\f00c';
+            font-family: 'FontAwesome';
+            color: #fff;
+            font-size: 1.5rem;
+          }
+        }
+
+        .avatar-input:checked ~ .avatar-checked {
+          display: block;
+        }
+        
+      }
+    }
+
   
     .register-button {
       @include btn-style;
       margin-top: 4rem;
+      border: 2px solid #150d33;
+      color: #150d33;
+  
+      &:before {
+        background-color: #150d33;
+      }
     }
   
   }
@@ -160,21 +255,19 @@
   .register-redirect {
     display: inline-block;
     padding: 0.5rem;
-    // color: $light-default-color;
-    // box-shadow: inset 0 -1px 0 $light-default-color;
     transition: background 0.5s cubic-bezier(.33,.66,.66,1);
-
-    &:hover {
-      // background: $light-default-color;
-      color: $light-main-color;
-    }
   }
 }
 
 @media screen and (min-width: 768px) {
   .register {
-    padding-top: 7rem;
-    min-height: 100vh;
+    padding-top: 2rem;
+
+    .needed-content {
+      position: absolute;
+      top: 1rem;
+      left: 2rem;
+    }
 
     .register-title {
       width: 65%;
@@ -185,10 +278,15 @@
       width: 65%;
       display: flex;
       flex-wrap: wrap;
+      position: relative;
 
       .register-container {
         width: 45%;
         margin: 1rem 0.5rem;
+      }
+
+      .avatar-container {
+        min-width: 100%;
       }
 
       .email-container {
@@ -211,4 +309,3 @@
     }
   }
 }
-

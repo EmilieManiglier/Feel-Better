@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-trailing-spaces */
 import React from 'react';
 
 import './legalnotices.scss';
@@ -35,7 +37,7 @@ const LegalNotices = () => (
         Adresse e-mail : contact@feel-better.fr.
       </p>
       <p>
-        Le Directeur de la publication est : Quentin Barraud
+        Feel Better a été créé d'après une idée originale de Manon Gerray.
       </p>
       <p>
         L'hébergeur du site http://feel-better.fr est la société Amazon Web Services LLC, dont le siège social est situé au P.O. Box 81226 Seattle, WA 98108-1226

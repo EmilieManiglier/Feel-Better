@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
 import {
-  HANDLE_MOOD_SUBMIT,
   UPDATE_MOOD,
   UPDATE_ESTIMATION,
   SAVE_MOOD,
@@ -10,7 +9,13 @@ import {
   UPDATE_SUGGESTION,
   SAVE_IDEA_BOOL,
   SAVE_CALENDAR,
+  CLOSE_MODALE,
+  OPEN_MODALE,
+  CHECK_MOOD_ERROR,
+  HANDLE_SUGGESTION_SUBMIT,
 } from 'src/actions/mood';
+
+import { CLOSE_MESSAGE } from 'src/actions/authentification';
 
 const initialState = {
   mood: '',
@@ -32,15 +37,16 @@ const initialState = {
   setIdea: false,
   // Informations related to user's mood
   moodDatas: [],
+  // Bool that show the mood modale or not
+  showModale: true,
+  // Bool that show the mood error notification or not
+  moodError: false,
+  // Bool that show a success message when choosing a suggestion
+  suggestionSuccess: false,
 };
 
 const moodReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case HANDLE_MOOD_SUBMIT:
-      return {
-        ...state,
-      };
-
     case UPDATE_MOOD:
       return {
         ...state,
@@ -64,7 +70,6 @@ const moodReducer = (state = initialState, action = {}) => {
         ideas: action.ideas,
         isLoading: false,
       };
-
     case SET_DATE:
       return {
         ...state,
@@ -89,6 +94,31 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         moodDatas: action.calendar,
+      };
+    case CLOSE_MODALE:
+      return {
+        ...state,
+        showModale: false,
+      };
+    case OPEN_MODALE:
+      return {
+        ...state,
+        showModale: true,
+      };
+    case CHECK_MOOD_ERROR:
+      return {
+        ...state,
+        moodError: true,
+      };
+    case HANDLE_SUGGESTION_SUBMIT:
+      return {
+        ...state,
+        suggestionSuccess: true,
+      };
+    case CLOSE_MESSAGE:
+      return {
+        ...state,
+        suggestionSuccess: false,
       };
     default: return state;
   }

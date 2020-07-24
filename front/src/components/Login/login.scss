@@ -2,9 +2,35 @@
 @import 'src/styles/btn';
 
 .login {
-  min-height: 60vh;
   text-align: center;
-  padding-top: 5rem;
+  padding: 2rem 0 3rem;
+
+  .register-errors {
+    background-color: rgb(255, 0, 0, 0.5);
+    border-radius: 0.5rem;
+    padding: 0.5em;
+    margin: 0 auto;
+    margin-bottom: 1em;
+    width: 20em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    list-style: none;
+
+
+    .register-error {
+      padding: 0.5em;
+    }
+  }
+  
+
+  .needed-content {
+    color: red;
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+  }
 
   .login-title {
     text-transform: uppercase;
@@ -23,6 +49,7 @@
     margin: auto;
     padding: 2rem;
     margin-bottom: 2rem;
+    position: relative;
     background-color: rgba(#e6e6e6, 0.7);
     border-bottom-right-radius: $border-radius;
     border-bottom-left-radius: $border-radius;
@@ -39,9 +66,13 @@
         font-family: $dosis-font;
         margin-bottom: 2rem;
         border: none;
-        border-bottom: 1px solid $light-default-color;
+        border-bottom: 1px solid #150d33;
         outline: none;
         background: transparent;
+
+        &:focus, &:valid {
+          border-bottom: 1px solid #4a69bb;
+        }
       }
   
       .login-label {
@@ -53,39 +84,41 @@
         font-weight: 600;
         color: #150d33;
         transition: .5s ease;
+
+        .needed {
+          color: red;
+        }
       }
 
       .login-input:focus ~ .login-label,
       .login-input:valid ~ .login-label {
         top: -30%;
-        color: $light-default-color;
+        color: #4a69bb;
       }
     }
   
     .login-button {
       @include btn-style;
+      border: 2px solid #150d33;
+      color: #150d33;
+  
+      &:before {
+        background-color: #150d33;
+      }
     }
+  
   
   }
   .login-redirect {
     display: inline-block;
     padding: 0.5rem;
-    color: $light-default-color;
-    box-shadow: inset 0 -1px 0 $light-default-color;
     transition: background 0.5s cubic-bezier(.33,.66,.66,1);
-
-    &:hover {
-      background: $light-default-color;
-      color: $light-main-color;
-    }
   }
 }
 
 @media screen and (min-width: 768px) {
   .login {
-    min-height: 90vh;
-    padding-top: 10rem;
-
+    min-height: 80vh;
     .login-title {
       width: 30%;
     }

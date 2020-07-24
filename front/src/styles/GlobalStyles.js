@@ -14,6 +14,22 @@ const GlobalStyles = createGlobalStyle`
   .footer-li {
     color: ${({ theme }) => theme.text};
   }
+
+  .login-redirect, .register-redirect {
+    color: ${({ theme }) => theme.loginLink};
+    box-shadow: inset 0 -1px 0 ${({ theme }) => theme.loginLink};
+
+    &:hover {
+      background: ${({ theme }) => theme.loginLink};
+      color: ${({ theme }) => theme.headerLinkHover};
+    }
+  }
+
+  .profile .avatar-container .avatar-mood,
+  .profile .avatar-container .avatar-type {
+    background: ${({ theme }) => theme.headerLink};
+    color: ${({ theme }) => theme.headerLinkHover};
+  }
   
   .profile-input {
     color: ${({ theme }) => theme.text};
@@ -64,6 +80,38 @@ const GlobalStyles = createGlobalStyle`
 
     &:hover {
       color: ${({ theme }) => theme.suggestionBtnBackground};
+    }
+  }
+
+  .error-container {
+    .link-back {
+      color: ${({ theme }) => theme.suggestionBtnBackground};
+      border: 2px solid ${({ theme }) => theme.suggestionBtnBackground};
+      
+      &:before {
+        background-color: ${({ theme }) => theme.suggestionBtnBackground};
+      }
+
+      &:hover {
+        color: ${({ theme }) => theme.headerLinkHover};
+      }
+    }
+
+    
+  }
+
+  .react-calendar {
+
+    .react-calendar__navigation > *, .react-calendar__tile {
+      color: ${({ theme }) => theme.headerLink};
+    }
+
+    .react-calendar__tile {
+      border: 1px solid ${({ theme }) => theme.calendarBorder};
+    }
+
+    .react-calendar__month-view__weekdays__weekday {
+      color: ${({ theme }) => theme.quoteText};
     }
   }
 `;
