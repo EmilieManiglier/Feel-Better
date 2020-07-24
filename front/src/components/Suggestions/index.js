@@ -11,14 +11,14 @@ import Success from 'src/containers/Notification/Success';
 import './suggestion.scss';
 
 const Suggestions = ({
-  isLogged,
   setMood,
   ideas,
   isLoading,
   suggestionSuccess,
   mood,
 }) => {
-  if (isLogged === false) {
+  const userToken = localStorage.getItem('userToken');
+  if (!userToken) {
     return <Redirect to="/login" />;
   }
 
@@ -111,7 +111,6 @@ const Suggestions = ({
 };
 
 Suggestions.propTypes = {
-  isLogged: PropTypes.bool.isRequired,
   setMood: PropTypes.bool.isRequired,
   ideas: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,

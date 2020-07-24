@@ -7,6 +7,7 @@ import {
   UPDATE_LOADER,
   SAVE_AVATAR,
   CATCH_ERRORS,
+  CLOSE_MESSAGE,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -71,7 +72,6 @@ const register = (state = initialState, action = {}) => {
 
     case LOG_OUT:
       localStorage.removeItem('userToken');
-      localStorage.removeItem('color');
       return {
         ...state,
         isLogged: false,
@@ -87,6 +87,11 @@ const register = (state = initialState, action = {}) => {
       return {
         ...state,
         errorData: action.data,
+      };
+    case CLOSE_MESSAGE:
+      return {
+        ...state,
+        errorData: [],
       };
     default: return state;
   }

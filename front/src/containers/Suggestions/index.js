@@ -3,7 +3,6 @@ import Suggestions from 'src/components/Suggestions';
 
 // === mapStateToProps
 const mapStateToProps = (state) => ({
-  isLogged: state.auth.isLogged,
   setMood: state.mood.setMood,
   ideas: state.mood.ideas,
   isLoading: state.mood.isLoading,

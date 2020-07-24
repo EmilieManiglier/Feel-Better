@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
   calendarDate: state.mood.calendarDate,
   showMood: state.mood.showMood,
   isLogged: state.auth.isLogged,
+  isLoading: state.auth.isLoading,
 });
 
 // === mapDispatchToProps

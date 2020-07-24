@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import PropTypes from 'prop-types';
 import 'react-calendar/dist/Calendar.css';
+import Loader from 'src/components/Loader';
 
 import './moodCalendar.scss';
 
@@ -12,9 +13,10 @@ const MoodCalendar = ({
   calendarDate,
   toggleShowMood,
   showMood,
-  isLogged,
+  isLoading,
 }) => {
-  if (!isLogged) {
+  const userToken = localStorage.getItem('userToken');
+  if (!userToken) {
     return <Redirect to="/login" />;
   }
 
@@ -40,62 +42,69 @@ const MoodCalendar = ({
   ));
 
   return (
-    <div className="calendar">
-      <Calendar
-        onClickDay={(value) => {
-          // Save the date in the state
-          setDate(formatDate(value));
-          // Change the value of showMood to true
-          toggleShowMood();
-        }}
-        // Maximum date the user can select (today)
-        maxDate={new Date()}
-        // Add custom class name to a give date
-        tileClassName={({ date }) => {
-          // date will return every date visible on calendar
-          // For every object stored in the moodDatas array in the state,
-          // check if the date in the object match the visible state in the calendar
-          // Return an array with the corresponding object (date + mood)
-          const activeDate = moodDatas.filter((currentMood) => (
-            currentMood.date === formatDate(date)
-          ));
-
-          // If array is not empty, return the custom class name
-          if (activeDate.length > 0) {
-            return 'calendar-mood--active';
-          }
-
-          // Else, return empty string
-          return '';
-        }}
-
-        tileContent={({ date }) => {
-          const activeDate = moodDatas.filter((currentMood) => (
-            currentMood.date === formatDate(date)
-          ));
-
-          // If array is not empty, return the first mood icon from the mood array
-          // corresponding to the date
-          if (activeDate.length > 0) {
-            return <img src={`assets/images/moods/${activeDate[0].mood.moodName}.png`} alt="" />;
-          }
-
-          // Else, return empty div
-          return <div className="empty-tile" />;
-        }}
-      />
-
-      {showMood && (
-        <div className="calendar-current-mood">
-          {findDate.map((date) => (
-            <div className="calendar-current-mood-container" key={date.mood.id}>
-              <img className="calendar-current-mood-img" src={`assets/images/moods/${date.mood.moodName}.png`} alt="" />
-              <p className="calendar-current-mood-name">{date.mood.idea}</p>
-            </div>
-          ))}
-        </div>
+    <>
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <>
+          <div className="calendar">
+            <Calendar
+              onClickDay={(value) => {
+                // Save the date in the state
+                setDate(formatDate(value));
+                // Change the value of showMood to true
+                toggleShowMood();
+              }}
+              // Maximum date the user can select (today)
+              maxDate={new Date()}
+              // Add custom class name to a give date
+              tileClassName={({ date }) => {
+                // date will return every date visible on calendar
+                // For every object stored in the moodDatas array in the state,
+                // check if the date in the object match the visible state in the calendar
+                // Return an array with the corresponding object (date + mood)
+                const activeDate = moodDatas.filter((currentMood) => (
+                  currentMood.date === formatDate(date)
+                ));
+  
+                // If array is not empty, return the custom class name
+                if (activeDate.length > 0) {
+                  return 'calendar-mood--active';
+                }
+  
+                // Else, return empty string
+                return '';
+              }}
+  
+              tileContent={({ date }) => {
+                const activeDate = moodDatas.filter((currentMood) => (
+                  currentMood.date === formatDate(date)
+                ));
+  
+                // If array is not empty, return the first mood icon from the mood array
+                // corresponding to the date
+                if (activeDate.length > 0) {
+                  return <img src={`assets/images/moods/${activeDate[0].mood.moodName}.png`} alt="" />;
+                }
+  
+                // Else, return empty div
+                return <div className="empty-tile" />;
+              }}
+            />
+  
+            {showMood && (
+              <div className="calendar-current-mood">
+                {findDate.map((date) => (
+                  <div className="calendar-current-mood-container" key={date.mood.id}>
+                    <img className="calendar-current-mood-img" src={`assets/images/moods/${date.mood.moodName}.png`} alt="" />
+                    <p className="calendar-current-mood-name">{date.mood.idea}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 
@@ -108,7 +117,7 @@ MoodCalendar.propTypes = {
     date: PropTypes.string,
     mood: PropTypes.object,
   })).isRequired,
-  isLogged: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default MoodCalendar;

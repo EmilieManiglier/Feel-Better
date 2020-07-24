@@ -31,7 +31,7 @@ import peopleNight from 'src/assets/images/people-emotions-night.png';
 import './styles.scss';
 
 // == Composant
-const App = ({ checkLogged, loadCalendar }) => {
+const App = ({ checkLogged, loadCalendar, color }) => {
   useEffect(() => {
     // Send request to API in order to check if user token exist and is valid
     checkLogged();
@@ -40,7 +40,7 @@ const App = ({ checkLogged, loadCalendar }) => {
   }, []);
 
   // Defines color according to user's mood
-  const color = localStorage.getItem('color') ? localStorage.getItem('color') : '#8590BD';
+  const userColor = color ? color : '#8590BD';
 
   // ===== Dark / Light Theme =====
   // Custom hook which contains the chosen theme and the toggle function to switch between modes
@@ -53,7 +53,7 @@ const App = ({ checkLogged, loadCalendar }) => {
   return (
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
-      <Chromotherapy color={color} />
+      <Chromotherapy color={userColor} />
       <div className="app">
         <Header themeToggler={themeToggler} />
         <Switch>
@@ -111,6 +111,7 @@ const App = ({ checkLogged, loadCalendar }) => {
 App.propTypes = {
   checkLogged: PropTypes.func.isRequired,
   loadCalendar: PropTypes.func.isRequired,
+  color: PropTypes.string.isRequired,
 };
 
 // == Export

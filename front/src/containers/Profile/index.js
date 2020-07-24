@@ -5,6 +5,7 @@ import Profile from 'src/components/Profile';
 // === mapStateToProps
 const mapStateToProps = (state) => ({
   isLogged: state.auth.isLogged,
+  isLoading: state.auth.isLoading,
   errors: state.auth.errorData,
   successProfile: state.profile.successProfile,
   successAvatar: state.profile.successAvatar,

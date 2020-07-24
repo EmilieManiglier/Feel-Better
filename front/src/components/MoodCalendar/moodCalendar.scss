@@ -10,6 +10,26 @@
     width: 100%;
     background: transparent;
 
+    .react-calendar__navigation {
+      border: none;
+
+      .react-calendar__navigation__label {   
+        border: none;
+             
+        &:hover {
+          background: rgba(0, 0, 0, 0.3);
+        }
+      }
+      
+      .react-calendar__navigation__arrow {
+        border: none;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+
     // Disabled tile & navigation arrow style
     .react-calendar__tile:disabled, .react-calendar__navigation__arrow:disabled {
       // background: #383a56;
@@ -172,7 +192,7 @@
 
         .calendar-current-mood-img {
           width: 30%;
-          top: -35%;
+          top: -28%;
         }
       }
       
@@ -240,16 +260,9 @@
       flex-direction: column;
       flex-wrap: wrap;
 
-      
-
       .calendar-current-mood-container {
         width: 30%;
-      }
-
-      .calendar-current-mood-img {
-        
-      }
-      
+      }      
     }
   }
 }

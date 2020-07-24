@@ -64,6 +64,8 @@ export const SAVE_IDEA_BOOL = 'SAVE_IDEA_BOOL';
 export const LOAD_CALENDAR = 'LOAD_CALENDAR';
 export const SAVE_CALENDAR = 'SAVE_CALENDAR';
 export const CHECK_MOOD_ERROR = 'CHECK_MOOD_ERROR';
+export const SAVE_COLOR = 'SAVE_COLOR';
+
 
 // Request to API in order to get the suggestions according to user's mood
 export const loadSuggestions = (ideas) => ({
@@ -95,4 +97,9 @@ export const loadCalendar = () => ({
 
 export const checkMoodError = () => ({
   type: CHECK_MOOD_ERROR,
+});
+
+export const saveColor = (color) => ({
+  type: SAVE_COLOR,
+  color,
 });

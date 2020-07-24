@@ -71,6 +71,9 @@ const Header = ({
               to="/"
               className="nav-links"
               activeClassName="nav-links--active"
+              onClick={() => {
+                setAddClass(!addClass);
+              }}
             >
               Accueil
             </NavLink>
@@ -81,6 +84,9 @@ const Header = ({
               to="/profile"
               className="nav-links"
               activeClassName="nav-links--active"
+              onClick={() => {
+                setAddClass(!addClass);
+              }}
             >
               Profil
             </NavLink>
@@ -93,6 +99,7 @@ const Header = ({
                 className="nav-links"
                 onClick={() => {
                   openModale();
+                  setAddClass(!addClass);
                 }}
               >
                 Mon humeur
@@ -105,6 +112,9 @@ const Header = ({
               to="/calendar"
               className="nav-links"
               activeClassName="nav-links--active"
+              onClick={() => {
+                setAddClass(!addClass);
+              }}
             >
               Calendrier
             </NavLink>
@@ -115,6 +125,9 @@ const Header = ({
               to="/suggestions"
               className="nav-links"
               activeClassName="nav-links--active"
+              onClick={() => {
+                setAddClass(!addClass);
+              }}
             >
               Activités
             </NavLink>
@@ -125,7 +138,10 @@ const Header = ({
                 exact
                 to="/"
                 className="nav-links"
-                onClick={logout}
+                onClick={() => {
+                  logout();
+                  setAddClass(!addClass);
+                }}
               >
                 Se déconnecter
               </NavLink>
