@@ -154,6 +154,7 @@ class ActivityController extends AbstractController
         $ideaEntity = $this->ideaRepository->findByName($jsonData->idea);
 
         $userMoodDateAllForUser = $userEntity->getUserMoodDates()->getValues();
+
         $lastuserMoodDateForUser = $userMoodDateAllForUser[count($userMoodDateAllForUser) - 1];
         $lastuserMoodDateForUser->addIdea(end($ideaEntity));
 
@@ -162,7 +163,33 @@ class ActivityController extends AbstractController
 
         $this->em->flush();
 
-        return new JsonResponse(['setIdea' => true], Response::HTTP_OK);
+        $resultCalendar = [];
+        $moodDateTable = [];
+        foreach ($userMoodDateAllForUser as $key => $moodDate) {
+
+            $moodDateTable[$key]['mood'] = [];
+
+            $moodDataTable = $moodDate->getMoods()->getValues();
+            $moodData = end($moodDataTable);
+            $ideaDataTable = $moodDate->getIdeas()->getValues();
+            $ideaData = end($ideaDataTable);
+
+            if (!$ideaData) {
+                $idea = null;
+            } else {
+                $idea = $ideaData->getName();
+            }
+
+            $moodDateTable[$key]['date'] = $moodDate->getMoodDate()->format('Y-m-d');
+
+            $moodDateTable[$key]['mood']['moodName'] = $moodData->getNameEn();
+            $moodDateTable[$key]['mood']['idea'] = $idea;
+            $moodDateTable[$key]['mood']['id'] = uniqid();
+
+
+            array_push($resultCalendar, $moodDateTable[$key]);
+        }
+        return new JsonResponse(['setIdea' => true, 'moodDatas' => $resultCalendar], Response::HTTP_OK);
     }
 
     /**
