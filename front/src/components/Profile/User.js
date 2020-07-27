@@ -8,6 +8,7 @@ const User = ({
   firstname,
   lastname,
   email,
+  password,
   city,
   birthday,
   updateField,
@@ -18,6 +19,7 @@ const User = ({
     onSubmit={(event) => {
       event.preventDefault();
       handleSubmit();
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }}
   >
     <div className="inputs-container">
@@ -68,6 +70,7 @@ const User = ({
           type="password"
           name="password"
           id="password"
+          value={password}
           className="profile-input"
           required
           onChange={(event) => {
@@ -120,6 +123,7 @@ User.propTypes = {
   email: PropTypes.string,
   city: PropTypes.string,
   birthday: PropTypes.string,
+  password: PropTypes.string.isRequired,
   updateField: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };

@@ -32,7 +32,8 @@ export const LOG_IN = 'LOG_IN';
 export const CONNECT_USER = 'CONNECT_USER';
 export const REGISTER = 'REGISTER';
 export const UPDATE_LOADER = 'UPDATE_LOADER';
-export const CATCH_ERRORS = 'CATCH_ERRORS';
+export const CATCH_ERRORS_LOGIN = 'CATCH_ERRORS_LOGIN';
+export const CATCH_ERRORS_REGISTER = 'CATCH_ERRORS_REGISTER';
 
 // logs the user
 export const logIn = () => ({
@@ -65,7 +66,12 @@ export const updateLoader = () => ({
   type: UPDATE_LOADER,
 });
 
-export const catchErrors = (data) => ({
-  type: CATCH_ERRORS,
+export const catchErrorsLogin = (data) => ({
+  type: CATCH_ERRORS_LOGIN,
+  data,
+});
+
+export const catchErrorsRegister = (data) => ({
+  type: CATCH_ERRORS_REGISTER,
   data,
 });

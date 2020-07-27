@@ -97,6 +97,11 @@
         font-family: $dosis-font;
       }
 
+      .profile-error {
+        background: rgba(#c02739, 0.6);
+        border-radius: 0.5rem;
+      }
+
       .profile-label {
         position: absolute;
         top: -1.2rem;

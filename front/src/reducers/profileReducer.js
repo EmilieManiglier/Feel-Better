@@ -8,11 +8,13 @@ import {
   SHOW_SUCCESS_PROFILE,
   SHOW_SUCCESS_AVATAR,
   SUBMIT_AVATAR,
+  CATCH_ERRORS_PROFILE,
 } from 'src/actions/profile';
 
 import { CLOSE_MESSAGE } from 'src/actions/authentification';
 
 const initialState = {
+  avatar: '',
   // User's avatar mood
   avatarMood: '',
   // User's avatar type
@@ -24,7 +26,8 @@ const initialState = {
   // Bool that show success notification on profile form
   successProfile: false,
   // Array including all error messages
-  errorData: [],
+  errorDataProfile: [],
+  password: '',
 };
 
 const profileReducer = (state = initialState, action = {}) => {
@@ -57,7 +60,8 @@ const profileReducer = (state = initialState, action = {}) => {
     case SUBMIT_PROFILE:
       return {
         ...state,
-        errorData: [],
+        errorDataProfile: [],
+        password: '',
       };
     case SHOW_SUCCESS_PROFILE:
       return {
@@ -74,7 +78,13 @@ const profileReducer = (state = initialState, action = {}) => {
         ...state,
         successProfile: false,
         successAvatar: false,
-        errorData: [],
+        errorDataProfile: [],
+      };
+    case CATCH_ERRORS_PROFILE:
+      return {
+        ...state,
+        successProfile: false,
+        errorDataProfile: action.data,
       };
     default: return state;
   }

@@ -1,11 +1,12 @@
 /* eslint-disable import/no-unresolved */
 import axios from 'axios';
-import { connectUser, catchErrors } from 'src/actions/authentification';
+import { connectUser } from 'src/actions/authentification';
 import {
   SUBMIT_PROFILE,
   SUBMIT_AVATAR,
   showSuccessProfile,
   showSuccessAvatar,
+  catchErrorsProfile,
 } from 'src/actions/profile';
 
 const profileMiddleware = (store) => (next) => (action) => {
@@ -100,7 +101,7 @@ const profileMiddleware = (store) => (next) => (action) => {
           // If error
           if (response.status === 202) {
             console.log('response for catch errors (profile) :', response);
-            store.dispatch(catchErrors(response.data.violations));
+            store.dispatch(catchErrorsProfile(response.data.violations));
           }
         })
         .catch((error) => {

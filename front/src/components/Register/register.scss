@@ -80,8 +80,8 @@
         padding: 10px 0;
         font-size: 1rem;
         color: $light-text;
-        margin-bottom: 2rem;
         border: none;
+        margin-top: 2rem;
         border-bottom: 1px solid #150d33;
         outline: none;
         background: transparent;
@@ -90,10 +90,15 @@
           border-bottom: 1px solid #4a69bb;
         }
       }
+
+      .register-error {
+        background: rgba(#c02739, 0.6);
+        border-radius: 0.5rem;
+      }
   
       .register-label {
         position: absolute;
-        top: 0%;
+        top: 42%;
         left: 0;
         padding: 10px 0;
         font-size: 1rem;
@@ -110,14 +115,23 @@
         }
       }
 
+      .register-small {
+        font-size: 0.8em;
+        color: #341677;
+      }
+
+      .register-small-avatar {
+        margin-bottom: 1rem;
+      }
+      
       .register-input:focus ~ .register-label,
       .register-input:valid ~ .register-label {
-        top: -30%;
+        top: 15%;
         color: #4a69bb;
       }
 
       .birthday-input ~ .register-label  {
-        top: -30%;
+        top: 15%;
       }
 
       .cgu-input:not(:checked),
@@ -191,7 +205,7 @@
 
     .avatar-container {
       & p {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         font-weight: 600;
         color: #150d33;
 

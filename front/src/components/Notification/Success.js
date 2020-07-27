@@ -10,10 +10,6 @@ const Success = ({ message, closeMessage }) => (
         className="dot"
         onClick={closeMessage}
       />
-      <div
-        className="dot two"
-        onClick={closeMessage}
-      />
       <div className="face">
         <div className="eye" />
         <div className="eye right" />

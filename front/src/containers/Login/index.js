@@ -7,10 +7,10 @@ import { updateLoginField, logIn } from 'src/actions/authentification';
 // === mapStateToProps
 const mapStateToProps = (state) => ({
   // Send state information to Login component
-  email: state.auth.email,
-  password: state.auth.password,
+  email: state.auth.emailLogin,
+  password: state.auth.passwordLogin,
   isLogged: state.auth.isLogged,
-  errors: state.auth.errorData,
+  errors: state.auth.errorDataLogin,
 });
 
 // === mapDispatchToProps

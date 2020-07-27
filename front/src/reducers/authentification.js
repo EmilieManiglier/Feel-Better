@@ -6,8 +6,10 @@ import {
   LOG_OUT,
   UPDATE_LOADER,
   SAVE_AVATAR,
-  CATCH_ERRORS,
+  CATCH_ERRORS_LOGIN,
+  CATCH_ERRORS_REGISTER,
   CLOSE_MESSAGE,
+  REGISTER,
 } from 'src/actions/authentification';
 
 const initialState = {
@@ -20,11 +22,15 @@ const initialState = {
   birthday: '',
   avatar: '',
   data: {},
-  errorData: [],
+  errorDataLogin: [],
+  errorDataRegister: [],
   // Determine if user is connected
   isLogged: false,
   // Display loader while doing API request
   isLoading: true,
+  // Data for login
+  emailLogin: '',
+  passwordLogin: '',
 };
 
 const register = (state = initialState, action = {}) => {
@@ -55,9 +61,14 @@ const register = (state = initialState, action = {}) => {
         city: '',
         birthday: '',
         avatar: '',
-        errorData: [],
+        errorDataLogin: [],
       };
-
+    case REGISTER:
+      return {
+        ...state,
+        errorDataRegister: [],
+        errorDataLogin: [],
+      };
     case CONNECT_USER:
       return {
         ...state,
@@ -67,7 +78,7 @@ const register = (state = initialState, action = {}) => {
         isLoading: false,
         email: '',
         password: '',
-        errorData: [],
+        errorDataLogin: [],
       };
 
     case LOG_OUT:
@@ -75,7 +86,8 @@ const register = (state = initialState, action = {}) => {
       return {
         ...state,
         isLogged: false,
-        errorData: [],
+        errorDataLogin: [],
+        errorDataRegister: [],
       };
 
     case UPDATE_LOADER:
@@ -83,15 +95,21 @@ const register = (state = initialState, action = {}) => {
         ...state,
         isLoading: false,
       };
-    case CATCH_ERRORS:
+    case CATCH_ERRORS_LOGIN:
       return {
         ...state,
-        errorData: action.data,
+        errorDataLogin: action.data,
+      };
+    case CATCH_ERRORS_REGISTER:
+      return {
+        ...state,
+        errorDataRegister: action.data,
       };
     case CLOSE_MESSAGE:
       return {
         ...state,
-        errorData: [],
+        errorDataRegister: [],
+        errorDataLogin: [],
       };
     default: return state;
   }

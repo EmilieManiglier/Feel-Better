@@ -43,6 +43,7 @@ export const submitProfile = () => ({
 // ==== Middleware actions ====
 export const SHOW_SUCCESS_PROFILE = 'SHOW_SUCCESS_PROFILE';
 export const SHOW_SUCCESS_AVATAR = 'SHOW_SUCCESS_AVATAR';
+export const CATCH_ERRORS_PROFILE = 'CATCH_ERRORS_PROFILE';
 
 // Show notification on successful form submission
 export const showSuccessProfile = () => ({
@@ -52,4 +53,9 @@ export const showSuccessProfile = () => ({
 // Show notification on failure form submission
 export const showSuccessAvatar = () => ({
   type: SHOW_SUCCESS_AVATAR,
+});
+
+export const catchErrorsProfile = (data) => ({
+  type: CATCH_ERRORS_PROFILE,
+  data,
 });

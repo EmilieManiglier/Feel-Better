@@ -55,7 +55,7 @@ const Suggestions = ({
     case 'angry':
       newMood = 'En colère';
       break;
-    case 'aggressive':
+    case 'agressive':
       newMood = 'Aggressif';
       break;
     case 'in-love':

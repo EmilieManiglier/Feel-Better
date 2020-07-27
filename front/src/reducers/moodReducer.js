@@ -132,6 +132,8 @@ const moodReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         color: '',
+        moodDatas: [],
+        setMood: false,
       };
     default: return state;
   }

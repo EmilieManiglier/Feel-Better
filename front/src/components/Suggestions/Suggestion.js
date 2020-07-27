@@ -54,6 +54,7 @@ const Suggestion = ({
           evt.preventDefault();
           // Send activity name to server
           handleSuggestionSubmit();
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }}
       >
         <label className="choose-suggestion-label" htmlFor={name}>

@@ -11,6 +11,7 @@ import {
 const mapStateToProps = (state) => ({
   firstname: state.auth.data.firstname,
   lastname: state.auth.data.lastname,
+  password: state.profile.password,
   email: state.auth.data.email,
   city: state.auth.data.city,
   birthday: state.auth.data.birthday,

@@ -8,7 +8,7 @@ import {
   SAVE_STATUS,
 } from 'src/actions/satisfaction';
 
-import { CLOSE_MESSAGE } from 'src/actions/authentification';
+import { LOG_OUT, CLOSE_MESSAGE } from 'src/actions/authentification';
 
 const initialState = {
   // Bool that show satisfaction form or not
@@ -69,6 +69,12 @@ const satisfactionReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         setSatisfaction: action.status,
+        showSatisfactionForm: false,
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        showSatisfactionForm: false,
       };
     default: return state;
   }

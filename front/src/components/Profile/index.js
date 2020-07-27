@@ -24,12 +24,30 @@ const Profile = ({
     return <Redirect to="/login" />;
   }
 
+  // Get all the input in the form
+  const allElements = document.querySelectorAll('.profile-input');
+  allElements.forEach((element) => {
+    // For each input, remove the class register-error
+    element.classList.remove('profile-error');
+  });
+
+  // If there are errors
+  if (errors.length > 0) {
+    // Loop over the array
+    errors.forEach((error) => {
+      // Get the input where there is an error with propertyPath
+      const elements = document.getElementById(error.propertyPath);
+      // Add class to input
+      elements.classList.add('profile-error');
+    });
+  }
+
   return (
     <>
       {isLoading && <Loader />}
       {!isLoading && (
         <>
-          {errors.length > 0 && <Error />}
+          {errors.length > 0 && <Error errors={errors} />}
 
           {successProfile && (
             <Success message="Tes informations ont bien été mises à jour !" />
