@@ -74,6 +74,11 @@
           border-bottom: 1px solid #4a69bb;
         }
       }
+
+      .login-error {
+        background: rgba(#c02739, 0.6);
+        border-radius: 0.5rem;
+      }
   
       .login-label {
         position: absolute;

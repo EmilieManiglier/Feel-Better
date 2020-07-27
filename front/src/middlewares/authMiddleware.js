@@ -21,7 +21,7 @@ const authMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case LOG_IN: {
       // Get user's email and user's password in the state to send to the API
-      const { email, password } = store.getState().auth;
+      const { emailLogin: email, passwordLogin: password } = store.getState().auth;
 
       axios.post(`${apiUrl}/login`, {
         email,

@@ -33,6 +33,23 @@ const Register = ({
     return <Redirect to="/" />;
   }
 
+  // If there are errors
+  if (errorsRegister.length > 0) {
+    // Get all the input in the form
+    const allElements = document.querySelectorAll('.register-input');
+    allElements.forEach((element) => {
+      // For each input, remove the class register-error
+      element.classList.remove('register-error');
+    });
+
+    // Loop over the array
+    errorsRegister.forEach((error) => {
+      // Get the input where there is an error with propertyPath
+      const elements = document.getElementById(error.propertyPath);
+      // Add class to input
+      elements.classList.add('register-error');
+    });
+  }
   // Create an array to loop over for carousel
   const componentList = [
     {
@@ -91,6 +108,7 @@ const Register = ({
           <label className="register-label" htmlFor="firstname">
             Prénom <span className="needed">*</span>
           </label>
+          <small className="register-small">Le prénom doit contenir entre 2 et 50 caractères.</small>
         </div>
         <div className="register-container">
           <input
@@ -107,6 +125,7 @@ const Register = ({
           <label className="register-label" htmlFor="lastname">
             Nom <span className="needed">*</span>
           </label>
+          <small className="register-small">Le nom doit contenir entre 2 et 50 caractères.</small>
         </div>
         <div className="register-container email-container">
           <input
@@ -139,6 +158,7 @@ const Register = ({
           <label className="register-label" htmlFor="password">
             Mot de passe <span className="needed">*</span>
           </label>
+          <small className="register-small">Le mot de passe doit contenir 8 caractères minimum.</small>
         </div>
         <div className="register-container">
           <input
@@ -172,6 +192,7 @@ const Register = ({
           <label className="register-label" htmlFor="city">
             Ville <span className="needed">*</span>
           </label>
+          <small className="register-small">La ville doit contenir 2 caractères minimum.</small>
         </div>
 
         <div className="register-container">
@@ -195,6 +216,7 @@ const Register = ({
 
         <div className="register-container avatar-container">
           <p>Choisissez un avatar <span className="needed">*</span></p>
+          <small className="register-small register-small-avatar">Veuillez cliquer sur l'avatar de votre choix.</small>
           <div className="avatar-list">
             <Carousel>
               {componentList.map((component) => (

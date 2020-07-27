@@ -19,6 +19,17 @@ const Login = ({
     return <Redirect to="/" />;
   }
 
+  // If there are errors
+  if (errors.length > 0) {
+    // Loop over the array
+    errors.forEach((error) => {
+      // Get the input where there is an error with propertyPath
+      const elements = document.getElementById(error.propertyPath);
+      // Add class to input
+      elements.classList.add('login-error');
+    });
+  }
+
   return (
     <main className="login">
       {errors.length > 0 && (
