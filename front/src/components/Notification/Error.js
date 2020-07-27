@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 
 import './notification.scss';
 
-const Error = ({ errors, closeMessage }) => (
+const Error = ({
+  errors,
+  closeMessage,
+}) => (
   <div id="container">
     <div id="error-box">
-      <div className="dot" />
       <div
-        className="dot two"
+        className="dot"
         onClick={closeMessage}
       />
       <div className="face">
@@ -28,6 +30,7 @@ const Error = ({ errors, closeMessage }) => (
     </div>
   </div>
 );
+
 
 Error.propTypes = {
   errors: PropTypes.array.isRequired,

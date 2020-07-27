@@ -27,7 +27,7 @@ const Register = ({
   saveAvatar,
   submitRegister,
   isLogged,
-  errors,
+  errorsRegister,
 }) => {
   if (isLogged === true) {
     return <Redirect to="/" />;
@@ -64,8 +64,8 @@ const Register = ({
 
   return (
     <main className="register">
-      {errors.length > 0 && (
-        <Error />
+      {errorsRegister.length > 0 && (
+        <Error errors={errorsRegister} />
       )}
       <h2 className="register-title">S'inscrire</h2>
       <form
@@ -73,6 +73,7 @@ const Register = ({
         onSubmit={(evt) => {
           evt.preventDefault();
           submitRegister();
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }}
       >
         <div className="register-container">
@@ -257,7 +258,7 @@ Register.propTypes = {
   updateField: PropTypes.func.isRequired,
   saveAvatar: PropTypes.func.isRequired,
   submitRegister: PropTypes.func.isRequired,
-  errors: PropTypes.array.isRequired,
+  errorsRegister: PropTypes.array.isRequired,
 };
 
 export default Register;

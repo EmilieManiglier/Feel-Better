@@ -29,7 +29,7 @@ const Profile = ({
       {isLoading && <Loader />}
       {!isLoading && (
         <>
-          {errors.length > 0 && <Error />}
+          {errors.length > 0 && <Error errors={errors} />}
 
           {successProfile && (
             <Success message="Tes informations ont bien été mises à jour !" />

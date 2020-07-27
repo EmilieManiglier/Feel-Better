@@ -39,6 +39,7 @@ const Avatar = ({
       onSubmit={(evt) => {
         evt.preventDefault();
         handleAvatarSubmit();
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       }}
     >
       <div className="avatar-container">
@@ -108,7 +109,7 @@ const Avatar = ({
           type="submit"
           className="profile-avatar-btn"
         >
-          Changer ma photo de profil
+          Changer mon avatar
         </button>
       </div>
     </form>

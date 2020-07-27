@@ -7,10 +7,11 @@ import {
   REGISTER,
   CHECK_LOGGED,
   updateLoader,
-  catchErrors,
+  catchErrorsLogin,
+  catchErrorsRegister,
 } from 'src/actions/authentification';
 
-import { saveColor } from 'src/actions/mood';
+import { saveColor, loadCalendar } from 'src/actions/mood';
 
 import { saveSatisfaction } from 'src/actions/satisfaction';
 
@@ -41,12 +42,15 @@ const authMiddleware = (store) => (next) => (action) => {
 
             // Save the JWT in localStorage
             localStorage.setItem('userToken', response.data.user.token);
+
+            // Load calendar datas
+            store.dispatch(loadCalendar());
           }
 
           if (response.status === 202) {
             console.log('response for errors', response);
             console.log('response for login errors :', response.data.violations);
-            store.dispatch(catchErrors(response.data.violations));
+            store.dispatch(catchErrorsLogin(response.data.violations));
           }
         })
         .catch((error) => {
@@ -99,7 +103,7 @@ const authMiddleware = (store) => (next) => (action) => {
           if (response.status === 202) {
             console.log('catch error: ', response.data.violations);
             // If there are errors in the form, we store them in the state
-            store.dispatch(catchErrors(response.data.violations));
+            store.dispatch(catchErrorsRegister(response.data.violations));
           }
         })
         .catch((error) => {

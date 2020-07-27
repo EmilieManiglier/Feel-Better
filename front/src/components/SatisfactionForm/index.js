@@ -35,9 +35,8 @@ const SatisfactionForm = ({
       {satisfactionError && (
         <div id="container">
           <div id="error-box">
-            <div className="dot" />
             <div
-              className="dot two"
+              className="dot"
               onClick={closeMessage}
             />
             <div className="face">
@@ -62,6 +61,7 @@ const SatisfactionForm = ({
         onSubmit={(evt) => {
           evt.preventDefault();
           handleSatisfactionSubmit();
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }}
       >
         <span className="needed-content">( * : champ obligatoire )</span>

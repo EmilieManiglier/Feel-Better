@@ -14,8 +14,7 @@ const mapStateToProps = (state) => ({
   city: state.auth.city,
   birthday: state.auth.birthday,
   isLogged: state.auth.isLogged,
-  errors: state.auth.errorData,
-  // avatar: state.auth.avatar,
+  errorsRegister: state.auth.errorDataRegister,
 });
 
 // === mapDispatchToProps

@@ -4,7 +4,6 @@ import { closeMessage } from 'src/actions/authentification';
 
 // === mapStateToProps
 const mapStateToProps = (state) => ({
-  errors: state.auth.errorData,
 });
 
 // === mapDispatchToProps

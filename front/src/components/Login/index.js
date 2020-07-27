@@ -22,7 +22,7 @@ const Login = ({
   return (
     <main className="login">
       {errors.length > 0 && (
-        <Error />
+        <Error errors={errors} />
       )}
       <h2 className="login-title">Se connecter</h2>
       <form
@@ -30,13 +30,14 @@ const Login = ({
         onSubmit={(evt) => {
           evt.preventDefault();
           submitLogin();
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }}
       >
         <div className="input-container">
           <input
             className="login-input"
             value={email}
-            name="email"
+            name="emailLogin"
             id="email"
             type="text"
             required
@@ -52,7 +53,7 @@ const Login = ({
           <input
             className="login-input"
             value={password}
-            name="password"
+            name="passwordLogin"
             id="password"
             type="password"
             required
